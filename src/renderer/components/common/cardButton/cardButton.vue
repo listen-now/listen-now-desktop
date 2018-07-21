@@ -4,7 +4,7 @@
             <Icon v-bind:type="type" v-bind:size="size" v-bind:color="color"/>
         </div>
         <div class="card-text">
-            <span>选择</span>
+            <span>{{text}}</span>
         </div>
     </div>
 </template>
