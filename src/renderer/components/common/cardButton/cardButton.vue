@@ -1,5 +1,7 @@
 <template>
-    <div class="card-button" v-bind:style="{color:color, width:outerWidth, height:outerHeight, borderColor:color}">
+    <div class="card-button"
+         v-bind:style="{color:color, width:outerWidth, height:outerHeight, borderColor:color}"
+         v-on:click="$emit('click-button')">
         <div>
             <Icon v-bind:type="type" v-bind:size="size" v-bind:color="color"/>
         </div>
