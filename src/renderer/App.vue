@@ -6,8 +6,8 @@
 
 <script>
   export default {
-    name: 'listen-now-desktop'
-  }
+    name: 'listen-now-desktop',
+  };
 </script>
 
 <style>
