@@ -19,19 +19,19 @@ export default {
     },
     getExistToken (sign_valid, token, user_id = undefined) {
         return new Promise((resolve, reject) => {
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("POST", "http://zlclclc.cn/exist_token", true);
+            xmlHttp.setRequestHeader("Content-type","text/plain");
             if (user_id === undefined) {
-                axios.post("http://zlclclc.cn/exist_token", {
-                    sign_valid,
-                    token
-                }).then(res => resolve(res))
-                  .catch(err => reject(err));
-            }else {
-                axios.post("http://zlclclc.cn/exist_token", {
-                    sign_valid,
-                    token,
-                    user_id
-                }).then(res => resolve(res))
-                    .catch(err => reject(err));
+                xmlHttp.send(`{"sign_valid":${sign_valid},"token":"${token}"}`);
+            } else {
+                xmlHttp.send(`{"sign_valid":${sign_valid},"token":"${token}","user_id":"${user_id}"}`);
+            }
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+                {
+                    resolve(xmlHttp.responseText);
+                }
             }
         })
     },

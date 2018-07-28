@@ -16,11 +16,13 @@
       .then(res => {
           let {signature, token_message} = res.data;
           // signature = signature.substring(2, signature.length - 1);
-          // token_message = token_message.substring(2, token_message.length - 4);
+          token_message = token_message.substring(2, token_message.length - 1);
+          console.log(token_message.length);
+          console.log(token_message.split(''));
+          apiTool.setAuth(token_message);
           tokenUtil.getExistToken(1, token_message).then(res => console.log(res));
-          // console.log(tokenUtil.verify(token_message, signature));
       }).catch(err => {
-
+          console.log(err);
       });
 </script>
 
