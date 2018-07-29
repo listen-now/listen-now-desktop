@@ -36,10 +36,8 @@ export default {
         })
     },
     verify(val, sag) {
-        // let verifyer = new jsencrypt.JSEncrypt();
-        // verifyer.setPublicKey(pubkey);
-        console.log(val);
-        console.log(sag);
+        val = val.substring(2, val.length - 4);
+        sag = sag.substring(2, sag.length - 1);
         const key = new NodeRsa(pubkey);
         return key.verify(val, new Buffer(Base64.decode(sag)), 'utf8', 'buffer');
     }
