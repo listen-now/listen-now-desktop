@@ -15,12 +15,14 @@
   tokenUtil.getToken()
       .then(res => {
           let {signature, token_message} = res.data;
-          // signature = signature.substring(2, signature.length - 1);
+          // console.log(tokenUtil.verify(token_message, signature));
           token_message = token_message.substring(2, token_message.length - 1);
-          console.log(token_message.length);
-          console.log(token_message.split(''));
+          // token_message = token_message.replace("\\n", "\n");
           apiTool.setAuth(token_message);
           tokenUtil.getExistToken(1, token_message).then(res => console.log(res));
+          return token_message;
+      }).then(() => {
+          apiTool.api.search("周传雄", apiTool.platform("网易云音乐"));
       }).catch(err => {
           console.log(err);
       });

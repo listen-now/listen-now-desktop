@@ -6,15 +6,22 @@
  */
 import axios from 'axios';
 let token;
+const platforms = {
+    '网易云音乐':'Neteasymusic',
+    '虾米音乐':'Xiamimusic',
+    'QQ音乐':'QQmusic',
+};
 
+const platform = pf => platforms[pf];
 /**
  * 设置token
  * @param TOKEN
  */
 function setAuth(TOKEN) {
     axios.defaults.headers.common['Authorization'] = TOKEN;
-    token = TOKEN;
+    token = TOKEN.replace('\\n', '\n');
 }
+
 
 let api =  {
 
@@ -155,5 +162,6 @@ let api =  {
 };
 export default {
     api,
-    setAuth
+    setAuth,
+    platform,
 }
