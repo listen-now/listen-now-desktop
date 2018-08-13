@@ -18,7 +18,7 @@ const platform = pf => platforms[pf];
  * @param TOKEN
  */
 function setAuth(TOKEN) {
-    axios.defaults.headers.common['Authorization'] = TOKEN;
+    axios.defaults.headers.common['token'] = TOKEN;
     token = TOKEN.replace('\\n', '\n');
 }
 
@@ -55,7 +55,6 @@ let api =  {
                     axios.post("http://zlclclc.cn/search", {
                         title,
                         platform,
-                        token
                     }).then(res => {
                         resolve(res)
                     }).catch(err => {
@@ -67,7 +66,6 @@ let api =  {
                         title,
                         platform,
                         page,
-                        token
                     }).then(res => {
                         resolve(res)
                     }).catch(err => {
@@ -97,7 +95,6 @@ let api =  {
             axios.post('http://zlclclc.cn/id', {
                 id,
                 platform,
-                token
             }).then(res => {
                 resolve(res);
             }).catch(err => {
@@ -126,7 +123,6 @@ let api =  {
             axios.post("http://zlclclc.cn/song_list_requests", {
                 url,
                 platform,
-                token
             }).then(res => {
                 resolve(res);
             }).catch(err => {
@@ -154,7 +150,6 @@ let api =  {
             axios.post("http://zlclclc.cn/user_song_list", {
                 uid,
                 platform,
-                token
             }).then(res => resolve(res))
               .catch(err => reject(err));
         })

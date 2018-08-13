@@ -22,26 +22,26 @@
             <button-list-item text="更多..." backgroundColor="rgb(36, 34, 45)" type="more">
             </button-list-item>
         </button-list>
+        <left-button size="20px" type="more" color="red"></left-button>
     </div>
 </template>
 
 <script>
     import cardButton from '../../components/common/cardButton/cardButton';
+    import leftButton from '../../components/common/leftButton/leftButton';
     import buttonListItem from './buttonListItem';
     import buttonList from './buttonList';
 
     export default {
         name: 'index-page',
-        components: { cardButton, buttonListItem, buttonList },
+        components: { cardButton, buttonListItem, buttonList, leftButton },
         data() {
           return {
 
           }
         },
         methods: {
-            test() {
-                console.log("1");
-            }
+
         },
     };
 </script>
