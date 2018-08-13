@@ -15,9 +15,7 @@
   tokenUtil.getToken()
       .then(res => {
           let {signature, token_message} = res.data;
-          // console.log(tokenUtil.verify(token_message, signature));
           token_message = token_message.substring(2, token_message.length - 1);
-          // token_message = token_message.replace("\\n", "\n");
           apiTool.setAuth(token_message);
           tokenUtil.getExistToken(1, token_message).then(res => console.log(res));
           return token_message;
