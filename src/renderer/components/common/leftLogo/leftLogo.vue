@@ -1,11 +1,11 @@
 <template>
     <div class="leftLogoWrapper" href="https://github.com/listen-now/listen-now-desktop">
-        <div width="25%" height="100%" style="float:center">
+        <div width="50px" height="50px">
             <img src="../../../assets/Listen-now_Logo.png" 
             alt="Listen-now" width="36px" height="36px"
             style="margin:7px" >
         </div>
-        <div width="75%" height="100%" style="float:center">
+        <div width="150px" height="50px">
             <p class="leftLogoCharacter">Listen-now</p>
         </div>
     </div>
@@ -25,8 +25,8 @@
         background-color: white;
         height: 50px;   /*高度*/
         width: 200px;   /*宽度*/
-        margin: 25px;   /*外边距*/
         cursor: pointer;    /*cursor属性定义了鼠标指针放在一个元素边界范围内时所用的光标形状*/
+        margin: 0px 10px;
     }
     .leftLogoWrapper:hover {
         background-color: rgba(28,28,28,.1);
@@ -35,7 +35,6 @@
     
     @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css); /*外部导入字体*/
     .leftLogoCharacter {
-        text-shadow: 0px 0px 1px rgba(0,0,0,0.1);   /*文字阴影*/
         font-size: 24px; /*文字大小*/
         color: #282828; /*文字颜色*/
         font-family: "Noto Sans TC";    /*CSS3加入的自定义字体*/
