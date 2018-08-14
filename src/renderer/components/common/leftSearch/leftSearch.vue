@@ -1,47 +1,40 @@
 <template>
-    <div class="leftLogoWrapper" href="https://github.com/listen-now/listen-now-desktop">
-        <div width="50px" height="50px" style="float:left">
-            <img src="../../../assets/Listen-now_Logo.png" 
-            alt="Listen-now" width="36px" height="36px"
-            style="margin:7px" >
-        </div>
-        <div width="150px" height="50px" style="float:left">
-            <p class="leftLogoCharacter">Listen-now</p>
-        </div>
+    <div class="leftSearchWrapper">
+        <p class="leftSearchCharacter">搜索</p>
     </div>
 </template>
 
 <script>
     export default {
-        name: "left-logo"
+        name: "left-search"
     }
 </script>
 
 <style scoped>
-    .leftLogoWrapper {
+    .leftSearchWrapper {
         border-radius: 10px;    /*圆角*/
         box-shadow: 0px 3px 6px 1px rgba(0,0,0,0.1);    /*投影效果*/
         border:0px; /*边框*/
-        background-color: white;
-        height: 50px;   /*高度*/
+        background-color: rgba(0,0,0,0.9);
+        height: 20px;   /*高度*/
         width: 200px;   /*宽度*/
         cursor: pointer;    /*cursor属性定义了鼠标指针放在一个元素边界范围内时所用的光标形状*/
-        margin: 0px 10px;
+        margin: 15px 10px 15px 10px;
     }
-    .leftLogoWrapper:hover {
+    .leftSearchWrapper:hover {
         background-color: rgba(28,28,28,.1);
         transition: background-color .5s ease-in-out;
     }
     
     @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css); /*外部导入字体*/
-    .leftLogoCharacter {
-        font-size: 24px; /*文字大小*/
-        color: #282828; /*文字颜色*/
+    .leftSearchCharacter {
+        font-size: 10px; /*文字大小*/
+        color: #ffffff; /*文字颜色*/
         font-family: "Noto Sans TC";    /*CSS3加入的自定义字体*/
         letter-spacing: 0.5px;   /*字间距*/
         /*以下部分保证了垂直水平居中*/
-        height: 50px;
-        line-height: 50px;
+        height: 20px;
+        line-height: 20px;
         margin: auto;
     }
 

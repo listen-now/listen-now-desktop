@@ -1,12 +1,14 @@
 <template>
     <div id="wrapper" width="1280px" height="720px">
+        <div class="img-Background" :style="{backgroundImage: 'url(' + bg + ')' }"></div>
         <div id="mainBody">
             <div id="leftPart">
                 <div id="leftLogo">
-                    <left-logo></left-logo>
-                </div>
-                <div id="leftSearch"></div>
-                <div id="leftMain"></div>
+                    <left-logo></left-logo></div>
+                <div id="leftSearch">
+                    <left-search></left-search></div>
+                <div id="leftMain">
+                    <left-main></left-main></div>
                 <div id="leftButton">
                     <left-sound width="100px" style="float:left"></left-sound>
                     <left-button size="30" type="alert" color="rgb(240,242,123)" style="float:left; margin-left:5px;"></left-button>
@@ -48,25 +50,26 @@
 </template>
 
 <script>
+    import Background from '../../assets/Background_DEMO.jpg';
     import leftLogo from '../../components/common/leftLogo/leftLogo';
-    import cardButton from '../../components/common/cardButton/cardButton';
+    import leftSearch from '../../components/common/leftSearch/leftSearch';
+    import leftMain from '../../components/common/leftMain/leftMain';
+    import leftSound from '../../components/common/leftSound/leftSound';
     import leftButton from '../../components/common/leftButton/leftButton';
+    import cardButton from '../../components/common/cardButton/cardButton';
     import buttonListItem from './buttonListItem';
     import buttonList from './buttonList';
-    import leftSound from '../../components/common/leftSound/leftSound';
     import albumList from './albumList';
 
     export default {
         name: 'index-page',
-        components: { cardButton, buttonListItem, buttonList, leftButton, leftSound, albumList, leftLogo},
+        components: {   cardButton, buttonListItem, buttonList, 
+                        leftButton, leftSound, albumList, 
+                        leftLogo, leftSearch, leftMain, },
         data() {
-          return {
-
-          }
+            return { bg: Background, }
         },
-        methods: {
-
-        },
+        methods: { },
     };
 </script>
 
@@ -79,6 +82,32 @@
         position: relative;
         left:-0.5px;
         top:0.5px;
+    }
+    .img-Background {
+        /* 让整个div固定在屏幕的最上方和最左方 */
+        position:fixed;
+        top: 0;
+        left: 0;
+        /* 让整个div跟屏幕实现一模一样的大小，从而达到全屏效果 */
+        width:100%;
+        height:100%;
+        /* 实现让屏幕宽度在1000px以内时，div的大小保持不变，
+        也就是说在这种情况下，缩放屏幕宽度时，图片不要缩放
+        （只有在1000px以内才有效）。 */
+        min-width: 1000px;
+        /* 让整个div在HTML页面中各个层级的下方，
+        写-10是为了确保在最底部 */
+        z-index:-10;
+        zoom: 1;
+        background-color: #fff;
+        /* 背景不要重复 */
+        background-repeat: no-repeat;
+        /* 让图片随屏幕大小同步缩放，但是有部分可能会被裁切，不过不至于会露白 */
+        background-size: cover;
+        -webkit-background-size: cover; /* 兼容chrome */
+        -o-background-size: cover; /* 兼容opera */
+        /* 图片的位置，居中，靠左对齐 */
+        background-position: center 0;
     }
     #mainBody {
         margin: 50px;
