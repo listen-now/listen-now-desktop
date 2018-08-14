@@ -1,6 +1,6 @@
 <template>
     <div class="leftButtonWrapper"
-         :style="{width:size, height:size}"
+         :style="{width:size + 'px', height:size + 'px'}"
          v-on:click="$emit('click-button')">
         <Icon v-bind:type="type" v-bind:size="size" v-bind:color="color"/>
     </div>

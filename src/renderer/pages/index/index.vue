@@ -22,7 +22,10 @@
             <button-list-item text="更多..." backgroundColor="rgb(36, 34, 45)" type="more">
             </button-list-item>
         </button-list>
-        <left-button size="20px" type="more" color="red"></left-button>
+        <left-sound width="100px" style="float:left"></left-sound>
+        <left-button size="30" type="more" color="red" style="float:left; margin-left:5px;"></left-button>
+        <left-button size="30" type="ios-alert-outline" color="yellow" style="float:left; margin-left:5px;"></left-button>
+        <left-button size="30" type="more" color="red" style="float:left; margin-left:5px;"></left-button>
     </div>
 </template>
 
@@ -31,10 +34,11 @@
     import leftButton from '../../components/common/leftButton/leftButton';
     import buttonListItem from './buttonListItem';
     import buttonList from './buttonList';
+    import leftSound from '../../components/common/leftSound/leftSound';
 
     export default {
         name: 'index-page',
-        components: { cardButton, buttonListItem, buttonList, leftButton },
+        components: { cardButton, buttonListItem, buttonList, leftButton, leftSound },
         data() {
           return {
 
