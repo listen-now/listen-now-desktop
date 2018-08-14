@@ -18,23 +18,29 @@
             </div>
             <div id="rightPart">
                 <div id="rightMain">
-                    <card-button type="ios-paperplane" size="30" color="green" v-on:click-button="test()" text="1234">
-                    </card-button>
-                    <button-list title="Trending">
-                        <button-list-item text="每日推荐" backgroundColor="#f4f45e" type="android-calendar">
-                        </button-list-item>
-                        <button-list-item text="私人电台" backgroundColor="rgb(50, 234, 137)" type="radio-waves">
-                        </button-list-item>
-                        <button-list-item text="歌手" backgroundColor="rgb(249, 98, 130)" type="person">
-                        </button-list-item>
-                        <button-list-item text="单曲" backgroundColor="rgb(20, 155, 195)" type="music-note" class="singleMusic">
-                        </button-list-item>
-                        <button-list-item text="专辑" backgroundColor="rgb(252, 125, 87)" type="disc" class="albumLogo">
-                        </button-list-item>
-                        <button-list-item text="更多..." backgroundColor="rgb(36, 34, 45)" type="more">
-                        </button-list-item>
-                    </button-list>
-                    <album-list title="最近受欢迎的歌单"></album-list>
+                    <div id="rightSlides">
+                        <card-button type="ios-paperplane" size="30" color="green" v-on:click-button="test()" text="1234">
+                        </card-button>
+                    </div>
+                    <div id="rightFunctions">
+                        <button-list title="Trending">
+                            <button-list-item text="每日推荐" backgroundColor="#f4f45e" type="android-calendar">
+                            </button-list-item>
+                            <button-list-item text="私人电台" backgroundColor="rgb(50, 234, 137)" type="radio-waves">
+                            </button-list-item>
+                            <button-list-item text="歌手" backgroundColor="rgb(249, 98, 130)" type="person">
+                            </button-list-item>
+                            <button-list-item text="单曲" backgroundColor="rgb(20, 155, 195)" type="music-note" class="singleMusic">
+                            </button-list-item>
+                            <button-list-item text="专辑" backgroundColor="rgb(252, 125, 87)" type="disc" class="albumLogo">
+                            </button-list-item>
+                            <button-list-item text="更多..." backgroundColor="rgb(36, 34, 45)" type="more">
+                            </button-list-item>
+                        </button-list>
+                    </div>
+                    <div id="rightSongList">
+                        <album-list title="最近受欢迎的歌单"></album-list>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,5 +111,18 @@
     }
     #rightMain {
         margin: 25px;
+    }
+    #rightSlides {
+        height: 223px;
+    }
+    #rightFunctions {
+        margin-top: 25px;
+        height: 322px;
+        width: 182px;
+    }
+    #rightSongList {
+        margin-top: 25px;
+        margin-left: 45px;
+        height: 322px;
     }
 </style>
