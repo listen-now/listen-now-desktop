@@ -1,5 +1,6 @@
 <template>
     <div id="wrapper">
+        <left-logo width="220px" height="200px"></left-logo>
         <card-button type="ios-paperplane" size="30" color="green" v-on:click-button="test()" text="1234">
         </card-button>
         <button-list title="功能">
@@ -30,6 +31,7 @@
 </template>
 
 <script>
+    import leftLogo from '../../components/common/leftLogo/leftLogo';
     import cardButton from '../../components/common/cardButton/cardButton';
     import leftButton from '../../components/common/leftButton/leftButton';
     import buttonListItem from './buttonListItem';
@@ -38,7 +40,7 @@
 
     export default {
         name: 'index-page',
-        components: { cardButton, buttonListItem, buttonList, leftButton, leftSound },
+        components: { cardButton, buttonListItem, buttonList, leftButton, leftSound , leftLogo},
         data() {
           return {
 
