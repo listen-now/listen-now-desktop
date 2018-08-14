@@ -2,7 +2,7 @@
     <div :style="{width:width}" class="leftSoundWrapper">
         <div class="decrease-button">-</div>
         <div class="increase-button">+</div>
-        <div style="width:calc(100% - 30px);margin-left:10px;margin-right: 10px;">
+        <div style="width:calc(100% - 30px);margin-left:15px;margin-right: 15px;">
             <Slider :tip-format="hideFormat" input-size="small"></Slider>
         </div>
     </div>
@@ -22,7 +22,7 @@
 
 <style>
     .leftSoundWrapper {
-        border-radius:15px;
+        border-radius:20px;
         box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
         border:1px solid rgba(0, 0, 0, 0.1);
         height: 24px;
@@ -42,15 +42,16 @@
         margin:10px 0;
     }
     .decrease-button {
+        width:15px;
+        text-align: center;
         float:left;
         height: 24px;
         line-height: 24px;
         margin:0 auto;
-        text-align: center;
         cursor: pointer;
     }
     .ivu-slider-button-wrap {
-        top:-6px;
+        top:-7px;
     }
     .ivu-slider-button {
         width:5px;
@@ -61,11 +62,12 @@
         transition: all .4s;
     }
     .increase-button {
+        width:15px;
+        text-align: center;
         float:right;
         height: 24px;
         line-height: 24px;
         margin:0 auto;
-        text-align: center;
         cursor: pointer;
     }
     .increase-button:hover {

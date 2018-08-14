@@ -1,9 +1,9 @@
 <template>
-    <div class="buttonListWrap"  v-bind:style="{width: width}">
-        <div class="buttonListTitle">
+    <div class="albumListWrap"  v-bind:style="{width: width}">
+        <div class="albumListTitle">
             <span>{{title}}</span>
         </div>
-        <div class="buttonListSpan"></div>
+        <div class="albumListSpan"></div>
         <div>
             <slot></slot>
         </div>
@@ -12,31 +12,27 @@
 
 <script>
     export default {
-        name: "button-list",
+        name: "album-list",
         props:['title', 'width'],
     }
 </script>
 
 <style scoped>
-    .buttonListWrap {
-        width:250px;
+    .albumListWrap {
+        width:700px;
     }
-    .buttonListTitle {
+    .albumListTitle {
         height: 40px;
         font-size:20px;
         padding-top: 5px;
         padding-left: 5px;
     }
-    /*.buttonListTitle>span {*/
-        /*position: relative;*/
-        /*left:10px;*/
-    /*}*/
-    .buttonListSpan {
+    .albumListSpan {
         height: 1px;
         background-color: rgb(36, 34, 45);
         box-shadow: 1px 1px 1px rgba(36, 34, 45, 0.3);
     }
-    .buttonListWrap:after {
+    .albumListWrap:after {
         clear:both;
         content:'';
         display:block;
