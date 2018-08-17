@@ -1,6 +1,11 @@
 <template>
     <div class="leftMainWrapper">
-        <p class="leftMainCharacter">欢迎！</p>
+        <div id="leftMainWrapperTop">
+        </div>
+        <hr align=center style="border:1 solid #999999" width="180px" SIZE=1>
+        <div id="leftMainWrapperNext">
+            <p>欢迎！</p>
+        </div>
     </div>
 </template>
 
@@ -20,22 +25,25 @@
         width: 200px;   /*宽度*/
         cursor: pointer;    /*cursor属性定义了鼠标指针放在一个元素边界范围内时所用的光标形状*/
         margin: 10px;
+        padding: 10px;
     }
     .leftMainWrapper:hover {
         background-color: rgba(28,28,28,.1);
         transition: background-color .5s ease-in-out;
     }
-    
-    @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css); /*外部导入字体*/
-    .leftMainCharacter {
+
+    #leftMainWrapperTop {
+        height: 40px;
+    }
+
+    #leftMainWrapperNext {
         font-size: 32px; /*文字大小*/
         color: #282828; /*文字颜色*/
-        font-family: "Noto Sans TC";    /*CSS3加入的自定义字体*/
         letter-spacing: 0.5px;   /*字间距*/
         text-align: center;
         /*以下部分保证了垂直水平居中*/
-        height: 322px;
-        line-height: 322px;
+        height: 272px;
+        line-height: 272px;
         margin: auto;
     }
 

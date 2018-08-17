@@ -19,18 +19,17 @@
 
 <style scoped>
     .albumListWrap {
-        width:700px;
+        width:633px;
     }
     .albumListTitle {
-        height: 40px;
-        font-size:20px;
-        padding-top: 5px;
-        padding-left: 5px;
+        height: 32px;
+        font-size: 16.75px;
     }
     .albumListSpan {
-        height: 1px;
-        background-color: rgb(36, 34, 45);
-        box-shadow: 1px 1px 1px rgba(36, 34, 45, 0.3);
+        height: 1pt;
+        width: 100%;
+        background-color: rgb(14, 14, 14);
+        box-shadow: 0px 0px 1px rgba(36, 34, 45, 0.3);
     }
     .albumListWrap:after {
         clear:both;

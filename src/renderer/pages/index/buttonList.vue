@@ -19,22 +19,21 @@
 
 <style scoped>
     .buttonListWrap {
-        width:250px;
+        width: 100%;
     }
     .buttonListTitle {
-        height: 40px;
-        font-size:20px;
-        padding-top: 5px;
-        padding-left: 5px;
+        height: 32px;
+        font-size: 17.65px;
+        color: #070707;
     }
     /*.buttonListTitle>span {*/
         /*position: relative;*/
         /*left:10px;*/
     /*}*/
     .buttonListSpan {
-        height: 1px;
-        background-color: rgb(36, 34, 45);
-        box-shadow: 1px 1px 1px rgba(36, 34, 45, 0.3);
+        height: 1pt;
+        background-color: rgb(14, 14, 14);
+        box-shadow: 0px 0px 1px rgba(36, 34, 45, 0.3);
     }
     .buttonListWrap:after {
         clear:both;

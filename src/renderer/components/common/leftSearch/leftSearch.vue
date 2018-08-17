@@ -36,6 +36,7 @@
         height: 20px;
         line-height: 20px;
         margin: auto;
+        text-align: center;
     }
 
 </style>
