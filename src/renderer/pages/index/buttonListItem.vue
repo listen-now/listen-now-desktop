@@ -32,8 +32,8 @@
         text-align: center;
     }
     .buttonList-item {
-        width:120px;
-        height:120px;
+        width:85px;
+        height:85px;
         float:left;
         margin-top:10px;
     }
@@ -45,8 +45,8 @@
         color:white !important;
     }
     .buttonList-text {
-        line-height: 45px;
-        font-size: 18px;
+        line-height: 20px;
+        font-size: 13.24px;
         width:100%;
         text-align: center;
         color:white;
