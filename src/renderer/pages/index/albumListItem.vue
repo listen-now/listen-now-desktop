@@ -1,5 +1,5 @@
 <template>
-    <div class="buttonList-item" v-on:click="$emit('click-button')" v-bind:style="{backgroundColor: backgroundColor}">
+    <div class="albumList-item" v-on:click="$emit('click-button')" v-bind:style="{backgroundColor: backgroundColor}">
         <div class="buttonList-avatar">
             <Icon v-bind:type="type" color="white"/>
         </div>
@@ -11,7 +11,7 @@
 
 <script>
     export default {
-        name: "button-list-item",
+        name: "album-list-item",
         props:['text', 'backgroundColor', 'type']
     }
 </script>
@@ -21,7 +21,7 @@
         height:45px;
     }
     .buttonList-item:hover {
-        transform:scale(1.1);
+        transform: scale(1.3);
         transition:all .2s ease-in-out;
         cursor: pointer;
     }
@@ -32,8 +32,8 @@
         text-align: center;
     }
     .buttonList-item {
-        width:85px;
-        height:85px;
+        width:120px;
+        height:120px;
         float:left;
         margin-top:10px;
     }
@@ -45,8 +45,8 @@
         color:white !important;
     }
     .buttonList-text {
-        line-height: 20px;
-        font-size: 13.24px;
+        line-height: 45px;
+        font-size: 18px;
         width:100%;
         text-align: center;
         color:white;

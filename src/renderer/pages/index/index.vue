@@ -10,13 +10,11 @@
                 <div id="leftMain">
                     <left-main></left-main></div>
                 <div id="leftButton" style="padding:15px 10px 15px 10px">
-                    <left-sound width="80px" style="float:left"></left-sound>
-                    <left-button size="20" type="alert" color="rgb(240,242,123)" style="float:left; margin-left:10px;"></left-button>
-                    <left-button size="20" type="ios-heart-outline" color="rgb(206, 92, 125)" style="float:left; margin-left:10px;"></left-button>
-                    <left-button size="20" type="ios-shuffle" color="rgb(57, 150, 184)" style="float:left; margin-left:10px;"></left-button>
-                    <left-button size="20" type="ios-list-outline" color="rgb(231, 136, 105)" style="float:left; margin-left:10px;"></left-button>
+
                 </div>
-                <div id="leftMiniPlay"></div>
+                <div id="leftMiniPlay">
+                    <left-player></left-player>
+                </div>
             </div>
             <div id="rightPart">
                 <div id="rightSlides">
@@ -58,14 +56,15 @@
     import buttonListItem from './buttonListItem';
     import buttonList from './buttonList';
     import albumList from './albumList';
+    import leftPlayer from '../../components/common/leftPlayer/leftPlayer';
     import rightSlides from '../../components/common/rightSlides/rightSlides';
 
     export default {
         name: 'index-page',
-        components: {   cardButton, buttonListItem, buttonList, 
-                        leftButton, leftSound, albumList, 
-                        leftLogo, leftSearch, leftMain, 
-                        rightSlides, },
+        components: {   cardButton, buttonListItem, buttonList,
+                        leftButton, leftSound, albumList,
+                        leftLogo, leftSearch, leftMain,
+                        rightSlides, leftPlayer },
         data() {
             return { bg: Background, }
         },
@@ -140,16 +139,12 @@
         height: 342px;
         float: left;
     }
-    #leftButton {
-        width: 220px;
-        height: 50px;
-        float: left;
-    }
     #leftMiniPlay {
         width: 220px;
-        height: 128px;
+        height: 178px;
         float: left;
         border:1px solid #cccccc;
+        overflow: hidden;
     }
     #rightPart {
         width: 910px;
