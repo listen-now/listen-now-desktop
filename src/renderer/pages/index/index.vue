@@ -47,7 +47,7 @@
 
 <script>
     import ApiTool from '../../renderUtil/api';
-    import Background from '../../assets/Background_DEMO.jpg';
+    import Background from '../../assets/DEMO-2.JPG';
     import leftLogo from '../../components/common/leftLogo/leftLogo';
     import leftSearch from '../../components/common/leftSearch/leftSearch';
     import leftMain from '../../components/common/leftMain/leftMain';
