@@ -1,18 +1,36 @@
 <template>
     <div>
-        <div class="playerButtons" style="padding:15px 10px 15px 10px">
-            <left-sound width="80px" style="float:left"></left-sound>
-            <left-button size="20" type="alert" color="rgb(240,242,123)" style="float:left; margin-left:10px;"></left-button>
-            <left-button size="20" type="ios-heart-outline" color="rgb(206, 92, 125)" style="float:left; margin-left:10px;"></left-button>
-            <left-button size="20" type="ios-shuffle" color="rgb(57, 150, 184)" style="float:left; margin-left:10px;"></left-button>
+        <div class="playerButtons"
+             style="padding:15px 10px 15px 10px">
+            <left-sound width="80px"
+                        style="float:left"
+                        @volume="changeVolume"></left-sound>
+            <left-button size="20"
+                         type="alert"
+                         color="rgb(240,242,123)"
+                         style="float:left; margin-left:10px;"></left-button>
+            <left-button size="20"
+                         type="ios-heart-outline"
+                         color="rgb(206, 92, 125)"
+                         style="float:left; margin-left:10px;"></left-button>
+            <left-button size="20"
+                         type="ios-shuffle"
+                         color="rgb(57, 150, 184)"
+                         style="float:left; margin-left:10px;"></left-button>
             <left-button size="20" type="ios-list-outline" color="rgb(231, 136, 105)" style="float:left; margin-left:10px;"></left-button>
         </div>
-        <div class="player">
-            <audio ref="audio" src="http://221.204.220.70/mp3.9ku.com/m4a/409810.m4a"></audio>
+        <div class="player" style="padding-left:10px;padding-right:10px;">
+            <audio ref="audio" :src="playingMusic.play_url"></audio>
             <div class="playerCard">
-                <el-carousel indicator-position="none" arrow="never"  :autoplay="false" type="card" height="128px">
-                    <el-carousel-item v-for="item in 6" :key="item">
-                        <img src="../../../assets/Background_DEMO.jpg"/>
+                <el-carousel indicator-position="none"
+                             arrow="never"
+                             :autoplay="false"
+                             type="card"
+                             height="128px"
+                             ref="slide"
+                             @change="changeMusic">
+                    <el-carousel-item v-for="item in musicList" :key="item">
+                        <img :src="item.image_url" style="width:100%;height: 100%;"/>
                     </el-carousel-item>
                 </el-carousel>
             </div>
@@ -23,10 +41,10 @@
                           stroke-color="white">
                     <div class="songMessage">
                         <div class="songName">
-                            缘分惹的祸
+                            {{playingMusic.music_name}}
                         </div>
                         <div class="songAuthor">
-                            未知作者
+                            {{playingMusic.artists}}
                         </div>
                     </div>
                     <div class="stopButton"  v-if="playState"  @click="pauseSwitch">
@@ -37,10 +55,10 @@
                     </div>
                 </i-circle>
             </div>
-            <div class="nextMusic">
+            <div class="preMusic" @click="preMusic">
                 <Icon type="skip-backward" color="white"></Icon>
             </div>
-            <div class="preMusic">
+            <div class="nextMusic" @click="nextMusic">
                 <Icon type="skip-forward" color="white"></Icon>
             </div>
         </div>
@@ -57,23 +75,39 @@
         data(){
             return {
                 playState:false,
-                percent:0
+                percent:0,
+                playingMusicIndex:0,
+                playingMusic:{
+                    image_url:'',
+                    artists:'未知作者',
+                    music_name:'未知歌曲',
+                    play_url:'',
+                },
+                volume:100
             }
         },
         mounted () {
+            this.playingMusic = this.musicList[0];
             setInterval(() => {
-                let { readyState, paused } = this.$refs.audio;
-                if (readyState === 0) {
-                    this.setProgress(0);
-                    return;
-                } else {
-                    let { duration, currentTime } = this.$refs.audio;
-                    console.log(duration, currentTime);
-                    let progress = currentTime / duration;
-                    this.setProgress(progress);
+                try{
+                    let { readyState, paused } = this.$refs.audio;
+                    if (readyState === 0) {
+                        this.setProgress(0);
+                        return;
+                    } else {
+                        let { duration, currentTime } = this.$refs.audio;
+                        let progress = currentTime / duration;
+                        this.setProgress(progress);
+                    }
+                } catch (e) {
+                    // console.log(e);
                 }
-                console.log(readyState);
             }, 1000);
+        },
+        watch:{
+            volume:function (val) {
+                this.$refs.audio.volume = val / 100;
+            }
         },
         methods: {
             /**
@@ -132,6 +166,44 @@
              */
             setProgress (progress) {
                 this.percent = (progress*100);
+            },
+
+            changeVolume (vol) {
+                this.volume = vol;
+            },
+
+            nextMusic () {
+                this.playState = false;
+                if (this.musicList.length > 1) {
+                    if (this.playingMusicIndex < this.musicList.length - 1) {
+                        this.playingMusic = this.musicList[this.playingMusicIndex + 1];
+                        this.playingMusicIndex ++;
+                    } else {
+                        this.playingMusicIndex = this.musicList[0];
+                        this.playingMusicIndex = 0;
+                    }
+                }
+                this.$refs.slide.setActiveItem(this.playingMusicIndex);
+            },
+
+            preMusic () {
+                this.playState = false;
+                if (this.musicList.length > 1) {
+                    if (this.playingMusicIndex > 0) {
+                        this.playingMusic = this.musicList[this.playingMusicIndex - 1];
+                        this.playingMusicIndex --;
+                    } else {
+                        this.playingMusicIndex = this.musicList[this.musicList.length - 1];
+                        this.playingMusicIndex = this.musicList.length - 1;
+                    }
+                }
+                this.$refs.slide.setActiveItem(this.playingMusicIndex);
+            },
+
+            changeMusic (idx) {
+                this.playState = false;
+                this.playingMusic = this.musicList[idx];
+                this.playingMusicIndex = idx;
             }
         }
     }
@@ -143,14 +215,14 @@
         height: 50px;
     }
     .is-active {
-        transform: translateX(45.5px) scale(1) !important;
+        transform: translateX(36px) scale(1) !important;
         width: 128px;
     }
     .circleControler {
         z-index: 99;
         position: relative;
         top: -105px;
-        left: 65.5px;
+        left: 55px;
         width:90px;
         height:90px;
         background-color: rgba(71, 85, 96, 0.5);
@@ -190,14 +262,14 @@
         transition: all .1s;
     }
 
-    .nextMusic {
-        position: relative;
-        top:-160px;
-        left:15px;
-    }
     .preMusic {
         position: relative;
-        left:185px;
+        top:-160px;
+        left:10px;
+    }
+    .nextMusic {
+        position: relative;
+        left:166px;
         top:-180px;
     }
     .playButton,.stopButton{

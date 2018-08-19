@@ -1,9 +1,9 @@
 <template>
     <div :style="{width:width}" class="leftSoundWrapper">
-        <div class="decrease-button">-</div>
-        <div class="increase-button">+</div>
+        <div class="decrease-button" v-on:click="decreaseVolume">-</div>
+        <div class="increase-button" v-on:click="increaseVolume">+</div>
         <div style="width:calc(100% - 30px);margin-left:15px;margin-right: 15px;position: relative;top: -2px;">
-            <Slider :tip-format="hideFormat" input-size="small"></Slider>
+            <Slider :tip-format="hideFormat" input-size="small" v-model="volume"></Slider>
         </div>
     </div>
 </template>
@@ -12,9 +12,35 @@
     export default {
         name: "left-sound",
         props:['width'],
+        data() {
+          return {
+              volume:100
+          }
+        },
+        watch:{
+          volume:function(val) {
+              this.$emit('volume', val);
+          }
+        },
         methods:{
             hideFormat () {
                 return null;
+            },
+
+            decreaseVolume () {
+                console.log('-');
+                if (this.volume !== 0) {
+                    this.volume --;
+                } else
+                    return;
+            },
+
+            increaseVolume () {
+                console.log('+');
+                if (this.volume !== 100) {
+                    this.volume ++;
+                } else
+                    return;
             }
         }
     }
