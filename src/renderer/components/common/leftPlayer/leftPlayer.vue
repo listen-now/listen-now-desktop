@@ -100,7 +100,7 @@
                         this.setProgress(progress);
                     }
                 } catch (e) {
-                    // console.log(e);
+
                 }
             }, 1000);
         },
