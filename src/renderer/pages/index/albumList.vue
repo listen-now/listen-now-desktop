@@ -19,7 +19,7 @@
 
 <style scoped>
     .albumListWrap {
-        width:633px;
+        width:658px;
     }
     .albumListTitle {
         height: 32px;
@@ -28,7 +28,7 @@
     .albumListSpan {
         height: 1pt;
         width: 100%;
-        background-color: rgb(14, 14, 14);
+        background-color: rgb(07, 07, 07);
         box-shadow: 0px 0px 1px rgba(36, 34, 45, 0.3);
     }
     .albumListWrap:after {

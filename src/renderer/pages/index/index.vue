@@ -38,7 +38,29 @@
                     </button-list>
                 </div>
                 <div id="rightSongList">
-                    <album-list title="最近受欢迎的歌单"></album-list>
+                    <album-list title="最近受欢迎的歌单">
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                        <album-list-item backgroundColor="#999999" type="album"></album-list-item>
+                    </album-list>
                 </div>
             </div>
         </div>
@@ -47,7 +69,7 @@
 
 <script>
     import ApiTool from '../../renderUtil/api';
-    import Background from '../../assets/DEMO-2.JPG';
+    import Background from '../../assets/DEMO-2.jpg';
     import leftLogo from '../../components/common/leftLogo/leftLogo';
     import leftSearch from '../../components/common/leftSearch/leftSearch';
     import leftMain from '../../components/common/leftMain/leftMain';
@@ -56,6 +78,7 @@
     import cardButton from '../../components/common/cardButton/cardButton';
     import buttonListItem from './buttonListItem';
     import buttonList from './buttonList';
+    import albumListItem from './albumListItem';
     import albumList from './albumList';
     import leftPlayer from '../../components/common/leftPlayer/leftPlayer';
     import rightSlides from '../../components/common/rightSlides/rightSlides';
@@ -63,7 +86,7 @@
     export default {
         name: 'index-page',
         components: {   cardButton, buttonListItem, buttonList,
-                        leftButton, leftSound, albumList,
+                        leftButton, leftSound, albumListItem, albumList,
                         leftLogo, leftSearch, leftMain,
                         rightSlides, leftPlayer },
         data() {
@@ -148,14 +171,14 @@
         top:0.5px;
     }
     .img-Background {
-        filter: blur(1.5rem);
+        filter: blur(32px);
         /* 让整个div固定在屏幕的最上方和最左方 */
         position:fixed;
-        top: 0;
-        left: 0;
+        top: -10%;
+        left: -10%;
         /* 让整个div跟屏幕实现一模一样的大小，从而达到全屏效果 */
-        width:100%;
-        height:100%;
+        width:120%;
+        height:120%;
         /* 实现让屏幕宽度在1000px以内时，div的大小保持不变，
         也就是说在这种情况下，缩放屏幕宽度时，图片不要缩放
         （只有在1000px以内才有效）。 */
@@ -174,9 +197,9 @@
         /* 图片的位置，居中，靠左对齐 */
         background-position: center 0;
     }
-    @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css); /*外部导入字体*/
+    @import url(//fonts.googleapis.com/earlyaccess/notosanscjksc.css); /*外部导入字体*/
     * {
-        font-family: "Noto Sans TC";    /*CSS3加入的自定义字体，全局生效*/
+        font-family: "Noto Sans CJK sc";    /*CSS3加入的自定义字体，全局生效*/
     }
     #mainBody {
         margin: 50px;
@@ -232,8 +255,8 @@
     }
     #rightSongList {
         margin-top: 25px;
-        margin-left: 45px;
-        height: 322px;
+        margin-left: 20px;
+        height: 347px;
         float: left;
     }
 </style>
