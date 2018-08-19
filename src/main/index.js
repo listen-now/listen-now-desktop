@@ -19,8 +19,9 @@ function createWindow() {
    */
   mainWindow = new BrowserWindow({
     height: 768,
-    useContentSize: true,
+    useContentSize: false,
     width: 1280,
+    // frame:false,  //无边框窗口，之后完善后可能会使用
   });
 
   mainWindow.loadURL(winURL);
