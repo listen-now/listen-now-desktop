@@ -1,6 +1,6 @@
 <template>
     <!-- 来源：https://www.iviewui.com/components/carousel -->
-    <Carousel autoplay v-model="value2" loop autoplay-speed=5000>
+    <Carousel autoplay v-model="value2" loop :autoplay-speed="5000">
         <CarouselItem>
             <div class="demo-carousel">1</div>
         </CarouselItem>
@@ -18,7 +18,7 @@
 
 <script>
     export default {
-        name: "right-slides", 
+        name: "right-slides",
         data () {
             return {
                 value2: 0

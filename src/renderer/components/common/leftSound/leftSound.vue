@@ -83,10 +83,10 @@
         margin:0 auto;
         cursor: pointer;
     }
-    /*.ivu-tooltip {*/
-        /*top: 1px;*/
-        /*position: relative;*/
-    /*}*/
+    .ivu-tooltip {
+        top: 2px;
+        position: relative;
+    }
     .ivu-slider-button-wrap {
         top: -9px;
     }

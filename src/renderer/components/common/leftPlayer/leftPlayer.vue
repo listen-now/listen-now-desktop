@@ -14,7 +14,27 @@
                          color="rgb(206, 92, 125)"
                          style="float:left; margin-left:10px;"></left-button>
             <left-button size="20"
+                         v-if="playMode === 'shuffle'"
+                         @click="playMode = 'loop'"
                          type="ios-shuffle"
+                         color="rgb(57, 150, 184)"
+                         style="float:left; margin-left:10px;"></left-button>
+            <left-button size="20"
+                         type="ios-loop"
+                         v-if="playMode === 'loop'"
+                         @click="playMode = 'senquential'"
+                         color="rgb(57, 150, 184)"
+                         style="float:left; margin-left:10px;"></left-button>
+            <left-button size="20"
+                         v-if="playMode === 'senquential'"
+                         @click="playMode = 'singleTune'"
+                         type="ios-arrow-thin-right"
+                         color="rgb(57, 150, 184)"
+                         style="float:left; margin-left:10px;"></left-button>
+            <left-button size="20"
+                         v-if="playMode === 'singleTune'"
+                         @click="playMode = 'shuffle'"
+                         type="ios-circle-outline"
                          color="rgb(57, 150, 184)"
                          style="float:left; margin-left:10px;"></left-button>
             <left-button size="20" type="ios-list-outline" color="rgb(231, 136, 105)" style="float:left; margin-left:10px;"></left-button>
@@ -29,7 +49,7 @@
                              height="128px"
                              ref="slide"
                              @change="changeMusic">
-                    <el-carousel-item v-for="item in musicList" :key="item">
+                    <el-carousel-item v-for="item in musicList" :key="item.music_id">
                         <img :src="item.image_url" style="width:100%;height: 100%;"/>
                     </el-carousel-item>
                 </el-carousel>
@@ -77,6 +97,21 @@
                 playState:false,
                 percent:0,
                 playingMusicIndex:0,
+                playTimer:function() {
+                    if ( this.playState === false ) {
+                        return;
+                    }
+                    setInterval(function () {
+                        let ended = this.$refs.audio.ended;
+                        if (this.playingMusicIndex === this.musicList.length - 1){
+                            return;
+                        }
+                        if (ended) {
+                            this.nextMusic();
+                        }
+                    }.bind(this), 10)
+                },
+                playMode:'senquential',    //shuffle 随机播放 senquential 顺序播放 singleTune 单曲循环 loop 循环播放
                 playingMusic:{
                     image_url:'',
                     artists:'未知作者',
@@ -107,6 +142,45 @@
         watch:{
             volume:function (val) {
                 this.$refs.audio.volume = val / 100;
+            },
+            playMode:function (val) {
+                let _this = this;
+                if (val === 'single') {
+                    if(_this.playTimer !== null)
+                        clearInterval(_this.playTimer);
+                    _this.$refs.audio.loop = true;
+                } else if (val === 'loop') {
+                    if (_this.playTimer !== null)
+                        clearInterval(_this.playTimer);
+                        _this.playTimer = setInterval(function () {
+                        let ended = _this.$refs.audio.ended;
+                        if (ended) {
+                            _this.nextMusic();
+                        }
+                    }, 10);
+                } else if (val === 'senquential') {
+                    if (_this.playTimer !== null)
+                        clearInterval(_this.playTimer);
+                    _this.playTimer = setInterval(function () {
+                        let ended = _this.$refs.audio.ended;
+                        if (_this._playingMusicIndex === _this.musicList.length - 1){
+                            return;
+                        }
+                        if (ended) {
+                            _this.nextMusic();
+                        }
+                    }, 10);
+                } else if (val === 'shuffle') {
+                    if (_this.playTimer !== null)
+                        clearInterval(_this.playTimer);
+                    _this.playTimer = setInterval(function () {
+                        let ended = _this.$refs.audio.ended;
+                        if (ended) {
+                            _this.aimIndex = Math.floor(Math.random() * _this.musicList.length);
+                            _this.changeMusic(_this.aimIndex);
+                        }
+                    }, 10);
+                }
             }
         },
         methods: {
@@ -119,7 +193,6 @@
                 let paused = this.$refs.audio.paused;
                 if (paused) {
                     this.$refs.audio.play();
-                    console.log(this.playState);
                     this.playState=true;
                 } else {
                     this.$refs.audio.pause();
@@ -184,6 +257,8 @@
                     }
                 }
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
+                this.$refs.audio.play();
+                this.playState = !this.playState;
             },
 
             preMusic () {
@@ -198,12 +273,16 @@
                     }
                 }
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
+                this.$refs.audio.play();
+                this.playState = !this.playState;
             },
 
             changeMusic (idx) {
                 this.playState = false;
                 this.playingMusic = this.musicList[idx];
                 this.playingMusicIndex = idx;
+                this.$refs.audio.play();
+                this.playState = !this.playState;
             }
         }
     }
