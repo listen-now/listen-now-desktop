@@ -15,7 +15,7 @@ const getters = {
 
 const actions = {
   setToken(token) {
-    commit('SET_TOKEN');
+    token.commit('SET_TOKEN');
   }
 };
 

@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron' // eslint-disable-line
+import { app, BrowserWindow, Tray, Menu} from 'electron' // eslint-disable-line
+import path from 'path';
 
 /**
  * Set `__static` path to static files in production
@@ -13,6 +14,39 @@ const winURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:9080'
   : `file://${__dirname}/index.html`;
 
+const trayMenu = [
+    {
+      label:'上一首',
+      click:function () {
+
+      }
+    },
+    {
+      label:'暂停',
+      click:function () {
+
+      }
+    },
+    {
+      label:'下一首',
+      click:function () {
+
+      }
+    },
+    {
+      label:'关于',
+      click:function () {
+
+      }
+    },
+    {
+      label:'退出',
+      click:function () {
+
+      }
+    }
+];
+
 function createWindow() {
   /**
    * Initial window options
@@ -21,7 +55,10 @@ function createWindow() {
     height: 768,
     useContentSize: false,
     width: 1280,
-    // frame:false,  //无边框窗口，之后完善后可能会使用
+    resizable: false,
+    autoHideMenuBar: true,
+    backgroundColor:'#4169E1',
+      // frame:false,  //无边框窗口，之后完善后可能会使用
   });
 
   mainWindow.loadURL(winURL);
@@ -29,6 +66,20 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  mainWindow.once('ready-to-show', () => {
+      mainWindow.show();
+  });
+
+  let trayIcon = path.join(__dirname, 'assets');
+  const contextMenu = Menu.buildFromTemplate(trayMenu);
+  const tray = new Tray(path.join(trayIcon, 'favicon.ico'));
+  tray.setToolTip('Listen-now');
+  tray.setContextMenu(contextMenu);
+  tray.on('click',function(){
+      mainWindow.show();
+  })
+
 }
 
 app.on('ready', createWindow);
