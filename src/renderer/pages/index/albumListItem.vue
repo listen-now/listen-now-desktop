@@ -17,36 +17,34 @@
 </script>
 
 <style scoped>
-    .buttonList-item {
-        height:45px;
-    }
-    .buttonList-item:hover {
-        transform: scale(1.3);
+    .albumList-item:hover {
+        transform: scale(1.04);
         transition:all .2s ease-in-out;
         cursor: pointer;
     }
-    .buttonList-avatar {
+    .albumList-avatar {
         padding-top: 6px;
         width:100%;
         font-size:38px;
         text-align: center;
     }
-    .buttonList-item {
-        width:120px;
-        height:120px;
+    .albumList-item {
+        width:85px;
+        height:85px;
         float:left;
         margin-top:10px;
+        margin-right:10px;
     }
-    .buttonList-item:nth-child(2n) {
-        margin-left:10px;
+    .albumList-item:nth-child(7n) {
+        margin-right:0px;
     }
-    .buttonList-avatar>span {
+    .albumList-avatar>span {
         /*此处强行打补丁*/
         color:white !important;
     }
-    .buttonList-text {
-        line-height: 45px;
-        font-size: 18px;
+    .albumList-text {
+        line-height: 20px;
+        font-size: 14px;
         width:100%;
         text-align: center;
         color:white;
