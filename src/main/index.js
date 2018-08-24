@@ -71,7 +71,7 @@ function createWindow() {
       mainWindow.show();
   });
 
-  let trayIcon = path.join(__dirname, 'assets');
+  let trayIcon = path.join(__dirname, '../renderer/assets');
   const contextMenu = Menu.buildFromTemplate(trayMenu);
   const tray = new Tray(path.join(trayIcon, 'favicon.ico'));
   tray.setToolTip('Listen-now');

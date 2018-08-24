@@ -197,10 +197,12 @@
         /* 图片的位置，居中，靠左对齐 */
         background-position: center 0;
     }
+    /*
     @import url(//fonts.googleapis.com/earlyaccess/notosanscjksc.css); /*外部导入字体*/
     * {
         font-family: "Noto Sans CJK sc";    /*CSS3加入的自定义字体，全局生效*/
     }
+    */
     #mainBody {
         margin: 50px;
         width: 1180px;
