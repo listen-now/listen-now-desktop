@@ -13,18 +13,22 @@
                          type="ios-heart-outline"
                          color="rgb(206, 92, 125)"
                          style="float:left; margin-left:10px;"></left-button>
-            <left-button size="20"
-                         v-if="playMode === 'shuffle'"
-                         @click="playMode = 'loop'"
-                         type="ios-shuffle"
-                         color="rgb(57, 150, 184)"
-                         style="float:left; margin-left:10px;"></left-button>
-            <left-button size="20"
-                         type="ios-loop"
-                         v-if="playMode === 'loop'"
-                         @click="playMode = 'senquential'"
-                         color="rgb(57, 150, 184)"
-                         style="float:left; margin-left:10px;"></left-button>
+            <el-tooltip content="Bottom center" placement="bottom" effect="light">
+                <left-button size="20"
+                             v-if="playMode === 'shuffle'"
+                             @click="playMode = 'loop'"
+                             type="ios-shuffle"
+                             color="rgb(57, 150, 184)"
+                             style="float:left; margin-left:10px;"></left-button>
+            </el-tooltip>
+            <el-tooltip content="Bottom center" placement="bottom" effect="light">
+                <left-button size="20"
+                             type="ios-loop"
+                             v-if="playMode === 'loop'"
+                             @click="playMode = 'senquential'"
+                             color="rgb(57, 150, 184)"
+                             style="float:left; margin-left:10px;"></left-button>
+            </el-tooltip>
             <left-button size="20"
                          v-if="playMode === 'senquential'"
                          @click="playMode = 'singleTune'"
@@ -97,20 +101,6 @@
                 playState:false,
                 percent:0,
                 playingMusicIndex:0,
-                playTimer:function() {
-                    if ( this.playState === false ) {
-                        return;
-                    }
-                    setInterval(function () {
-                        let ended = this.$refs.audio.ended;
-                        if (this.playingMusicIndex === this.musicList.length - 1){
-                            return;
-                        }
-                        if (ended) {
-                            this.nextMusic();
-                        }
-                    }.bind(this), 10)
-                },
                 playMode:'senquential',    //shuffle 随机播放 senquential 顺序播放 singleTune 单曲循环 loop 循环播放
                 playingMusic:{
                     image_url:'',
@@ -122,6 +112,7 @@
             }
         },
         mounted () {
+            let _this = this;
             this.playingMusic = this.musicList[0];
             setInterval(() => {
                 try{
@@ -138,6 +129,9 @@
 
                 }
             }, 1000);
+            this.$refs.audio.addEventListener('ended', this.autoPlay, false);
+            this.$refs.audio.addEventListener('canplay', this.$refs.audio.play, false);
+            this.$refs.audio.addEventListener('loadeddata',() => {} , false);
         },
         watch:{
             volume:function (val) {
@@ -145,41 +139,10 @@
             },
             playMode:function (val) {
                 let _this = this;
-                if (val === 'single') {
-                    if(_this.playTimer !== null)
-                        clearInterval(_this.playTimer);
+                if (val === 'singleTune') {
                     _this.$refs.audio.loop = true;
-                } else if (val === 'loop') {
-                    if (_this.playTimer !== null)
-                        clearInterval(_this.playTimer);
-                        _this.playTimer = setInterval(function () {
-                        let ended = _this.$refs.audio.ended;
-                        if (ended) {
-                            _this.nextMusic();
-                        }
-                    }, 10);
-                } else if (val === 'senquential') {
-                    if (_this.playTimer !== null)
-                        clearInterval(_this.playTimer);
-                    _this.playTimer = setInterval(function () {
-                        let ended = _this.$refs.audio.ended;
-                        if (_this._playingMusicIndex === _this.musicList.length - 1){
-                            return;
-                        }
-                        if (ended) {
-                            _this.nextMusic();
-                        }
-                    }, 10);
-                } else if (val === 'shuffle') {
-                    if (_this.playTimer !== null)
-                        clearInterval(_this.playTimer);
-                    _this.playTimer = setInterval(function () {
-                        let ended = _this.$refs.audio.ended;
-                        if (ended) {
-                            _this.aimIndex = Math.floor(Math.random() * _this.musicList.length);
-                            _this.changeMusic(_this.aimIndex);
-                        }
-                    }, 10);
+                } else {
+                    _this.$refs.audio.loop = false;
                 }
             }
         },
@@ -245,6 +208,26 @@
                 this.volume = vol;
             },
 
+            /**
+                每首歌曲播放完后自动播放下一首
+             */
+            autoPlay () {
+                console.log(this.playMode);
+                if (this.playMode === 'singleTune') 
+                    return;
+                else if (this.playMode === 'shuffle')
+                    this.changeMusic(Math.floor(Math.random() * this.musicList.length));
+                else if (this.playMode === 'senquential'){
+                    if (this.playingMusicIndex !== this.musicList.length - 1)
+                        this.nextMusic();   
+                    else return;
+                }
+                else if (this.playMode === 'loop'){
+                    this.nextMusic();
+                }
+            },
+
+
             nextMusic () {
                 this.playState = false;
                 if (this.musicList.length > 1) {
@@ -257,8 +240,7 @@
                     }
                 }
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
-                this.$refs.audio.play();
-                this.playState = !this.playState;
+                this.playState = true;
             },
 
             preMusic () {
@@ -273,16 +255,15 @@
                     }
                 }
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
-                this.$refs.audio.play();
-                this.playState = !this.playState;
+                this.playState = true;
             },
 
             changeMusic (idx) {
                 this.playState = false;
                 this.playingMusic = this.musicList[idx];
                 this.playingMusicIndex = idx;
-                this.$refs.audio.play();
-                this.playState = !this.playState;
+                this.$refs.slide.setActiveItem(this.playingMusicIndex);
+                this.playState = true;
             }
         }
     }
