@@ -35,5 +35,6 @@
   *{
     -webkit-font-smoothing:subpixel-antialiased;
     /*全局抗锯齿*/
-  }
+    font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+  }  
 </style>
