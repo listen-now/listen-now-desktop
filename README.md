@@ -4,7 +4,7 @@ listen-now 的桌面版
 ![首页](designs/Listen-now_首页.jpg)
 ![正在播放](designs/Listen-now_正在播放页.jpg)
 ![歌单页](designs/Listen-now_歌单页.jpg)
-![搜索页](designs/Listen-now_首页.jpg)
+![搜索页](designs/Listen-now_搜索页.jpg)
 
 ## 开发状况
 
