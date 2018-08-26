@@ -1,25 +1,16 @@
 # listen-now-desktop
 
 listen-now 的桌面版
+![首页](designs/Listen-now_首页.jpg)
+![正在播放](designs/Listen-now_正在播放.jpg)
+![歌单页](designs/Listen-now_歌单页.jpg)
+![搜索页](designs/Listen-now_首页.jpg)
+## 开发状况
 
-技术栈采用vue全家桶+electron，项目是用vue-cli生成，采用了electron-vue的模板。
+目前处于第一个阶段的开发中，开发进度我们会随时进行更新。
 
-## 项目结构
-- .electron-vue //这个electron-vue文件夹下的这些文件主要是webpack相关的文件，由cli生成的，目前只对其改动过一次，加入了对stylus的支持
-- dist //打包出来的文件
-- src //主要程序所在
-    - main //electron项目分为主进程和渲染进程两大进程，main下存放的是主进程的文件，主要是我们的应用程序本身的一些功能
-        - mainUtil //这个文件夹存放主进程的操作
-    - renderer //渲染进程
-        - asserts 静态资源文件
-        - components 普通的通用组件
-            - common
-        - pages 各个页面以及页面单独组件
-        - renderUtil 渲染进程所用到的操作
-        - router 路由表
-        - store 
-- test //单元测试
-- .babelrc //对babel的配置
-- .eslint //对代码格式化的配置
-- .travis.yml //是持续集成的配置
-        
+## 了解项目
+
+关于项目的一些可能用到的文档，在docs文件夹中。
+
+
