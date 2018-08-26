@@ -125,6 +125,11 @@
                         let progress = currentTime / duration;
                         this.setProgress(progress);
                     }
+                    if (paused === true) {
+                        this.playState = false;
+                    } else {
+                        this.playState = true;
+                    }
                 } catch (e) {
 
                 }
@@ -194,6 +199,13 @@
             },
             setAutoplay (autoplay) {
                 this.$refs.autoplay = autoplay;
+            },
+
+            /**
+                获取当前播放时间，在和歌词进行联动的时候需要
+             */
+            getCurrentTime () {
+                return this.$refs.currentTime;
             },
 
             /**
@@ -315,6 +327,7 @@
         z-index: 20;
         border-radius: 50%;
         cursor: pointer;
+        padding-top:1px;
     }
 
     .nextMusic:hover,.preMusic:hover {
