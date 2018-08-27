@@ -71,12 +71,22 @@
                             {{playingMusic.artists}}
                         </div>
                     </div>
-                    <div class="stopButton"  v-if="playState"  @click="pauseSwitch">
+                    <div class="stopButton"  v-if="playState&&!loadingState"  @click="pauseSwitch">
                         <Icon type="pause" color="white" size="28"></Icon>
                     </div>
                     <div class="playButton"  v-if="!playState"  @click="pauseSwitch">
                         <Icon type="play" color="white" size="28"></Icon>
                     </div>
+                    <!-- 加载功能，目前这个功能有些问题 -->
+                    <!-- <div class="loadingButton" v-if="loadingState">
+                        <Spin>
+                            <div>
+                                <svg class="circular" viewBox="25 25 50 50">
+                                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"></circle>
+                                </svg>
+                            </div>
+                        </Spin>
+                    </div> -->
                 </i-circle>
             </div>
             <div class="preMusic" @click="preMusic">
@@ -108,6 +118,7 @@
                     music_name:'未知歌曲',
                     play_url:'',
                 },
+                loadingState:false,  //  表征是否正在缓冲
                 volume:100
             }
         },
@@ -116,6 +127,23 @@
             this.playingMusic = this.musicList[0];
             setInterval(() => {
                 try{
+                    let { paused } = this.$refs.audio;
+                    if (paused === true) {
+                        this.playState = false;
+                    } else {
+                        this.playState = true;
+                    }
+                } catch (e) {
+
+                }
+            }, 100);
+            this.$refs.audio.addEventListener('ended', this.autoPlay, false);
+            this.$refs.audio.addEventListener('canplay', () => {
+                this.loadingState = false;
+                this.$refs.audio.play();
+            }, false);
+            this.$refs.audio.addEventListener('loadeddata',() => {} , false);
+            this.$refs.audio.addEventListener('timeupdate', () => {
                     let { readyState, paused } = this.$refs.audio;
                     if (readyState === 0) {
                         this.setProgress(0);
@@ -125,18 +153,11 @@
                         let progress = currentTime / duration;
                         this.setProgress(progress);
                     }
-                    if (paused === true) {
-                        this.playState = false;
-                    } else {
-                        this.playState = true;
-                    }
-                } catch (e) {
-
-                }
-            }, 1000);
-            this.$refs.audio.addEventListener('ended', this.autoPlay, false);
-            this.$refs.audio.addEventListener('canplay', this.$refs.audio.play, false);
-            this.$refs.audio.addEventListener('loadeddata',() => {} , false);
+            }, false);
+            this.$refs.audio.addEventListener('progress', () => {
+                // 正在加载事件，当缓冲时触发
+                this.loadingState = true;
+            }, false);
         },
         watch:{
             volume:function (val) {
