@@ -1,7 +1,9 @@
 <template>
     <div class="music-list">
         <music-list-item isheader />
-        <music-list-item v-for="(item, index) in musiclist" :item="item" :index="index" :key="item.id"/>
+        <div class="music-list-items">
+            <music-list-item v-for="(item, index) in musiclist" :item="item" :index="index" :key="item.id"/>
+        </div>
     </div>
 </template>
 
@@ -22,6 +24,16 @@ export default {
                 {id:'8', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
                 {id:'9', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
                 {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+                {id:'8', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+                {id:'9', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+                {id:'8', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+                {id:'9', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
+
             ]
         }
     },
@@ -31,12 +43,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="stylus" scoped>
 .music-list {
     background-color:#fff;/* 明天装个sass-loader*/
-    width: 800px;
+    width: 860px;
     height:407px;
     padding:0 29px;
-    overflow: hidden;
+    .music-list-items {
+        height:377px;
+        overflow:auto;
+    }
+    .music-list-items::-webkit-scrollbar {
+        display:none;
+    }
 }
+
 </style>

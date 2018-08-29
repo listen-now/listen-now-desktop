@@ -43,8 +43,8 @@
         <span>
           {{itemindex}}
         </span>
-        <img src="../assets/dislike.png" alt="dislike" v-if="!item.islike" class="heart">
-        <img src="../assets/like.png" alt="dislike" v-else class="heart">
+        <img src="../../../assets/dislike.png" alt="dislike" v-if="!item.islike" class="heart">
+        <img src="../../../assets/like.png" alt="dislike" v-else class="heart">
       </li>
       <li class="t-song">
         <span>
@@ -106,7 +106,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="stylus" scoped>
 .music-wrap {
   .music-list-item {
     margin: 0;
@@ -117,7 +117,6 @@ export default {
       display:inline-block;
       list-style:none;
       width:100px;
-      height:12px;
       font-size:8px;
       line-height: 12px;
       overflow: hidden;
@@ -131,8 +130,7 @@ export default {
     .t-index {
       position: relative;
       width:30px;
-      padding-left:15px;
-      margin-right:5px;
+      padding-left:5px;
       span{
         border-left: none;
       }
@@ -144,7 +142,7 @@ export default {
       }
     }
     .t-song {
-      width: 350px;
+      width:300px;
       span{
         border-left: none;
       }
