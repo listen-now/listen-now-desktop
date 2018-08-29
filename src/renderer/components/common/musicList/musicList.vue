@@ -22,12 +22,6 @@ export default {
                 {id:'8', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
                 {id:'9', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
                 {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'11', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'12', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'13', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'14', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'15', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'16', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100}
             ]
         }
     },
