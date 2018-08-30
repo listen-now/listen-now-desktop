@@ -71,7 +71,7 @@
                             {{playingMusic.artists}}
                         </div>
                     </div>
-                    <div class="stopButton"  v-if="playState&&!loadingState"  @click="pauseSwitch">
+                    <div class="stopButton"  v-if="playState"  @click="pauseSwitch">
                         <Icon type="pause" color="white" size="28"></Icon>
                     </div>
                     <div class="playButton"  v-if="!playState"  @click="pauseSwitch">
@@ -188,36 +188,47 @@
                     this.playState=false
                 }
             },
+
             fastSeek (time) {
                 this.$refs.audio.fastSeek(time);
             },
+
             canPlayType (type) {
                 return this.$refs.audio.fastSeek(type);
             },
+
             setVolume (volume) {
                 this.$refs.audio.volume = volume;
             },
+
             getVolume () {
                 return this.$refs.audio.volume;
             },
+
             getNetworkState () {
                 return this.$refs.audio.networkState;
             },
+
             getMuted () {
                 return this.$refs.audio.muted;
             },
+
             setMuted (muted) {
                 this.$refs.audio.muted = muted;
             },
+
             getLoop () {
                 return this.$refs.audio.loop;
             },
+
             setLoop (loop) {
                 this.$refs.audio.loop = loop;
             },
+
             getAutoplay () {
                 return this.$refs.autoplay;
             },
+            
             setAutoplay (autoplay) {
                 this.$refs.autoplay = autoplay;
             },

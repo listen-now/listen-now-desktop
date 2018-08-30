@@ -11,7 +11,6 @@
                     <p class="details">{{details}}</p>
                 </div>
             </div>
-           
         </Card>
     </div>
 </template>

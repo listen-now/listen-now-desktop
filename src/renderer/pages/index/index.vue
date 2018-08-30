@@ -1,21 +1,6 @@
 <template>
-    <div id="wrapper" width="1280px" height="720px">
+    <div id="wrapper">
         <div class="img-Background" :style="{backgroundImage: 'url(' + bg + ')' }"></div>
-        <div id="mainBody">
-            <div id="leftPart">
-                <div id="leftLogo">
-                    <left-logo></left-logo></div>
-                <div id="leftSearch">
-                    <left-search></left-search></div>
-                <div id="leftMain">
-                    <left-main></left-main></div>
-                <div id="leftButton" style="padding:15px 10px 15px 10px">
-
-                </div>
-                <div id="leftMiniPlay">
-                    <left-player :music-list="musicList"></left-player>
-                </div>
-            </div>
             <div id="rightPart">
                 <div id="rightSlides">
                     <!-- <card-button type="ios-paperplane" size="30" color="green" v-on:click-button="test()" text="1234"></card-button> -->
@@ -63,32 +48,24 @@
                     </album-list>
                 </div>
             </div>
-        </div>
     </div>
 </template>
 
 <script>
     import ApiTool from '../../renderUtil/api';
     import Background from '../../assets/DEMO-2.jpg';
-    import leftLogo from '../../components/common/leftLogo/leftLogo';
-    import leftSearch from '../../components/common/leftSearch/leftSearch';
-    import leftMain from '../../components/common/leftMain/leftMain';
-    import leftSound from '../../components/common/leftSound/leftSound';
-    import leftButton from '../../components/common/leftButton/leftButton';
     import cardButton from '../../components/common/cardButton/cardButton';
     import buttonListItem from './buttonListItem';
     import buttonList from './buttonList';
     import albumListItem from './albumListItem';
     import albumList from './albumList';
-    import leftPlayer from '../../components/common/leftPlayer/leftPlayer';
     import rightSlides from '../../components/common/rightSlides/rightSlides';
 
     export default {
         name: 'index-page',
         components: {   cardButton, buttonListItem, buttonList,
-                        leftButton, leftSound, albumListItem, albumList,
-                        leftLogo, leftSearch, leftMain,
-                        rightSlides, leftPlayer },
+                        albumListItem, albumList,
+                        rightSlides },
         data() {
             return { bg: Background, musicList: [
                     {
@@ -203,38 +180,6 @@
         font-family: "Noto Sans CJK sc";    /*CSS3加入的自定义字体，全局生效*/
     }
     */
-    #mainBody {
-        margin: 50px;
-        width: 1180px;
-        height: 620px;
-    }
-    #leftPart {
-        width: 220px;
-        height: 620px;
-        margin-right: 50px;
-        float: left;
-    }
-    #leftLogo {
-        width: 220px;
-        height: 50px;
-        float: left;
-    }
-    #leftSearch {
-        width: 220px;
-        height: 50px;
-        float: left;
-    }
-    #leftMain {
-        width: 220px;
-        height: 342px;
-        float: left;
-    }
-    #leftMiniPlay {
-        width: 220px;
-        height: 178px;
-        float: left;
-        overflow: hidden;
-    }
     #rightPart {
         width: 910px;
         height: 620px;
