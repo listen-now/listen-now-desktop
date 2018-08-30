@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import index from '../pages/index/index';
+import album from '../pages/album/album';
+import search from '../pages/search/search';
 
 Vue.use(Router);
 
@@ -15,5 +17,15 @@ export default new Router({
       path: '*',
       redirect: '/',
     },
+    {
+      path:'/album',
+      name:'album-page',
+      component:album
+    },
+    {
+      path:'/search',
+      name:'search-page',
+      component:search
+    }
   ],
 });
