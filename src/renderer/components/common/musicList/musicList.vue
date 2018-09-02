@@ -1,7 +1,7 @@
 <template>
     <div class="music-list">
         <music-list-item isheader />
-        <div class="music-list-items">
+        <div class="music-list-items" :style={height:height}>
             <music-list-item v-for="(item, index) in musiclist" :item="item" :index="index" :key="item.id"/>
         </div>
     </div>
@@ -12,6 +12,12 @@ import musicListItem from '../musicListItem/musicListItem'
 
 export default {
     name: "music-list",
+    props:{
+        height:{
+            type:String,
+            default:"377px"
+        }
+    },
     data () {
         return {
             musiclist:[
@@ -46,9 +52,9 @@ export default {
 <style lang="stylus" scoped>
 .music-list {
     background-color:#fff;/* 明天装个sass-loader*/
-    width: 860px;
+    width: 910px;
     height:407px;
-    padding:0 29px;
+    padding:0 10px;
     .music-list-items {
         height:377px;
         overflow:auto;

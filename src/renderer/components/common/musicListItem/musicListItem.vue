@@ -112,7 +112,7 @@ export default {
     margin: 0;
     padding: 0;
     height: 30px;
-    width: 800px;
+    width: 890px;
     li {
       display:inline-block;
       list-style:none;

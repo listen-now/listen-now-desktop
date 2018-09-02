@@ -1,6 +1,5 @@
 <template>
     <div id="wrapper">
-        <div class="img-Background" :style="{backgroundImage: 'url(' + bg + ')' }"></div>
             <div id="rightPart">
                 <div id="rightSlides">
                     <!-- <card-button type="ios-paperplane" size="30" color="green" v-on:click-button="test()" text="1234"></card-button> -->
@@ -53,7 +52,6 @@
 
 <script>
     import ApiTool from '../../renderUtil/api';
-    import Background from '../../assets/DEMO-2.jpg';
     import cardButton from '../../components/common/cardButton/cardButton';
     import buttonListItem from './buttonListItem';
     import buttonList from './buttonList';
