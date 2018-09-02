@@ -7,7 +7,7 @@
               <left-logo></left-logo>
           </div>
               <div id="leftSearch">
-                <left-search></left-search>
+                <left-search @click="goToSearch"></left-search>
               </div>
               <div id="leftMain">
                 <left-main></left-main></div>
@@ -84,6 +84,11 @@
             }).catch(err => {
                 console.log(err);
             });
+    },
+    methods:{
+        goToSearch(){
+            this.$router.push('./search');
+        }
     }
   };
 </script>
