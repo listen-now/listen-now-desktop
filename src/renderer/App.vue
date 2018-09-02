@@ -7,7 +7,8 @@
               <left-logo></left-logo>
           </div>
               <div id="leftSearch">
-              <left-search></left-search></div>
+                <left-search></left-search>
+              </div>
               <div id="leftMain">
                 <left-main></left-main></div>
               <div id="leftButton" style="padding:15px 10px 15px 10px">
@@ -88,17 +89,44 @@
 </script>
 
 <style>
-    /* CSS */
-    *{
-      -webkit-font-smoothing:subpixel-antialiased;
-      /*全局抗锯齿*/
-      font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
-    }  
+  /* CSS */
+  *{
+    -webkit-font-smoothing:subpixel-antialiased;
+    /*全局抗锯齿*/
+    font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+  }  
     #mainBody {
           margin: 50px;
           width: 1180px;
           height: 620px;
     }
+    .img-Background {
+        filter: blur(32px);
+        /* 让整个div固定在屏幕的最上方和最左方 */
+        position:fixed;
+        top: -10%;
+        left: -10%;
+        /* 让整个div跟屏幕实现一模一样的大小，从而达到全屏效果 */
+        width:120%;
+        height:120%;
+        /* 实现让屏幕宽度在1000px以内时，div的大小保持不变，
+        也就是说在这种情况下，缩放屏幕宽度时，图片不要缩放
+        （只有在1000px以内才有效）。 */
+        min-width: 1000px;
+        /* 让整个div在HTML页面中各个层级的下方，
+        写-10是为了确保在最底部 */
+        z-index:-100;
+        zoom: 1;
+        background-color: #fff;
+        /* 背景不要重复 */
+        background-repeat: no-repeat;
+        /* 让图片随屏幕大小同步缩放，但是有部分可能会被裁切，不过不至于会露白 */
+        background-size: cover;
+        -webkit-background-size: cover; /* 兼容chrome */
+        -o-background-size: cover; /* 兼容opera */
+        /* 图片的位置，居中，靠左对齐 */
+        background-position: center 0;
+      }
       #leftPart {
         width: 220px;
         height: 620px;
