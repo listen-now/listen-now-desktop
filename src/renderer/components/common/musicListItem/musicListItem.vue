@@ -117,7 +117,7 @@ export default {
       display:inline-block;
       list-style:none;
       width:100px;
-      font-size:8px;
+      font-size:10px;
       line-height: 12px;
       overflow: hidden;
       padding: 9px 0;
