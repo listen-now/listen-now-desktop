@@ -145,10 +145,10 @@ token       否       token参数
 * 请求示例:
 ```
 {
-    "title":"纸短情长",
-    “platform”:”Neteasymusic”,
-    “page”: 1,
-    "token":"your_token_message_content"
+    "title": "纸短情长",
+    "platform": "Neteasymusic",
+    "page": 1,
+    "token": "your_token_message_content"
 }
 ```
 * 返回值:
