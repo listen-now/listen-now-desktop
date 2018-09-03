@@ -1,5 +1,6 @@
 <template>
     <div class="searchPageWrapper">
+        <platform-tabs @onChange="onChange"></platform-tabs>
         <music-list height="500px">
             
         </music-list>
@@ -8,10 +9,12 @@
 
 <script>
     import MusicList from '../../components/common/musicList/musicList';
+    import PlatformTabs from './platformTabs';
     export default {
         name:'search-page',
         components:{
-            MusicList
+            MusicList,
+            PlatformTabs
         },
         data(){
             return {
@@ -19,7 +22,9 @@
             }
         },
         methods:{
-
+            onChange(platform) {
+                console.log('platform:', platform)
+            }
         }
     }
 </script>
