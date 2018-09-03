@@ -1,10 +1,13 @@
 <template>
-    <div class="albumList-item" v-on:click="$emit('click-button')" v-bind:style="{backgroundColor: backgroundColor}">
-        <div class="buttonList-avatar">
-            <Icon v-bind:type="type" color="white"/>
+    <div class="albumList-item" v-on:click="$emit('click-button')" >
+        <!-- v-bind:style="{backgroundColor: backgroundColor}" -->
+        <div class="albumListItemFront">
+            <img src="../../assets/DEMO-3.jpg" alt="" style="width:85px;height:85px;">
         </div>
-        <div class="buttonList-text">
-            {{text}}
+        <div class="albumListItemBack">
+            <div class="albumListItemMessage">
+                <p>1234</p>
+            </div>
         </div>
     </div>
 </template>
@@ -17,23 +20,30 @@
 </script>
 
 <style scoped>
-    .albumList-item:hover {
-        transform: scale(1.04);
-        transition:all .2s ease-in-out;
-        cursor: pointer;
-    }
-    .albumList-avatar {
-        padding-top: 6px;
-        width:100%;
-        font-size:38px;
-        text-align: center;
-    }
     .albumList-item {
+        transform-style: preserve-3d;
         width:85px;
         height:85px;
         float:left;
         margin-top:10px;
         margin-right:10px;
+        perspective: 800px;
+    }
+    .albumListItemFront,.albumListItemBack {
+        position: absolute;
+        transition: all 1s;
+    }
+    .albumListItemBack {
+        transform: rotateY(180deg);
+        background-color: rgba(72, 72, 72, 0.8);
+        width:85px;
+        height: 85px;
+    }
+    .albumList-item:hover .albumListItemFront{
+        transform: rotateY(180deg);
+    }
+    .albumList-item:hover .albumListItemBack{
+        transform: rotateY(360deg);
     }
     .albumList-item:nth-child(7n) {
         margin-right:0px;
@@ -47,6 +57,9 @@
         font-size: 14px;
         width:100%;
         text-align: center;
+        color:white;
+    }
+    .albumListItemMessage {
         color:white;
     }
 </style>

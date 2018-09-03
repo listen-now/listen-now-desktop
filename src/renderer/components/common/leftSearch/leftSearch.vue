@@ -1,5 +1,6 @@
 <template>
-    <div class="leftSearchWrapper">
+    <div class="leftSearchWrapper"  v-on:click="$emit('click')">
+        <!-- <router-link to="/search" class="leftSearchCharacter" >搜索</router-link> -->
         <p class="leftSearchCharacter">搜索</p>
     </div>
 </template>
