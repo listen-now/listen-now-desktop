@@ -56,7 +56,7 @@ let api =  {
                         title,
                         platform,
                     }).then(res => {
-                        resolve(res)
+                        resolve(res.data)
                     }).catch(err => {
                         reject(err);
                     });
@@ -67,7 +67,7 @@ let api =  {
                         platform,
                         page,
                     }).then(res => {
-                        resolve(res)
+                        resolve(res.data)
                     }).catch(err => {
                         reject(err);
                     });
@@ -96,7 +96,7 @@ let api =  {
                 id,
                 platform,
             }).then(res => {
-                resolve(res);
+                resolve(res.data);
             }).catch(err => {
                 reject(err);
             })
@@ -124,7 +124,7 @@ let api =  {
                 url,
                 platform,
             }).then(res => {
-                resolve(res);
+                resolve(res.data);
             }).catch(err => {
                 reject(err);
             })
@@ -150,10 +150,23 @@ let api =  {
             axios.post("http://zlclclc.cn/user_song_list", {
                 uid,
                 platform,
-            }).then(res => resolve(res))
+            }).then(res => resolve(res.data))
               .catch(err => reject(err));
         })
     },
+
+    getUserSongList (uid, platform) {
+        return new Promise ((resolve, reject) => {
+            axios.post("http://zlclclc.cn/user_song_list", {
+                uid,
+                platform
+            }).then(res => {
+                resolve(res.data)
+            }).catch(err => {
+                reject(err);
+            })
+        })
+    }
 };
 export default {
     api,
