@@ -155,16 +155,14 @@ let api =  {
         })
     },
 
-    getUserSongList (uid, platform) {
+    getTopSongList () {
         return new Promise ((resolve, reject) => {
-            axios.post("http://zlclclc.cn/user_song_list", {
-                uid,
-                platform
-            }).then(res => {
-                resolve(res.data)
-            }).catch(err => {
-                reject(err);
-            })
+            axios.get('http://zlclclc.cn/TopSongList')
+                .then(res => {
+                    resolve(res.data);
+                }).catch(err => {
+                    reject(err);
+                })
         })
     }
 };
