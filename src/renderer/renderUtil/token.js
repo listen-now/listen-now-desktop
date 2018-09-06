@@ -12,7 +12,7 @@ aGjozUxmvWLpZ6+T9NnHfPdgO3sKiqiWJ02uBnDjcJ4l+4j1/3VLAgMBAAE=
 export default {
     getToken () {
         return new Promise((resolve, reject) => {
-            axios.get("https://www.zlclclc.cn/get_token")
+            axios.get("http://www.zlclclc.cn/get_token")
                 .then(res => resolve(res))
                 .catch(err => reject(err));
         });
