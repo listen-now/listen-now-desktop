@@ -10,11 +10,18 @@
 <script>
     import MusicList from '../../components/common/musicList/musicList';
     import PlatformTabs from './platformTabs';
+    import {mapGetters} from 'vuex';
+
     export default {
         name:'search-page',
         components:{
             MusicList,
             PlatformTabs
+        },
+        computed:{
+            ...mapGetters({
+                token:'token'
+            })
         },
         data(){
             return {
@@ -24,6 +31,9 @@
         methods:{
             onChange(platform) {
                 console.log('platform:', platform)
+            },
+            search() {
+
             }
         }
     }

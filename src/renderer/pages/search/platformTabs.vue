@@ -1,6 +1,9 @@
 <template>
     <div class="platform-tabs">
-      <div v-for="(platform, index) of platforms" :key="platform.name" class="platform-tabs-item" :class="{[platform.class]: true, selected: platform.selected }" @click="selectPlatform(platform)">
+      <div v-for="(platform, index) of platforms" 
+        :key="platform.name" class="platform-tabs-item" 
+        :class="{[platform.class]: true, selected: platform.selected }" 
+        @click="selectPlatform(platform)">
       <i class="iconfont" :class="{[`icon-${platform.class}`]: true}"></i>
           <span>{{ platform.name }}</span>
       </div>
