@@ -75,12 +75,11 @@
                 apiTool.setAuth(token_message);
                 tokenUtil.getExistToken(1, token_message).then(res => console.log(res));
                 this.$store.dispatch('setToken', token_message);
-
                 //将token存储至localStroage
                 window.localStorage.setItem('token', token_message);
                 return token_message;
             }).then(async () => {
-              let resMusic = await apiTool.api.search("周传雄", apiTool.platform("网易云音乐"));
+            
             }).catch(err => {
                 console.log(err);
             });

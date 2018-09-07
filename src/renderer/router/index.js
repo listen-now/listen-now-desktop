@@ -18,7 +18,7 @@ export default new Router({
       redirect: '/',
     },
     {
-      path:'/album',
+      path:'/album/:id',
       name:'album-page',
       component:album
     },
@@ -26,6 +26,6 @@ export default new Router({
       path:'/search',
       name:'search-page',
       component:search
-    }
+    },
   ],
 });
