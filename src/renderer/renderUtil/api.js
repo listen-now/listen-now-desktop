@@ -10,6 +10,10 @@ const platforms = {
     '网易云音乐':'Neteasymusic',
     '虾米音乐':'Xiamimusic',
     'QQ音乐':'QQmusic',
+    "酷狗音乐":"Kugoumusic",
+    "酷我音乐":"Kuwomusic",
+    "百度音乐":"Baidumusic",
+    "咪咕音乐":"Migumusic"
 };
 
 const platform = pf => platforms[pf];
@@ -112,17 +116,19 @@ let api =  {
      请求参数说明:
 
      参数	  可选	  	描述
-     url	    否	    歌单地址，目前只支持网易，QQ
+     id	    否	    歌单id
      platform    否       音乐平台，通用参数
-     * @param url
+     * @param id
      * @param platform
+     * @param page
      * @returns {Promise<any>}
      */
-    getSongList(url, platform) {
+    getSongList(id, platform, page) {
         return new Promise((resolve, reject) => {
             axios.post("http://zlclclc.cn/song_list_requests", {
-                url,
+                id,
                 platform,
+                page
             }).then(res => {
                 resolve(res.data);
             }).catch(err => {

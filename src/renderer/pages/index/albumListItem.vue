@@ -1,12 +1,11 @@
 <template>
-    <div class="albumList-item" v-on:click="$emit('click-button')" >
-        <!-- v-bind:style="{backgroundColor: backgroundColor}" -->
+    <div class="albumList-item" v-on:click="gotoAlbumDetailPage" >
         <div class="albumListItemFront">
-            <img src="../../assets/DEMO-3.jpg" alt="" style="width:85px;height:85px;">
+            <img :src="album.image_url" alt="" style="width:85px;height:85px;">
         </div>
         <div class="albumListItemBack">
             <div class="albumListItemMessage">
-                <p>1234</p>
+                <p class="albumName">{{album.item_name}}</p>
             </div>
         </div>
     </div>
@@ -15,7 +14,14 @@
 <script>
     export default {
         name: "album-list-item",
-        props:['text', 'backgroundColor', 'type']
+        props:['text', 'backgroundColor', 'type', 'album'],
+        methods:{
+            gotoAlbumDetailPage () {
+                this.$router.push({path:`/album/${this.album.item_id}`, params:{
+                    id:this.album.item_id
+                }});
+            }
+        }
     }
 </script>
 
@@ -28,6 +34,9 @@
         margin-top:10px;
         margin-right:10px;
         perspective: 800px;
+    }
+    .albumList-item:hover {
+        cursor: pointer;
     }
     .albumListItemFront,.albumListItemBack {
         position: absolute;
@@ -60,6 +69,23 @@
         color:white;
     }
     .albumListItemMessage {
+        vertical-align:middle;
+        height: 85px;
         color:white;
+        display: table-cell;
+        padding:5px;
+        /* vertical-align: center; */
+
+        /* 超出的话，可以滑动，滑动条自定义 */
+        /* overflow: scroll; */
+    }
+    .albumName {
+        text-align: center;
+        /* margin-top:15px; */
+        font-weight: 800;
+    }
+    .albumDesc {
+        vertical-align:middle;
+        text-align: center;
     }
 </style>

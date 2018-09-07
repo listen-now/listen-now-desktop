@@ -2,7 +2,7 @@
     <div class="music-list">
         <music-list-item isheader />
         <div class="music-list-items" :style={height:height}>
-            <music-list-item v-for="(item, index) in musiclist" :item="item" :index="index" :key="item.id"/>
+            <music-list-item v-for="(item, index) in musicList" :item="item" :index="index" :key="item.id"/>
         </div>
     </div>
 </template>
@@ -16,35 +16,27 @@ export default {
         height:{
             type:String,
             default:"377px"
+        },
+        musicList:{
+            type:Array,
         }
     },
     data () {
         return {
-            musiclist:[
-                {id:'1', islike:true, name:'夏天要吃瓜', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'2', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'4', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'5', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'6', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'7', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'8', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'9', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'8', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'9', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'8', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'9', islike:false, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-                {id:'10', islike:true, name:'冬天穿长袖', singer:'astar', album:'astar的夏天', source:'网易云', duration:'120s', playamount:100},
-
-            ]
+            // musicList:[]
         }
     },
     components:{
         musicListItem
+    },
+    methods:{
+
+        /**
+         * 当显示的文字内容过长时滚动
+         */
+        scroll () {
+
+        }
     }
 }
 </script>

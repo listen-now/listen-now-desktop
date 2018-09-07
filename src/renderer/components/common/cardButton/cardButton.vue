@@ -1,9 +1,9 @@
 <template>
     <div class="card-button"
-         v-bind:style="{color:color, width:outerWidth, height:outerHeight, borderColor:color}"
+         v-bind:style="{color:color, width:outerWidth, height:outerHeight, borderColor:color,padding:'3px'}"
          v-on:click="$emit('click-button')">
         <div>
-            <Icon v-bind:type="type" v-bind:size="size" v-bind:color="color"/>
+            <Icon v-bind:type="type" v-bind:size="size - 5" v-bind:color="color"/>
         </div>
         <div class="card-text">
             <span>{{text}}</span>
@@ -20,10 +20,10 @@
       },
       computed: {
         outerWidth: function () {
-          return `${parseInt(this.size) + 18}px`;
+          return `${parseInt(this.size) + 20}px`;
         },
         outerHeight: function () {
-          return `${parseInt(this.size) + 18}px`;
+          return `${parseInt(this.size) + 20}px`;
         }
       },
     };
@@ -37,7 +37,7 @@
         width:60px;
         height:60px;
         border-radius: 50%;
-        border:2px solid pink;
+        border:1px solid pink;
         text-align: center;
         cursor: pointer;
     }
@@ -47,5 +47,6 @@
     }
     .card-text {
         margin-top:-5px;
+        font-size:12px;
     }
 </style>

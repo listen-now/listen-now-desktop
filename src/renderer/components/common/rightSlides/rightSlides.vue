@@ -1,5 +1,4 @@
 <template>
-    <!-- 来源：https://www.iviewui.com/components/carousel -->
     <Carousel autoplay v-model="value2" loop :autoplay-speed="5000">
         <CarouselItem>
             <div class="demo-carousel">1</div>
