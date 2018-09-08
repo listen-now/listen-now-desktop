@@ -2,7 +2,12 @@
     <div class="music-list">
         <music-list-item isheader />
         <div class="music-list-items" :style={height:height}>
-            <music-list-item v-for="(item, index) in musicList" :item="item" :index="index" :key="item.id"/>
+            <music-list-item v-for="(item, index) in musicList" 
+                :item="item" 
+                :index="index" 
+                :key="item.id"
+                @dblclick="playOrstop(item)"
+            />
         </div>
     </div>
 </template>
@@ -19,16 +24,17 @@ export default {
         },
         musicList:{
             type:Array,
+            default:[]
         }
     },
     data () {
         return {
-            // musicList:[]
         }
     },
     components:{
         musicListItem
     },
+    
     methods:{
 
         /**
@@ -36,6 +42,11 @@ export default {
          */
         scroll () {
 
+        },
+        //双击播放或者停止
+        playOrstop (item) {
+            console.log("双击歌曲！")
+            //this.$emit('playOrstop', item)
         }
     }
 }

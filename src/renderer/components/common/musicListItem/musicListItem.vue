@@ -5,6 +5,7 @@
               'tbody':!isheader,
               'tbody-gray':!isheader && isEven
             }"
+    @dblclick="playOrstop"
   >
     <template v-if="isheader">
       <li class="t-index">
@@ -43,17 +44,17 @@
         <span>
           {{itemindex}}
         </span>
-        <img src="../../../assets/dislike.png" alt="dislike" v-if="!item.islike" class="heart">
-        <img src="../../../assets/like.png" alt="dislike" v-else class="heart">
+        <img src="../../../assets/dislike.png" alt="dislike" v-if="!item.islike" class="heart" @click="changeHeart">
+        <img src="../../../assets/like.png" alt="like" v-else class="heart" @click="changeHeart">
       </li>
       <li class="t-song">
         <span>
-          {{item.name}}
+          {{item.music_name}}
         </span>
       </li>
       <li>
         <span>
-          {{item.singer}}
+          {{item.artists}}
         </span>
       </li>
       <li>
@@ -102,6 +103,16 @@ export default {
     isEven () {
       return !(this.index % 2)
     }
+  },
+  methods:{
+    playOrstop () {
+      if(!this.isheader) {
+        this.$emit('dblclick')
+      }
+    },
+    changeHeart() {
+      //修改喜好
+    }
   }
 }
 </script>
@@ -115,16 +126,21 @@ export default {
     width: 890px;
     li {
       display:inline-block;
+      cursor: default;
       list-style:none;
       width:100px;
-      font-size:10px;
       line-height: 12px;
-      overflow: hidden;
       padding: 9px 0;
       text-align: left;
       span {
-        color:#A0A0A0;
+        display:inline-block;
+        width:100%;
         height:12px;
+        line-height:12px;
+        font-size:10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color:#A0A0A0;
       }
     }
     .t-index {
@@ -139,6 +155,7 @@ export default {
         top: 10px;
         right:0;
         width:10px;
+        cursor: pointer;
       }
     }
     .t-song {
