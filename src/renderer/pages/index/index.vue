@@ -22,9 +22,9 @@
                 </div>
                 <div id="rightSongList">
                     <album-list title="最近受欢迎的歌单">
-                            <album-list-item  v-for="album in albumList" 
-                                              backgroundColor="#999999" 
-                                              type="album" 
+                            <album-list-item  v-for="album in albumList"
+                                              backgroundColor="#999999"
+                                              type="album"
                                               :album="album"
                                               ></album-list-item>
                     </album-list>
@@ -104,5 +104,11 @@
         margin-left: 20px;
         height: 347px;
         float: left;
+    }
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 </style>

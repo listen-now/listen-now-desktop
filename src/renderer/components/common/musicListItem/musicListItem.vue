@@ -119,7 +119,10 @@ export default {
       width:100px;
       font-size:10px;
       line-height: 12px;
+      // overflow: hidden;
       overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
       padding: 9px 0;
       text-align: left;
       span {
