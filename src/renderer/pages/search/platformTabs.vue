@@ -1,6 +1,9 @@
 <template>
     <div class="platform-tabs">
-      <div v-for="(platform, index) of platforms" :key="platform.name" class="platform-tabs-item" :class="{[platform.class]: true, selected: platform.selected }" @click="selectPlatform(platform)">
+      <div v-for="(platform, index) of platforms" 
+        :key="platform.name" class="platform-tabs-item" 
+        :class="{[platform.class]: true, selected: platform.selected }" 
+        @click="selectPlatform(platform)">
       <i class="iconfont" :class="{[`icon-${platform.class}`]: true}"></i>
           <span>{{ platform.name }}</span>
       </div>
@@ -14,6 +17,8 @@
      * onChange(platform)
      */
     import MusicList from '../../components/common/musicList/musicList';
+    import apiTool from '../../renderUtil/api.js';
+
     export default {
         name:'platform-tabs',
         data(){
@@ -58,14 +63,19 @@
               ]
             }
         },
+        mounted() {
+          //默认选择第一个platform
+          const params = apiTool.getCurrentPlatform(this.platforms[0].name)
+          this.$store.commit('SET_PLATFORM', params)
+        },
         methods:{
           selectPlatform(platform) {
             const index = this.platforms.findIndex(pf => pf.name === platform.name);
             this.platforms.forEach((platform) => platform.selected = false);
             platform.selected = true;
             this.platforms.fill(platform, index, index + 1);
-
-            this.$emit('onChange', platform);
+            const params = apiTool.getCurrentPlatform(platform.name)
+            this.$emit('onChange', params);
           }
         }
     }
