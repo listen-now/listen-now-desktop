@@ -34,6 +34,7 @@
   import leftPlayer from './components/common/leftPlayer/leftPlayer';
   import Background from './assets/DEMO-2.jpg';
   import $ from 'jquery';
+
   export default {
     name: 'listen-now-desktop',
     components:{

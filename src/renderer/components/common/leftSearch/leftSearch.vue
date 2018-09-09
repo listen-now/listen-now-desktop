@@ -1,17 +1,61 @@
 <template>
     <div class="leftSearchWrapper"  v-on:click="$emit('click')">
         <!-- <router-link to="/search" class="leftSearchCharacter" >搜索</router-link> -->
-        <p class="leftSearchCharacter">搜索</p>
+        <p class="leftSearchCharacter" v-if="!isSearching" @click="toSearch">搜索</p>
+        <input type="text" 
+            placeholder="搜索" 
+            v-model="title" 
+            @keypress="search" 
+            v-else
+        >
     </div>
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
+
     export default {
-        name: "left-search"
+        name: "left-search",
+        data() {
+            return {
+                isSearching:false
+            }
+        },
+        computed:{
+            ...mapGetters({
+                token:'token',
+            }),
+            title:{
+                get: function () {
+                    return this.$store.getters['title']
+                },
+                set: function (val) {
+                    if(!val) {
+                        this.isSearching = false
+                        this.$router.push('/')
+                    }
+                    this.$store.commit('SET_TITLE',val)
+                }
+            }
+        },
+        methods:{
+            toSearch() {
+                this.isSearching = true
+            },
+            search() {
+                const page = 10
+                const token = this.token
+                this.$store.dispatch('search', {page, token} ).then(res => {
+                    console.log(res)
+                }).catch(error => {
+                    console.log('搜索失败！错误原因：', error)
+                })
+            }
+        }
     }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
     .leftSearchWrapper {
         border-radius: 10px;    /*圆角*/
         box-shadow: 0px 3px 6px 1px rgba(0,0,0,0.1);    /*投影效果*/
@@ -21,6 +65,10 @@
         width: 200px;   /*宽度*/
         cursor: pointer;    /*cursor属性定义了鼠标指针放在一个元素边界范围内时所用的光标形状*/
         margin: 15px 10px 15px 10px;
+        input {
+            width: 100%;
+            height: 100%;
+        }
     }
     .leftSearchWrapper:hover {
         background-color: rgba(28,28,28,.1);

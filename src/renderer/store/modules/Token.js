@@ -8,14 +8,14 @@ let mutations = {
   },
 };
 let getters = {
-  token: () => {
+  token: state => {
     return state.token;
   }
 };
 
 let actions = {
-  setToken(token) {
-    token.commit('SET_TOKEN');
+  setToken(state, token) {
+    state.commit('SET_TOKEN',token);
   }
 };
 
