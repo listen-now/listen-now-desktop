@@ -22,10 +22,11 @@
                 </div>
                 <div id="rightSongList">
                     <album-list title="最近受欢迎的歌单">
-                            <album-list-item  v-for="album in albumList"
-                                              backgroundColor="#999999"
-                                              type="album"
+                            <album-list-item  v-for="(album,index) in albumList"
+                                              backgroundColor="#999999" 
+                                              type="album" 
                                               :album="album"
+                                              :key="index"
                                               ></album-list-item>
                     </album-list>
                 </div>

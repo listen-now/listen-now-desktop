@@ -8,7 +8,7 @@ import axios from 'axios';
 let token;
 const platforms = {
     '网易云音乐':'Neteasymusic',
-    '虾米音乐':'Xiamimusic',
+    '虾米':'Xiamimusic',
     'QQ音乐':'QQmusic',
     "酷狗音乐":"Kugoumusic",
     "酷我音乐":"Kuwomusic",
@@ -16,7 +16,7 @@ const platforms = {
     "咪咕音乐":"Migumusic"
 };
 
-const platform = pf => platforms[pf];
+const getCurrentPlatform = pf => platforms[pf];
 /**
  * 设置token
  * @param TOKEN
@@ -175,5 +175,5 @@ let api =  {
 export default {
     api,
     setAuth,
-    platform,
+    getCurrentPlatform,
 }
