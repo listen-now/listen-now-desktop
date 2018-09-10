@@ -1,17 +1,46 @@
-<template>
+<template id="leftMain">
     <div class="leftMainWrapper">
-        <div id="leftMainWrapperTop">
+        <div id="leftMainWrapperTitle">
+            <div class="tab" @click="toggleTab('index')"><a>首页</a></div>
+            <div class="tab" @click="toggleTab('user')"><a>我的</a></div>
+            <div class="tab" @click="toggleTab('setting')"><a>设定</a></div>
         </div>
-        <hr align=center style="border:1 solid #999999" width="180px" SIZE=1>
-        <div id="leftMainWrapperNext">
-            <p>欢迎！</p>
+        <div id="leftMainWrapperFunction">
+            <prince :is="currentTab" keep-alive></prince>
         </div>
     </div>
+    <!--
+    子组件，显示不同的 tab
+    is 特性动态绑定子组件
+    keep-alive 将切换出去的组件保留在内存中
+    
+    之前会报错：Component template should 
+    contain exactly one root element.
+    是因为 vue.js 2.0要求每个template只能有一个根元素。
+    可以在最外层包一个div来解决这个问题。
+    -->
 </template>
 
 <script>
+    // 引入子组件
+    import index from './children/index';
+    import user from './children/user';
+    import setting from './children/setting';
+
     export default {
-        name: "left-main"
+        name: "left-main",
+        data () {
+            return {
+                currentTab: 'index'  // currentTab 用于标识当前触发的子组件
+            };
+        },
+        // 声明子组件
+        components: { index,user,setting },
+        methods:{
+            toggleTab: function(tab) {
+                this.currentTab = tab;  // tab 为当前触发标签页的组件名
+            }
+        }
     }
 </script>
 
@@ -25,26 +54,37 @@
         width: 200px;   /*宽度*/
         cursor: pointer;    /*cursor属性定义了鼠标指针放在一个元素边界范围内时所用的光标形状*/
         margin: 10px;
-        padding: 10px;
     }
     .leftMainWrapper:hover {
-        background-color: rgba(28,28,28,.1);
+        /*background-color: rgba(28,28,28,.1);*/
+        box-shadow: 0px 3px 3px 1px rgba(255,255,255,0.1);
         transition: background-color .5s ease-in-out;
     }
 
-    #leftMainWrapperTop {
-        height: 40px;
+    #leftMainWrapperTitle {
+        border-radius: 10px 10px 0px 0px;
+        height: 50px;
+        background-color: #dddddd;
+        box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.2);
+        padding: 10px;
     }
 
-    #leftMainWrapperNext {
-        font-size: 32px; /*文字大小*/
-        color: #282828; /*文字颜色*/
-        letter-spacing: 0.5px;   /*字间距*/
+    .tab {
+        float: left;
+        width: 60px;
         text-align: center;
-        /*以下部分保证了垂直水平居中*/
-        height: 272px;
-        line-height: 272px;
+        line-height: 40px;
         margin: auto;
+        background-color: #dddddd;
+    }
+    .tab:hover {
+        text-shadow: 0px 0px 1px #282828;
+        transition: background-color .5s ease-in-out;
+    }
+
+    #leftMainWrapperFunction {
+        height: 262px;
+        padding: 10px;
     }
 
 </style>

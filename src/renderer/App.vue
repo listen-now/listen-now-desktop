@@ -3,14 +3,15 @@
     <div class="img-Background" :style="{backgroundImage: 'url(' + bg + ')' }"></div>
     <div id="mainBody">
       <div id="leftPart"> 
-          <div id="leftLogo">
+          <div id="leftLogo" @click="goHome">
               <left-logo></left-logo>
           </div>
               <div id="leftSearch">
                 <left-search @click="goToSearch"></left-search>
               </div>
               <div id="leftMain">
-                <left-main></left-main></div>
+                <left-main></left-main>
+              </div>
               <div id="leftButton" style="padding:15px 10px 15px 10px">
               </div>
               <div id="leftMiniPlay">
@@ -88,6 +89,9 @@
     methods:{
         goToSearch(){
             this.$router.push('./search');
+        },
+        goHome(){
+            this.$router.push('./pages/index');
         }
     }
   };
