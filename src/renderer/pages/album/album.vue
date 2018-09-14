@@ -54,7 +54,7 @@
         async beforeMount() {
           this.albumId = this.$route.params.id;   
           apiTool.setAuth(window.localStorage.getItem('token'));
-          this.albumInfo = await apiTool.api.getSongList(this.albumId, apiTool.platform('酷狗音乐'), 1);
+          this.albumInfo = await apiTool.api.getSongList(this.albumId, apiTool.getCurrentPlatform('酷狗音乐'), 1);
           this.getMusicList();
         },
     }

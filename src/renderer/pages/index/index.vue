@@ -1,37 +1,38 @@
 <template>
-    <div id="wrapper">
-            <div id="rightPart">
-                <div id="rightSlides">
-                    <right-slides></right-slides>
+    <transition name="fade">
+        <div id="wrapper">
+                <div id="rightPart">
+                    <div id="rightSlides">
+                        <right-slides></right-slides>
+                    </div>
+                    <div id="rightFunctions">
+                        <button-list title="Trending">
+                            <button-list-item text="日推" backgroundColor="#f4f45e" type="android-calendar">
+                            </button-list-item>
+                            <button-list-item text="电台" backgroundColor="rgb(50, 234, 137)" type="radio-waves">
+                            </button-list-item>
+                            <button-list-item text="歌手" backgroundColor="rgb(249, 98, 130)" type="person">
+                            </button-list-item>
+                            <button-list-item text="单曲" backgroundColor="rgb(20, 155, 195)" type="music-note" class="singleMusic">
+                            </button-list-item>
+                            <button-list-item text="专辑" backgroundColor="rgb(252, 125, 87)" type="disc" class="albumLogo">
+                            </button-list-item>
+                            <button-list-item text="更多" backgroundColor="rgb(36, 34, 45)" type="more">
+                            </button-list-item>
+                        </button-list>
+                    </div>
+                    <div id="rightSongList">
+                        <album-list title="最近受欢迎的歌单">
+                                <album-list-item  v-for="album in albumList" 
+                                                backgroundColor="#999999" 
+                                                type="album" 
+                                                :album="album"
+                                                ></album-list-item>
+                        </album-list>
+                    </div>
                 </div>
-                <div id="rightFunctions">
-                    <button-list title="Trending">
-                        <button-list-item text="日推" backgroundColor="#f4f45e" type="android-calendar">
-                        </button-list-item>
-                        <button-list-item text="电台" backgroundColor="rgb(50, 234, 137)" type="radio-waves">
-                        </button-list-item>
-                        <button-list-item text="歌手" backgroundColor="rgb(249, 98, 130)" type="person">
-                        </button-list-item>
-                        <button-list-item text="单曲" backgroundColor="rgb(20, 155, 195)" type="music-note" class="singleMusic">
-                        </button-list-item>
-                        <button-list-item text="专辑" backgroundColor="rgb(252, 125, 87)" type="disc" class="albumLogo">
-                        </button-list-item>
-                        <button-list-item text="更多" backgroundColor="rgb(36, 34, 45)" type="more">
-                        </button-list-item>
-                    </button-list>
-                </div>
-                <div id="rightSongList">
-                    <album-list title="最近受欢迎的歌单">
-                            <album-list-item  v-for="(album,index) in albumList"
-                                              backgroundColor="#999999" 
-                                              type="album" 
-                                              :album="album"
-                                              :key="index"
-                                              ></album-list-item>
-                    </album-list>
-                </div>
-            </div>
-    </div>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -105,11 +106,5 @@
         margin-left: 20px;
         height: 347px;
         float: left;
-    }
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s;
-    }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-        opacity: 0;
     }
 </style>

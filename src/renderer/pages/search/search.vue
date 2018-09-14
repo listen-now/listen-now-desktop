@@ -1,7 +1,7 @@
 <template>
     <div class="searchPageWrapper">
         <platform-tabs @onChange="onChange"></platform-tabs>
-        <music-list height="500px">
+        <music-list height="500px" :musicList="innerMusicList">
             
         </music-list>
     </div>
@@ -20,7 +20,7 @@
         },
         computed:{
             ...mapGetters({
-                musicList:'getMusicList',
+                innerMusicList:'getMusicList',
                 token:'token'
             })
         },

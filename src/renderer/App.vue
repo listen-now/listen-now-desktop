@@ -14,7 +14,7 @@
               <div id="leftButton" style="padding:15px 10px 15px 10px">
               </div>
               <div id="leftMiniPlay">
-                  <left-player :music-list="musicList"></left-player>
+                  <left-player></left-player>
               </div>
       </div>
       <router-view></router-view>
@@ -78,6 +78,7 @@
 
         //将token存储至localStroage
         window.localStorage.setItem('token', token_message);
+        this.$store.commit('SET_MUSICLIST', this.musicList);
     },
     methods:{
         goToSearch(){
