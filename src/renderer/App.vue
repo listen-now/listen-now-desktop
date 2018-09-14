@@ -14,7 +14,7 @@
               <div id="leftButton" style="padding:15px 10px 15px 10px">
               </div>
               <div id="leftMiniPlay">
-                  <left-player :music-list="musicList"></left-player>
+                  <left-player></left-player>
               </div>
       </div>
       <router-view></router-view>
@@ -68,22 +68,17 @@
                     }
                 ]}
     },
-    mounted(){
-        tokenUtil.getToken()
-            .then(res => {
-                let {signature, token_message} = res.data;
-                token_message = token_message.substring(2, token_message.length - 1);
-                apiTool.setAuth(token_message);
-                tokenUtil.getExistToken(1, token_message).then(res => console.log(res));
-                this.$store.dispatch('setToken', token_message);
-                //将token存储至localStroage
-                window.localStorage.setItem('token', token_message);
-                return token_message;
-            }).then(async () => {
-            
-            }).catch(err => {
-                console.log(err);
-            });
+    async mounted(){
+        let res = await tokenUtil.getToken();
+        let {signature, token_message} = res.data;
+        token_message = token_message.substring(2, token_message.length - 1);
+        apiTool.setAuth(token_message);
+        await tokenUtil.getExistToken(1, token_message);
+        this.$store.dispatch('setToken', token_message);
+
+        //将token存储至localStroage
+        window.localStorage.setItem('token', token_message);
+        this.$store.commit('SET_MUSICLIST', this.musicList);
     },
     methods:{
         goToSearch(){
@@ -93,7 +88,8 @@
   };
 </script>
 
-<style>
+<style lang="stylus">
+  @import "./theme/transition.styl";
   /* CSS */
   *{
     -webkit-font-smoothing:subpixel-antialiased;
