@@ -1,18 +1,20 @@
 <template>
-    <div class="albumPageWrapper">
-        <div class="albumBadge">
-            <Card :title="albumInfo.dissname"
-                  :url="albumInfo.image_url"
-                  :content="albumInfo.nickname"
-                  :details="albumInfo.info"
-                  ></Card>
+    <transition name="fade">
+        <div class="albumPageWrapper">
+            <div class="albumBadge">
+                <Card :title="albumInfo.dissname"
+                    :url="albumInfo.image_url"
+                    :content="albumInfo.nickname"
+                    :details="albumInfo.info"
+                    ></Card>
+            </div>
+            <div class="albumMusicList">
+                <music-list height="500px"
+                            :musicList="musicList">   
+                </music-list>
+            </div>
         </div>
-        <div class="albumMusicList">
-            <music-list height="500px"
-                        :musicList="musicList">   
-            </music-list>
-        </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -41,19 +43,18 @@
                     song.id = flag;
                     song.name = song.music_name;
                     song.singer = song.artists;
-                    song.album = this.albumInfo.dissname;
+                    // song.album = this.albumInfo.dissname;
                     song.islike = false;
                     flag ++;
                     return song;
                 })
-                console.log(songs);
                 this.musicList = songs;
             }
         },
         async beforeMount() {
           this.albumId = this.$route.params.id;   
           apiTool.setAuth(window.localStorage.getItem('token'));
-          this.albumInfo = await apiTool.api.getSongList(this.albumId, apiTool.platform('酷狗音乐'), 1);
+          this.albumInfo = await apiTool.api.getSongList(this.albumId, apiTool.getCurrentPlatform('酷狗音乐'), 1);
           this.getMusicList();
         },
     }

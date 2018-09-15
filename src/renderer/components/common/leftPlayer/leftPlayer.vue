@@ -102,29 +102,31 @@
 <script>
     import leftButton from '../leftButton/leftButton';
     import leftSound from '../leftSound/leftSound';
+    import { mapGetters } from 'vuex';
+    import { setTimeout } from 'timers';
     export default {
         name: "left-player",
         components:{leftSound, leftButton},
-        props:['musicList'],
+        computed:{
+            ...mapGetters({
+                playingMusic:'getPlayingMusic',
+                token:'token',
+                musicList:'getPlayingMusicList'
+            })
+        },
         data(){
             return {
                 playState:false,
                 percent:0,
+                firstSong:true,
                 playingMusicIndex:0,
                 playMode:'senquential',    //shuffle 随机播放 senquential 顺序播放 singleTune 单曲循环 loop 循环播放
-                playingMusic:{
-                    image_url:'',
-                    artists:'未知作者',
-                    music_name:'未知歌曲',
-                    play_url:'',
-                },
                 loadingState:false,  //  表征是否正在缓冲
                 volume:100
             }
         },
         mounted () {
             let _this = this;
-            this.playingMusic = this.musicList[0];
             setInterval(() => {
                 try{
                     let { paused } = this.$refs.audio;
@@ -133,14 +135,21 @@
                     } else {
                         this.playState = true;
                     }
+                    this.$store.commit('SET_CURRENT_TIME', this.getCurrentTime());
                 } catch (e) {
 
                 }
             }, 100);
+            setTimeout(() => {
+                console.log(this.musicList);
+                this.$store.commit('SET_PLAYINGMUSIC', this.musicList[0]);
+            }, 500)
             this.$refs.audio.addEventListener('ended', this.autoPlay, false);
             this.$refs.audio.addEventListener('canplay', () => {
-                this.loadingState = false;
-                this.$refs.audio.play();
+                if (!this.firstSong) {
+                    this.loadingState = false;
+                    this.$refs.audio.play();
+                }
             }, false);
             this.$refs.audio.addEventListener('loadeddata',() => {} , false);
             this.$refs.audio.addEventListener('timeupdate', () => {
@@ -213,6 +222,18 @@
                 return this.$refs.audio.muted;
             },
 
+            getAutoplay () {
+                return this.$refs.autoplay;
+            },
+
+            getPlayingMusic () {
+                return this.playingMusic;
+            },
+
+            getProcess () {
+                return this.percent;
+            },
+
             setMuted (muted) {
                 this.$refs.audio.muted = muted;
             },
@@ -225,10 +246,6 @@
                 this.$refs.audio.loop = loop;
             },
 
-            getAutoplay () {
-                return this.$refs.autoplay;
-            },
-            
             setAutoplay (autoplay) {
                 this.$refs.autoplay = autoplay;
             },
@@ -256,7 +273,6 @@
                 每首歌曲播放完后自动播放下一首
              */
             autoPlay () {
-                console.log(this.playMode);
                 if (this.playMode === 'singleTune') 
                     return;
                 else if (this.playMode === 'shuffle')
@@ -273,13 +289,14 @@
 
 
             nextMusic () {
+                this.firstSong = false;
                 this.playState = false;
                 if (this.musicList.length > 1) {
                     if (this.playingMusicIndex < this.musicList.length - 1) {
-                        this.playingMusic = this.musicList[this.playingMusicIndex + 1];
+                        this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex + 1]);
                         this.playingMusicIndex ++;
                     } else {
-                        this.playingMusicIndex = this.musicList[0];
+                        this.$store.commit('SET_PLAYINGMUSIC', this.musicList[0]);
                         this.playingMusicIndex = 0;
                     }
                 }
@@ -288,13 +305,14 @@
             },
 
             preMusic () {
+                this.firstSong = false;
                 this.playState = false;
                 if (this.musicList.length > 1) {
                     if (this.playingMusicIndex > 0) {
-                        this.playingMusic = this.musicList[this.playingMusicIndex - 1];
+                        this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex - 1]);
                         this.playingMusicIndex --;
                     } else {
-                        this.playingMusicIndex = this.musicList[this.musicList.length - 1];
+                        this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.musicList.length - 1]);
                         this.playingMusicIndex = this.musicList.length - 1;
                     }
                 }
@@ -304,7 +322,7 @@
 
             changeMusic (idx) {
                 this.playState = false;
-                this.playingMusic = this.musicList[idx];
+                this.$store.commit('SET_PLAYINGMUSIC', this.musicList[idx]);
                 this.playingMusicIndex = idx;
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
                 this.playState = true;
