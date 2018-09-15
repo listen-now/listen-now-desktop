@@ -1,9 +1,12 @@
 <template>
     <div class="leftSearchWrapper"  v-on:click="$emit('click')">
         <!-- <router-link to="/search" class="leftSearchCharacter" >搜索</router-link> -->
-        <p class="leftSearchCharacter" v-if="!isSearching" @click="toSearch">搜索</p>
+        <p class="leftSearchCharacter" v-if="!isSearching" @click="toSearch">
+            <span class="iconfont icon-sousuo"></span>
+            &nbsp;&nbsp;搜索
+        </p>
         <input type="text" 
-            placeholder="搜索" 
+            placeholder=" Searching..." 
             v-model="title" 
             @keypress="search" 
             v-else
@@ -66,26 +69,33 @@
         cursor: pointer;    /*cursor属性定义了鼠标指针放在一个元素边界范围内时所用的光标形状*/
         margin: 15px 10px 15px 10px;
         input {
-            width: 100%;
+            width: 80%;
             height: 100%;
+            margin: 0 0 0 20px;
+            background-color: rgba(0,0,0,0.1);
+            border:0px;
         }
     }
     .leftSearchWrapper:hover {
-        background-color: rgba(28,28,28,.1);
+        box-shadow: 0px 2px 6px 1px rgba(0,0,0,0.2);
         transition: background-color .5s ease-in-out;
     }
     
-    @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css); /*外部导入字体*/
+    .icon-sousuo {
+        font-size: 10px;
+        color: #fefefe;
+    }
+
     .leftSearchCharacter {
         font-size: 10px; /*文字大小*/
-        color: #ffffff; /*文字颜色*/
-        font-family: "Noto Sans TC";    /*CSS3加入的自定义字体*/
+        color: #aaaaaa; /*文字颜色*/
         letter-spacing: 0.5px;   /*字间距*/
         /*以下部分保证了垂直水平居中*/
         height: 20px;
         line-height: 20px;
         margin: auto;
-        text-align: center;
+        padding: 0 0 0 10px;
+        text-align: left;
     }
 
 </style>

@@ -1,16 +1,24 @@
 <template>
     <Carousel autoplay v-model="value2" loop :autoplay-speed="5000">
         <CarouselItem>
-            <div class="demo-carousel">1</div>
+            <div class="demo-carousel">
+                <img src="../../../assets/SlidesDemo-1.jpg" width="100%" style="margin:auto">
+            </div>
         </CarouselItem>
         <CarouselItem>
-            <div class="demo-carousel">2</div>
+            <div class="demo-carousel">
+                <img src="../../../assets/SlidesDemo-2.jpg" width="100%" style="margin:auto">
+            </div>
         </CarouselItem>
         <CarouselItem>
-            <div class="demo-carousel">3</div>
+            <div class="demo-carousel">
+                <img src="../../../assets/SlidesDemo-3.jpg" width="100%" style="margin:auto">
+            </div>
         </CarouselItem>
         <CarouselItem>
-            <div class="demo-carousel">4</div>
+            <div class="demo-carousel">
+                <img src="../../../assets/SlidesDemo-4.jpg" width="100%" style="margin:auto">
+            </div>
         </CarouselItem>
     </Carousel>
 </template>
@@ -31,8 +39,10 @@
         height: 223px;
         width: 100;
         border:0px;
-        background-color: #1a73e8;
+        background-color: #eeeeee;
         text-align: center;
-        padding:6px;
+        padding:0px;
+        line-height: 223px;
+        margin: auto;
     }
 </style>

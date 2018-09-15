@@ -98,16 +98,15 @@
 </script>
 
 <style>
-  /* CSS */
-  *{
-    -webkit-font-smoothing:subpixel-antialiased;
-    /*全局抗锯齿*/
-    font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
-  }  
+    /* CSS */
+    *{
+        -webkit-font-smoothing:subpixel-antialiased; /*全局抗锯齿*/
+        font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+    }
     #mainBody {
-          margin: 50px;
-          width: 1180px;
-          height: 620px;
+        margin: 50px;
+        width: 1180px;
+        height: 620px;
     }
     .img-Background {
         filter: blur(32px);

@@ -1,10 +1,19 @@
 <template id="leftMain">
     <div class="leftMainWrapper">
         <div id="leftMainWrapperTitle">
-            <div class="tab" @click="toggleTab('index')"><a>首页</a></div>
-            <div class="tab" @click="toggleTab('user')"><a>我的</a></div>
-            <div class="tab" @click="toggleTab('setting')"><a>设定</a></div>
+            <div class="tab" @click="toggleTab('index')">
+                <span class="iconfont icon-fanhui"></span>
+            </div>
+            <div class="tab" @click="toggleTab('user')">
+                <span class="iconfont icon-erji1"></span>
+            </div>
+            <div class="tab" @click="toggleTab('setting')">
+                <span class="iconfont icon-xuanxiang1"></span>
+            </div>
         </div>
+        <hr style="height:1px;width:90%;
+            margin:auto;border-width:0;
+            color:#cccccc;background-color:#cccccc" />
         <div id="leftMainWrapperFunction">
             <prince :is="currentTab" keep-alive></prince>
         </div>
@@ -62,10 +71,7 @@
     }
 
     #leftMainWrapperTitle {
-        border-radius: 10px 10px 0px 0px;
         height: 50px;
-        background-color: #dddddd;
-        box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.2);
         padding: 10px;
     }
 
@@ -73,13 +79,30 @@
         float: left;
         width: 60px;
         text-align: center;
-        line-height: 40px;
+        line-height: 35px;
         margin: auto;
-        background-color: #dddddd;
+        font-size: 10px;
     }
     .tab:hover {
         text-shadow: 0px 0px 1px #282828;
         transition: background-color .5s ease-in-out;
+    }
+
+    .iconfont {
+        /*所有按钮的设置*/
+        font-size: 20px; /*大小*/
+        color: #363636; /*颜色*/
+    }
+
+    .icon-fanhui { 
+        /*返回按钮的具体设置*/
+        font-size: 12px; /*大小*/
+        color: #363636; /*颜色*/
+    }
+    .icon-xuanxiang1 { 
+        /*选项按钮的具体设置*/
+        font-size: 10px; /*大小*/
+        color: #363636; /*颜色*/
     }
 
     #leftMainWrapperFunction {
