@@ -3,14 +3,15 @@
     <div class="img-Background" :style="{backgroundImage: 'url(' + bg + ')' }"></div>
     <div id="mainBody">
       <div id="leftPart"> 
-          <div id="leftLogo">
+          <div id="leftLogo" @click="goHome">
               <left-logo></left-logo>
           </div>
               <div id="leftSearch">
                 <left-search @click="goToSearch"></left-search>
               </div>
               <div id="leftMain">
-                <left-main></left-main></div>
+                <left-main></left-main>
+              </div>
               <div id="leftButton" style="padding:15px 10px 15px 10px">
               </div>
               <div id="leftMiniPlay">
@@ -83,23 +84,24 @@
     methods:{
         goToSearch(){
             this.$router.push('./search');
+        },
+        goHome(){
+            this.$router.push('./pages/index');
         }
     }
   };
 </script>
 
-<style lang="stylus">
-  @import "./theme/transition.styl";
-  /* CSS */
-  *{
-    -webkit-font-smoothing:subpixel-antialiased;
-    /*全局抗锯齿*/
-    font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
-  }  
+<style>
+    /* CSS */
+    *{
+        -webkit-font-smoothing:subpixel-antialiased; /*全局抗锯齿*/
+        font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+    }
     #mainBody {
-          margin: 50px;
-          width: 1180px;
-          height: 620px;
+        margin: 50px;
+        width: 1180px;
+        height: 620px;
     }
     .img-Background {
         filter: blur(32px);
