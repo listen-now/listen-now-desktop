@@ -5,6 +5,7 @@
               'tbody':!isheader,
               'tbody-gray':!isheader && isEven
             }"
+    @dblclick="playOrstop"
   >
     <template v-if="isheader">
       <li class="t-index">
@@ -159,6 +160,7 @@ export default {
         top: 10px;
         right:0;
         width:10px;
+        cursor: pointer;
       }
     }
     .t-song {
