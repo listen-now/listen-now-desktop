@@ -1,12 +1,14 @@
 <template>
-    <div class="searchPageWrapper">
-        <platform-tabs @onChange="onChange"></platform-tabs>
-        <div v-if="!innerMusicList.length" class="no-data">
-            暂无数据
-        </div>
-        <music-list height="580px" :musicList="innerMusicList" v-else/>
+    <transition name="fade">
+        <div class="searchPageWrapper">
+            <platform-tabs @onChange="onChange"></platform-tabs>
+            <div v-if="!innerMusicList.length" class="no-data">
+                暂无数据
+            </div>
+            <music-list height="580px" :musicList="innerMusicList" v-else/>
 
-    </div>
+        </div>
+    </transition>
 </template>
 
 <script>
