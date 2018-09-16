@@ -35,7 +35,13 @@ let actions = {
     const promise = new Promise(function(resolve, reject){
       if(data.code === 200) {//搜索成功
         resolve(data)
-        commit('SET_SEARCH_RESULT', data.song.list) 
+        commit('SET_SEARCH_RESULT', (() => {
+          data.song.list = data.song.list.map(item => {
+            item['platform'] = platform;
+            return item;
+          })
+          return data.song.list;
+        })()) 
       } else {
         reject(data)
         commit('SET_SEARCH_RESULT', [])

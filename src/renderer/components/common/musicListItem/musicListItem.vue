@@ -64,7 +64,7 @@
       </li>
       <li>
         <span>
-          {{item.source}}
+          {{item.platform | platform}}
         </span>
       </li>
       <li>
@@ -104,6 +104,20 @@ export default {
       return !(this.index % 2)
     }
   },
+  filters:{
+    platform: function(value) {
+      const platforms = {
+          'Neteasymusic':'网易云音乐',
+          'Xiamimusic':'虾米音乐',
+          'QQmusic':'QQ音乐',
+          "Kugoumusic":"酷狗音乐",
+          "Kuwomusic":"酷我音乐",
+          "Baidumusic":"百度音乐",
+          "Migumusic":"咪咕音乐"
+      };
+      return platforms[value];
+    }
+  },
   methods:{
     playOrstop () {
       if(!this.isheader) {
@@ -119,6 +133,9 @@ export default {
 
 <style lang="stylus" scoped>
 .music-wrap {
+  // &:hover{
+  //     background-color:rgba(0, 0, 0, 0.5);
+  // }
   .music-list-item {
     margin: 0;
     padding: 0;
@@ -173,6 +190,10 @@ export default {
   .tbody {
     border-left:1px solid #eee;
     border-right: 1px solid #eee;
+    &:hover {
+      background-color : rgba(100, 100, 100, 0.2);
+      transition : background-color .2s;
+    }
     li {
       span {
         color:#000;
@@ -181,13 +202,13 @@ export default {
     }
   }
   .tbody-gray {
+    &:hover {
+      background-color : rgba(100, 100, 100, 0.2);
+      transition : background-color .2s;
+    }
     background-color: #eee;
   }
 }
-
-
-
-
 </style>
 
 

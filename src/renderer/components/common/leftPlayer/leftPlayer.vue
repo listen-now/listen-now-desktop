@@ -179,6 +179,9 @@
                 } else {
                     _this.$refs.audio.loop = false;
                 }
+            },
+            playState:function (val) {
+
             }
         },
         methods: {
@@ -196,6 +199,14 @@
                     this.$refs.audio.pause();
                     this.playState=false
                 }
+            },
+
+            setPlay () {
+                this.$refs.audio.play();
+            },
+
+            setPause () {
+                this.$refs.audio.pause();
             },
 
             fastSeek (time) {
