@@ -16,7 +16,7 @@ listen-now 的桌面版
 
 ## 贡献我们
 
-本项目采用Pull Push工作流，详细贡献方式请见docs中贡献指南文档
+本项目采用Pull Request工作流，详细贡献方式请见docs中贡献指南文档
 
 ## 安装
 

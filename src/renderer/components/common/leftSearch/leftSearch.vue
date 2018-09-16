@@ -5,12 +5,16 @@
             <span class="iconfont icon-sousuo"></span>
             &nbsp;&nbsp;搜索
         </p>
-        <input type="text" 
-            placeholder=" Searching..." 
-            v-model="title" 
-            @keypress="search" 
-            v-else
-        >
+       
+       <div v-else>
+           <input type="text" 
+                ref="searchbox"
+                placeholder=" Searching..." 
+                v-model="title" 
+                @keypress="search"
+            >
+            <span class="cancel" @click="backtoIndex">取消</span>
+       </div>
     </div>
 </template>
 
@@ -33,10 +37,6 @@
                     return this.$store.getters['title']
                 },
                 set: function (val) {
-                    if(!val) {
-                        this.isSearching = false
-                        this.$router.push('/')
-                    }
                     this.$store.commit('SET_TITLE',val)
                 }
             }
@@ -44,6 +44,10 @@
         methods:{
             toSearch() {
                 this.isSearching = true
+                this.$nextTick(()=>{
+                    //自动获取输入框焦点
+                    this.$refs.searchbox.focus()
+                })
             },
             search() {
                 const page = 10
@@ -53,6 +57,11 @@
                 }).catch(error => {
                     console.log('搜索失败！错误原因：', error)
                 })
+            },
+            backtoIndex() {
+                this.isSearching = false
+                this.title = ''
+                this.$router.back()
             }
         }
     }
@@ -60,6 +69,7 @@
 
 <style lang="stylus" scoped>
     .leftSearchWrapper {
+        position: relative;
         border-radius: 10px;    /*圆角*/
         box-shadow: 0px 3px 6px 1px rgba(0,0,0,0.1);    /*投影效果*/
         border:0px; /*边框*/
@@ -69,11 +79,21 @@
         cursor: pointer;    /*cursor属性定义了鼠标指针放在一个元素边界范围内时所用的光标形状*/
         margin: 15px 10px 15px 10px;
         input {
-            width: 80%;
+            width: 65%;
             height: 100%;
-            margin: 0 0 0 20px;
+            margin: 0 0 0 15px;
             background-color: rgba(0,0,0,0.1);
-            border:0px;
+            border:none;
+            outline:none;
+            color: #aaaaaa;
+            font-size: 10px;
+            line-height: 20px;
+        }
+        .cancel {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            line-height: 20px;
         }
     }
     .leftSearchWrapper:hover {
