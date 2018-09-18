@@ -38,7 +38,7 @@
                 console.log('platform:', platform)
                 this.$store.commit('SET_PLATFORM', platform)
                 //重新搜索
-                const page = 10
+                const page = 1
                 const token = this.token
                 this.$store.dispatch('search', {page, token} ).then(res => {
                     //console.log(res)
