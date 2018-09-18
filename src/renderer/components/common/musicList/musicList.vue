@@ -50,7 +50,7 @@ export default {
             console.log("双击歌曲");
             console.log(item);
             Api.setAuth(window.localStorage.getItem('token'));
-            Api.api.getMusicById(item.songId, item.platform).then(res => {
+            Api.api.getMusicById(item.id, item.platform).then(res => {
                 this.$store.commit('SET_PLAYINGMUSIC', res);
                 this.$store.commit('SET_MUSICLIST', [res]);
                 console.log(res);

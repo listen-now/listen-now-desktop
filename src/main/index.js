@@ -73,7 +73,9 @@ function createWindow() {
 
   let trayIcon = path.join(__dirname, '../renderer/assets');
   const contextMenu = Menu.buildFromTemplate(trayMenu);
-  const tray = new Tray(path.join(trayIcon, 'favicon.ico'));
+  console.log(path.join(trayIcon, 'favicon.ico'));
+  const tray = new Tray("../renderer/assets/favicon.ico");
+  // const tray = new Tray(path.join(trayIcon, 'favicon.ico'));
   tray.setToolTip('Listen-now');
   tray.setContextMenu(contextMenu);
   tray.on('click',function(){

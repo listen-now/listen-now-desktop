@@ -32,6 +32,7 @@ let actions = {
     const platform = state.platform
     const title = state.title
     const { data } = await Axios.post('http://zlclclc.cn/search', {title, platform, page, token})
+    let data2 = await Axios.post('http://zlclclc.cn/search', {title, platform, page:page + 1, token})
     const promise = new Promise(function(resolve, reject){
       if(data.code === 200) {//搜索成功
         resolve(data)
@@ -40,6 +41,7 @@ let actions = {
             item['platform'] = platform;
             return item;
           })
+          console.log(data.song.list);
           return data.song.list;
         })()) 
       } else {
