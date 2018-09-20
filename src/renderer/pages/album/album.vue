@@ -9,7 +9,7 @@
                     ></Card>
             </div>
             <div class="albumMusicList">
-                <music-list height="500px"
+                <music-list height="400px"
                             :musicList="musicList">   
                 </music-list>
             </div>
@@ -43,7 +43,11 @@
                     song.id = flag;
                     song.name = song.music_name;
                     song.singer = song.artists;
-                    // song.album = this.albumInfo.dissname;
+
+                    /**
+                     * 因为目前只有酷狗音乐可以拿到歌单，故暂时固定为酷狗音乐
+                     */
+                    song.platform = "Kugoumusic"
                     song.islike = false;
                     flag ++;
                     return song;

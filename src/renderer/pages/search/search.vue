@@ -1,10 +1,14 @@
 <template>
-    <div class="searchPageWrapper">
-        <platform-tabs @onChange="onChange"></platform-tabs>
-        <music-list height="500px" :musicList="innerMusicList">
-            
-        </music-list>
-    </div>
+    <transition name="fade">
+        <div class="searchPageWrapper">
+            <platform-tabs @onChange="onChange"></platform-tabs>
+            <div v-if="!innerMusicList.length" class="no-data">
+                暂无数据
+            </div>
+            <music-list height="580px" :musicList="innerMusicList" v-else/>
+
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -34,7 +38,7 @@
                 console.log('platform:', platform)
                 this.$store.commit('SET_PLATFORM', platform)
                 //重新搜索
-                const page = 10
+                const page = 1
                 const token = this.token
                 this.$store.dispatch('search', {page, token} ).then(res => {
                     //console.log(res)
@@ -46,8 +50,17 @@
     }
 </script>
 
-<style>
+<style lang="stylus">
     .searchPageWrapper {
         overflow: hidden;
+        .no-data {
+            width: 1000px;
+            height: 580px;
+            background-color: #fff;
+            text-align: center;
+            line-height: 580px;
+            font-size: 15px;
+            font-weight: bold;
+        }
     }
 </style>
