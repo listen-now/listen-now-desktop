@@ -1,7 +1,7 @@
 <template>
     <div class="leftLogoWrapper" href="https://github.com/listen-now/listen-now-desktop">
         <div width="50px" height="50px" style="float:left">
-            <img src="../../../assets/Listen-now_Logo.png" 
+            <img src="../../../../assets/Listen-now_Logo.png" 
             alt="Listen-now" width="36px" height="36px"
             style="margin:7px" >
         </div>

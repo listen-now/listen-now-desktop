@@ -26,6 +26,6 @@ export default new Router({
       path:'/search',
       name:'search-page',
       component:search
-    },
+    }
   ],
 });

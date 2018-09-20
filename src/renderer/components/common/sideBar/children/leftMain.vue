@@ -1,13 +1,19 @@
 <template id="leftMain">
-    <div class="leftMainWrapper">
+    <div id="leftMainWrapper">
         <div id="leftMainWrapperTitle">
-            <div class="tab" @click="toggleTab('index')">
+            <!--
+                顶上那一栏，一共三个按钮
+                第一个：假装是个返回钮。
+                第二个：正在播放钮。
+                第三个：设置页面钮。
+            -->
+            <div class="tab" title="伪·返回" @click="toggleTab('index')">
                 <span class="iconfont icon-fanhui"></span>
             </div>
-            <div class="tab" @click="toggleTab('user')">
+            <div class="tab" title="正在播放" @click="toggleTab('nowPlaying')">
                 <span class="iconfont icon-erji1"></span>
             </div>
-            <div class="tab" @click="toggleTab('setting')">
+            <div class="tab" title="设置" @click="toggleTab('setting')">
                 <span class="iconfont icon-xuanxiang1"></span>
             </div>
         </div>
@@ -33,7 +39,7 @@
 <script>
     // 引入子组件
     import index from './children/index';
-    import user from './children/user';
+    import nowPlaying from './children/nowPlaying';
     import setting from './children/setting';
 
     export default {
@@ -44,7 +50,7 @@
             };
         },
         // 声明子组件
-        components: { index,user,setting },
+        components: { index,nowPlaying,setting },
         methods:{
             toggleTab: function(tab) {
                 this.currentTab = tab;  // tab 为当前触发标签页的组件名
@@ -54,7 +60,7 @@
 </script>
 
 <style scoped>
-    .leftMainWrapper {
+    #leftMainWrapper {
         border-radius: 10px;    /*圆角*/
         box-shadow: 0px 3px 6px 1px rgba(0,0,0,0.1);    /*投影效果*/
         border:0px; /*边框*/
@@ -64,7 +70,7 @@
         cursor: pointer;    /*cursor属性定义了鼠标指针放在一个元素边界范围内时所用的光标形状*/
         margin: 10px;
     }
-    .leftMainWrapper:hover {
+    #leftMainWrapper:hover {
         /*background-color: rgba(28,28,28,.1);*/
         box-shadow: 0px 3px 3px 1px rgba(255,255,255,0.1);
         transition: background-color .5s ease-in-out;
