@@ -1,19 +1,19 @@
 <template>
     <div>
         <div id="leftMainOption">
-            <span class="iconfont icon-shezhi"></span>
+            <span class="iconfont icon-kongjian"></span>
             背景设置
         </div>
         <div id="leftMainOption">
-            <span class="iconfont icon-shezhi"></span>
+            <span class="iconfont icon-gedan"></span>
             账户设置
         </div>
         <div id="leftMainOption">
-            <span class="iconfont icon-shezhi"></span>
+            <span class="iconfont icon-erji2"></span>
             播放设置
         </div>
         <div id="leftMainOption">
-            <span class="iconfont icon-shezhi"></span>
+            <span class="iconfont icon-xiaoxi1"></span>
             关于我们
         </div>
     </div>
