@@ -1,24 +1,11 @@
 <template>
   <div id="app" width="1280px" height="720px">
     <div class="img-Background" :style="{backgroundImage: 'url(' + bg + ')' }"></div>
-    <div id="mainBody">
-      <div id="leftPart"> 
-          <div id="leftLogo" @click="goHome">
-              <left-logo></left-logo>
-          </div>
-              <div id="leftSearch">
-                <left-search @click="goToSearch"></left-search>
-              </div>
-              <div id="leftMain">
-                <left-main></left-main>
-              </div>
-              <div id="leftButton" style="padding:15px 10px 15px 10px">
-              </div>
-              <div id="leftMiniPlay">
-                  <left-player></left-player>
-              </div>
-      </div>
-      <router-view></router-view>
+    <div id="leftPart">
+        <sideBar></sideBar>
+    </div>
+    <div id="rightPart">
+        <router-view></router-view>
     </div>
   </div>
 </template>
@@ -27,19 +14,14 @@
   import apiTool from './renderUtil/api';
   import tokenUtil from './renderUtil/token';
   import errMesage from './renderUtil/errorMessage';
-  import leftLogo from './components/common/leftLogo/leftLogo';
-  import leftSearch from './components/common/leftSearch/leftSearch';
-  import leftMain from './components/common/leftMain/leftMain';
-  import leftSound from './components/common/leftSound/leftSound';
-  import leftButton from './components/common/leftButton/leftButton';
-  import leftPlayer from './components/common/leftPlayer/leftPlayer';
+  import sideBar from './components/common/sideBar/sideBar';
   import Background from './assets/DEMO-2.jpg';
   import $ from 'jquery';
 
   export default {
     name: 'listen-now-desktop',
     components:{
-                leftLogo, leftSearch, leftMain, leftPlayer, leftButton, leftSound, 
+        sideBar
     },
     data() {
             return { bg: Background, musicList: [
@@ -54,6 +36,7 @@
                     },
                     {
                         artists:"周传雄",
+                        image_url:"http://p1.music.126.net/Y91B_GXc5d9t-0X0Uu_7xw==/109951163063096750.jpg",
                         music_id:189602,
                         music_name:"青花",
                         play_url:"http://music.163.com/song/media/outer/url?id=189602.mp3",
@@ -98,11 +81,27 @@
         -webkit-font-smoothing:subpixel-antialiased; /*全局抗锯齿*/
         font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
     }
-    #mainBody {
-        margin: 50px;
-        width: 1180px;
-        height: 620px;
+
+    #leftPart {
+        width: 320px;
+        height: 720px;
+        margin: 0;
+        padding: 50px;
+        position:absolute;
+        left:0px;
+        top:0px;
     }
+    #rightPart {
+        width: 960px;
+        height: 720px;
+        margin: 0;
+        padding: 50px 0px 50px 0px;
+        /* 顺序：上 右 下 左 */
+        position:absolute;
+        left:320px;
+        top:0px;
+    }
+
     .img-Background {
         filter: blur(32px);
         /* 让整个div固定在屏幕的最上方和最左方 */
@@ -129,32 +128,5 @@
         -o-background-size: cover; /* 兼容opera */
         /* 图片的位置，居中，靠左对齐 */
         background-position: center 0;
-      }
-      #leftPart {
-        width: 220px;
-        height: 620px;
-        margin-right: 50px;
-        float: left;
-    }
-    #leftLogo {
-        width: 220px;
-        height: 50px;
-        float: left;
-    }
-    #leftSearch {
-        width: 220px;
-        height: 50px;
-        float: left;
-    }
-    #leftMain {
-        width: 220px;
-        height: 342px;
-        float: left;
-    }
-    #leftMiniPlay {
-        width: 220px;
-        height: 178px;
-        float: left;
-        overflow: hidden;
     }
 </style>

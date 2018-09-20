@@ -100,8 +100,8 @@
 </template>
 
 <script>
-    import leftButton from '../leftButton/leftButton';
-    import leftSound from '../leftSound/leftSound';
+    import leftButton from './leftButton';
+    import leftSound from './leftSound';
     import { mapGetters } from 'vuex';
     import { setTimeout } from 'timers';
     export default {
