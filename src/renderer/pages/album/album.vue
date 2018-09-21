@@ -3,10 +3,11 @@
         <div class="albumPageWrapper">
             <div class="albumBadge">
                 <Card :title="albumInfo.dissname"
-                    :url="albumInfo.image_url"
-                    :content="albumInfo.nickname"
-                    :details="albumInfo.info"
-                    ></Card>
+                      :url="albumInfo.image_url"
+                      :content="albumInfo.nickname"
+                      width="910px"
+                      :details="albumInfo.info"
+                     ></Card>
             </div>
             <div class="albumMusicList">
                 <music-list height="400px"

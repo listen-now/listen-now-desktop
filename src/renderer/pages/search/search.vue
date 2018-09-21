@@ -35,13 +35,11 @@
         },
         methods:{
             onChange(platform) {
-                console.log('platform:', platform)
                 this.$store.commit('SET_PLATFORM', platform)
                 //重新搜索
                 const page = 1
                 const token = this.token
                 this.$store.dispatch('search', {page, token} ).then(res => {
-                    //console.log(res)
                 }).catch(error => {
                     console.log('搜索失败！错误原因：', error)
                 })

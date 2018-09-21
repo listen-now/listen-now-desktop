@@ -121,7 +121,8 @@
             ...mapGetters({
                 playingMusic:'getPlayingMusic',
                 token:'token',
-                musicList:'getPlayingMusicList'
+                musicList:'getPlayingMusicList',
+                playState:'getPlayState'
             }),
             hasPreMusic:function(value) {
                 if (this.playMode === 'loop' || this.playMode === 'shuffle') {
@@ -148,9 +149,9 @@
         },
         data(){
             return {
-                playState:false,
+                // playState:false,
                 percent:0,
-                firstSong:true,
+                firstSong:false,
                 playingMusicIndex:0,
                 playMode:'senquential',    //shuffle 随机播放 senquential 顺序播放 singleTune 单曲循环 loop 循环播放
                 loadingState:false,  //  表征是否正在缓冲
@@ -163,13 +164,13 @@
                 try{
                     let { paused } = this.$refs.audio;
                     if (paused === true) {
-                        this.playState = false;
+                        this.$store.commit('SET_PLAYSTATE', false);
                     } else {
-                        this.playState = true;
+                        this.$store.commit('SET_PLAYSTATE', true);
                     }
                     this.$store.commit('SET_CURRENT_TIME', this.getCurrentTime());
                 } catch (e) {
-                    console.log(e);
+                    // console.log(e);
                 }
             }, 100);
             setTimeout(() => {
@@ -179,6 +180,7 @@
             this.$refs.audio.addEventListener('ended', this.autoPlay, false);
             this.$refs.audio.addEventListener('canplay', () => {
                 if (!this.firstSong) {
+                    console.log('try to play');
                     this.loadingState = false;
                     this.$refs.audio.play();
                 }
@@ -199,6 +201,7 @@
                 // 正在加载事件，当缓冲时触发
                 this.loadingState = true;
             }, false);
+            this.$store.commit('SET_PLAYSTATE', false);
         },
         watch:{
             volume:function (val) {
@@ -213,7 +216,11 @@
                 }
             },
             playState:function (val) {
-
+                if (val) {
+                    this.setPlay();
+                } else {
+                    this.setPause();
+                }
             }
         },
         methods: {
@@ -225,20 +232,28 @@
             pauseSwitch () {
                 let paused = this.$refs.audio.paused;
                 if (paused) {
+                    console.log(`changed playstate to true`);
                     this.$refs.audio.play();
-                    this.playState=true;
+                    this.$store.commit('SET_PLAYSTATE', true);
+                    // this.playState=true;
                 } else {
+                    console.log(`changed playstate to false`);
                     this.$refs.audio.pause();
-                    this.playState=false
+                    this.$store.commit('SET_PLAYSTATE', false);
+                    // this.playState=false
                 }
             },
 
             setPlay () {
                 this.$refs.audio.play();
+                console.log(`changed playstate to true`);
+                this.$store.commit('SET_PLAYSTATE', true);
             },
 
             setPause () {
                 this.$refs.audio.pause();
+                console.log(`changed playstate to false`);
+                // this.$store.commit('SET_PLAYSTATE', false);
             },
 
             fastSeek (time) {
@@ -333,7 +348,8 @@
 
             nextMusic () {
                 this.firstSong = false;
-                this.playState = false;
+                // this.playState = false;
+                this.$store.commit('SET_PLAYSTATE', false);
                 if (this.musicList.length > 1) {
                     if (this.playingMusicIndex < this.musicList.length - 1) {
                         this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex + 1]);
@@ -345,12 +361,14 @@
                     }
                 }
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
-                this.playState = true;
+                // this.playState = true;
+                this.$store.commit('SET_PLAYSTATE', true);
             },
 
             preMusic () {
                 this.firstSong = false;
-                this.playState = false;
+                // this.playState = false;
+                this.$store.commit('SET_PLAYSTATE', false);
                 if (this.musicList.length > 1) {
                     if (this.playingMusicIndex > 0) {
                         this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex - 1]);
@@ -362,16 +380,19 @@
                     }
                 }
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
-                this.playState = true;
+                // this.playState = true;
+                this.$store.commit('SET_PLAYSTATE', true);
             },
 
             changeMusic (idx) {
-                this.playState = false;
+                // this.playState = false;
+                this.$store.commit('SET_PLAYSTATE', false);
                 this.$store.commit('SET_PLAYINGMUSIC', this.musicList[idx]);
                 this.$store.commit('SET_PLAYINGMUSICINDEX', idx);
                 this.playingMusicIndex = idx;
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
-                this.playState = true;
+                // this.playState = true;
+                this.$store.commit('SET_PLAYSTATE', true);
             }
         }
     }
