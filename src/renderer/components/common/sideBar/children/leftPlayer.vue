@@ -18,6 +18,7 @@
                              v-if="playMode === 'shuffle'"
                              @click="playMode = 'loop'"
                              type="ios-shuffle"
+                             title="随机播放"
                              color="rgb(57, 150, 184)"
                              style="float:left; margin-left:10px;"></left-button>
             </el-tooltip>
@@ -25,6 +26,7 @@
                 <left-button size="20"
                              type="ios-loop"
                              v-if="playMode === 'loop'"
+                             title="循环播放"
                              @click="playMode = 'senquential'"
                              color="rgb(57, 150, 184)"
                              style="float:left; margin-left:10px;"></left-button>
@@ -32,12 +34,14 @@
             <left-button size="20"
                          v-if="playMode === 'senquential'"
                          @click="playMode = 'singleTune'"
+                         title="顺序播放"
                          type="ios-arrow-thin-right"
                          color="rgb(57, 150, 184)"
                          style="float:left; margin-left:10px;"></left-button>
             <left-button size="20"
                          v-if="playMode === 'singleTune'"
                          @click="playMode = 'shuffle'"
+                         title ="单曲循环"
                          type="ios-circle-outline"
                          color="rgb(57, 150, 184)"
                          style="float:left; margin-left:10px;"></left-button>
@@ -89,11 +93,17 @@
                     </div> -->
                 </i-circle>
             </div>
-            <div class="preMusic" @click="preMusic">
+            <div class="preMusic" @click="preMusic" v-if="hasPreMusic">
                 <Icon type="skip-backward" color="white"></Icon>
             </div>
-            <div class="nextMusic" @click="nextMusic">
+            <div class="preMusicDisabled" v-if="!hasPreMusic">
+                <Icon type="skip-backward" color="grey"></Icon>
+            </div>
+            <div class="nextMusic" @click="nextMusic" v-if="hasNextMusic">
                 <Icon type="skip-forward" color="white"></Icon>
+            </div>
+            <div class="nextMusicDisabled" v-if="!hasNextMusic">
+                <Icon type="skip-forward" color="grey"></Icon>
             </div>
         </div>
     </div>
@@ -112,7 +122,29 @@
                 playingMusic:'getPlayingMusic',
                 token:'token',
                 musicList:'getPlayingMusicList'
-            })
+            }),
+            hasPreMusic:function(value) {
+                if (this.playMode === 'loop' || this.playMode === 'shuffle') {
+                    return true;
+                } else {
+                    if (this.playingMusicIndex === 0) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            },
+            hasNextMusic:function(value) {
+                if (this.playMode === 'loop' || this.playMode === 'shuffle') {
+                    return true;
+                } else {
+                    if (this.playingMusicIndex === this.musicList.length - 1) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
         },
         data(){
             return {
@@ -122,7 +154,7 @@
                 playingMusicIndex:0,
                 playMode:'senquential',    //shuffle 随机播放 senquential 顺序播放 singleTune 单曲循环 loop 循环播放
                 loadingState:false,  //  表征是否正在缓冲
-                volume:100
+                volume:100,
             }
         },
         mounted () {
@@ -137,7 +169,7 @@
                     }
                     this.$store.commit('SET_CURRENT_TIME', this.getCurrentTime());
                 } catch (e) {
-
+                    console.log(e);
                 }
             }, 100);
             setTimeout(() => {
@@ -305,9 +337,10 @@
                 if (this.musicList.length > 1) {
                     if (this.playingMusicIndex < this.musicList.length - 1) {
                         this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex + 1]);
-                        this.playingMusicIndex ++;
+                        this.$store.commit('SET_PLAYINGMUSICINDEX', ++this.playingMusicIndex);
                     } else {
                         this.$store.commit('SET_PLAYINGMUSIC', this.musicList[0]);
+                        this.$store.commit('SET_PLAYINGMUSICINDEX', 0);
                         this.playingMusicIndex = 0;
                     }
                 }
@@ -321,9 +354,10 @@
                 if (this.musicList.length > 1) {
                     if (this.playingMusicIndex > 0) {
                         this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex - 1]);
-                        this.playingMusicIndex --;
+                        this.$store.commit('SET_PLAYINGMUSICINDEX', --this.playingMusicIndex);
                     } else {
                         this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.musicList.length - 1]);
+                        this.$store.commit('SET_PLAYINGMUSICINDEX', this.musicList.length - 1);
                         this.playingMusicIndex = this.musicList.length - 1;
                     }
                 }
@@ -334,6 +368,7 @@
             changeMusic (idx) {
                 this.playState = false;
                 this.$store.commit('SET_PLAYINGMUSIC', this.musicList[idx]);
+                this.$store.commit('SET_PLAYINGMUSICINDEX', idx);
                 this.playingMusicIndex = idx;
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
                 this.playState = true;
@@ -361,6 +396,7 @@
         background-color: rgba(71, 85, 96, 0.5);
         border-radius: 50%;
     }
+    
     .circleControler:hover {
         /*cursor: pointer;*/
     }
@@ -389,6 +425,27 @@
         border-radius: 50%;
         cursor: pointer;
         padding-top:1px;
+    }
+
+    .nextMusicDisabled,.preMusicDisabled {
+        width:20px;
+        height: 20px;
+        background-color: rgba(71, 85, 96, 0.5);
+        text-align: center;
+        z-index: 20;
+        border-radius: 50%;
+        padding-top:1px;
+    }
+
+    .preMusicDisabled {
+        position: relative;
+        top:-160px;
+        left:10px;
+    }
+    .nextMusicDisabled {
+        position: relative;
+        left:166px;
+        top:-180px;
     }
 
     .nextMusic:hover,.preMusic:hover {
