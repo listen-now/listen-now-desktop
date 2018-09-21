@@ -9,6 +9,7 @@ let state = {
     musicList: [],
     progress:"",
     currentTime:0,
+    playState:false
   };
   
   let mutations = {
@@ -26,6 +27,9 @@ let state = {
     },
     SET_CURRENT_TIME(state, currentTime) {
       state.currentTime = currentTime;
+    },
+    SET_PLAYSTATE(state, playState) {
+      state.playState = playState;
     }
   };
   let getters = {
@@ -40,6 +44,9 @@ let state = {
     },
     getPlayingMusicIndex: () => {
       return state.playingMusicIndex;
+    },
+    getPlayState: () => {
+      return state.playState;
     }
   };
   

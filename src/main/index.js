@@ -58,6 +58,7 @@ function createWindow() {
     resizable: false,
     autoHideMenuBar: true,
     backgroundColor:'#4169E1',
+    icon:'../renderer/assets/logo.png'
       // frame:false,  //无边框窗口，之后完善后可能会使用
   });
 
@@ -73,9 +74,9 @@ function createWindow() {
 
   let trayIcon = path.join(__dirname, '../renderer/assets');
   const contextMenu = Menu.buildFromTemplate(trayMenu);
-  console.log(path.join(trayIcon, 'favicon.ico'));
-  const tray = new Tray("../renderer/assets/favicon.ico");
-  // const tray = new Tray(path.join(trayIcon, 'favicon.ico'));
+  // console.log(path.join(trayIcon, 'favicon.ico'));
+  // const tray = new Tray("../renderer/assets/favicon.ico");
+  const tray = new Tray(path.join(trayIcon, 'favicon.ico'));
   tray.setToolTip('Listen-now');
   tray.setContextMenu(contextMenu);
   tray.on('click',function(){

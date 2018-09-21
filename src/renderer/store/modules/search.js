@@ -34,9 +34,6 @@ let actions = {
     const { data } = await Axios.post('http://zlclclc.cn/search', {title, platform, page, token});
     let data2 = await Axios.post('http://zlclclc.cn/search', {title, platform, page:page + 1, token});
     data2 = data2.data;
-    console.log("---")
-    console.log(data2);
-    console.log("---")
     const promise = new Promise(function(resolve, reject){
       if(data.code === 200 && data2.code === 200) {//搜索成功
         resolve(data)
@@ -46,11 +43,15 @@ let actions = {
             item['platform'] = platform;
             return item;
           })
-          console.log(data.song.list);
-          console.log(data2.song.list);
           return data.song.list;
         })()) 
-      } else {
+      } else if (data.code === 200){
+        data.song.list = data.song.list.map(item => {
+          item['platform'] = platform;
+          return item;
+        })
+        return data.song.list;
+      } else{
         reject(data)
         commit('SET_SEARCH_RESULT', [])
       }
