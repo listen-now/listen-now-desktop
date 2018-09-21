@@ -1,5 +1,6 @@
 <template>
     <div class="leftButtonWrapper"
+         :title="title"
          :style="{width:size + 'px', height:size + 'px'}"
          v-on:click="$emit('click')">
         <Icon v-bind:type="type" v-bind:size="size - 8" v-bind:color="color"/>
@@ -9,7 +10,7 @@
 <script>
     export default {
         name: "left-button",
-        props:['type', 'size', 'color'],
+        props:['type', 'size', 'color', 'title'],
     }
 </script>
 
