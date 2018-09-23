@@ -48,12 +48,23 @@ export default {
         },
         //双击播放或者停止
         playOrstop (item) {
+            let id;
             Api.setAuth(window.localStorage.getItem('token'));
+            // songId代表为album
             if (item.hasOwnProperty('songId')) {
+                for (let i = 0;i < this.musicList.length;i++) {
+                    if (item === this.musicList[i]) {
+                        console.log(i);
+                        id = i;
+                    }
+                }
                 Api.api.getMusicById(item.songId, item.platform).then(res => {
                     this.$store.commit('SET_PLAYINGMUSIC', res);
                     this.$store.commit('SET_MUSICLIST', [res]);
                     this.$store.commit('SET_PLAYSTATE', true);
+                    this.$store.commit('SET_TEMPSONGLIST', this.musicList);
+                    this.$store.commit('SET_PLAYINGMUSICINDEX', id);
+                    console.log(this.$store.getters.getPlayingMusicLiric);
                 })    
             } else {
                 Api.api.getMusicById(item.id, item.platform).then(res => {

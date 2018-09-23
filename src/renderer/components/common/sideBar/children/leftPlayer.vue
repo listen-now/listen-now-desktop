@@ -122,7 +122,8 @@
                 playingMusic:'getPlayingMusic',
                 token:'token',
                 musicList:'getPlayingMusicList',
-                playState:'getPlayState'
+                playState:'getPlayState',
+                tempSongList:'getTempSongList'
             }),
             hasPreMusic:function(value) {
                 if (this.playMode === 'loop' || this.playMode === 'shuffle') {
