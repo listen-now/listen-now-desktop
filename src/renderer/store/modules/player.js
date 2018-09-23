@@ -9,7 +9,8 @@ let state = {
     musicList: [],
     progress:"",
     currentTime:0,
-    playState:false
+    playState:false,
+    tempSongList:[] //  要延迟加载的音乐，为了减轻服务器压力
   };
   
   let mutations = {
@@ -30,6 +31,9 @@ let state = {
     },
     SET_PLAYSTATE(state, playState) {
       state.playState = playState;
+    },
+    SET_TEMPSONGLIST(state, tempSongList) {
+      state.tempSongList = tempSongList;
     }
   };
   let getters = {
@@ -47,6 +51,12 @@ let state = {
     },
     getPlayState: () => {
       return state.playState;
+    },
+    getTempSongList: () => {
+      return state.tempSongList;
+    },
+    getPlayingMusicLiric: () => {
+      return state.playingMusic.lyric;
     }
   };
   
