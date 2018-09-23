@@ -58,14 +58,18 @@ export default {
                         id = i;
                     }
                 }
-                Api.api.getMusicById(item.songId, item.platform).then(res => {
-                    this.$store.commit('SET_PLAYINGMUSIC', res);
-                    this.$store.commit('SET_MUSICLIST', [res]);
-                    this.$store.commit('SET_PLAYSTATE', true);
-                    this.$store.commit('SET_TEMPSONGLIST', this.musicList);
-                    this.$store.commit('SET_PLAYINGMUSICINDEX', id);
-                    console.log(this.$store.getters.getPlayingMusicLiric);
-                })    
+                // Api.api.getMusicById(item.songId, item.platform).then(res => {
+                //     this.$store.commit('SET_PLAYINGMUSIC', res);
+                //     this.$store.commit('SET_MUSICLIST', [res]);
+                //     this.$store.commit('SET_PLAYSTATE', true);
+                //     this.$store.commit('SET_TEMPSONGLIST', this.musicList);
+                //     this.$store.commit('SET_PLAYINGMUSICINDEX', id);
+                //     console.log(this.$store.getters.getPlayingMusicLiric);
+                // })    
+                this.$store.dispatch('setAlbum', {
+                    album:this.musicList,
+                    playIndex:id
+                })
             } else {
                 Api.api.getMusicById(item.id, item.platform).then(res => {
                     this.$store.commit('SET_PLAYINGMUSIC', res);
