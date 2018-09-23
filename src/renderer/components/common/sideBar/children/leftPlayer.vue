@@ -56,7 +56,8 @@
                              type="card"
                              height="128px"
                              ref="slide"
-                             @change="changeMusic">
+                             @change="changeMusic"
+                             >
                     <el-carousel-item v-for="item in musicList" :key="item.music_id">
                         <img :src="item.image_url" style="width:100%;height: 100%;"/>
                     </el-carousel-item>
@@ -120,6 +121,7 @@
         computed:{
             ...mapGetters({
                 playingMusic:'getPlayingMusic',
+                playingMusicIndex:'getPlayingMusicIndex',
                 token:'token',
                 musicList:'getPlayingMusicList',
                 playState:'getPlayState',
@@ -153,7 +155,7 @@
                 // playState:false,
                 percent:0,
                 firstSong:false,
-                playingMusicIndex:0,
+                // playingMusicIndex:0,
                 playMode:'senquential',    //shuffle 随机播放 senquential 顺序播放 singleTune 单曲循环 loop 循环播放
                 loadingState:false,  //  表征是否正在缓冲
                 volume:100,
@@ -353,12 +355,14 @@
                 this.$store.commit('SET_PLAYSTATE', false);
                 if (this.musicList.length > 1) {
                     if (this.playingMusicIndex < this.musicList.length - 1) {
+                        console.log("set playing music in nextmusic");
                         this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex + 1]);
                         this.$store.commit('SET_PLAYINGMUSICINDEX', ++this.playingMusicIndex);
                     } else {
+                        console.log("set playing music in nextmusic");
                         this.$store.commit('SET_PLAYINGMUSIC', this.musicList[0]);
                         this.$store.commit('SET_PLAYINGMUSICINDEX', 0);
-                        this.playingMusicIndex = 0;
+                        // this.playingMusicIndex = 0;
                     }
                 }
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
@@ -377,7 +381,7 @@
                     } else {
                         this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.musicList.length - 1]);
                         this.$store.commit('SET_PLAYINGMUSICINDEX', this.musicList.length - 1);
-                        this.playingMusicIndex = this.musicList.length - 1;
+                        // this.playingMusicIndex = this.musicList.length - 1;
                     }
                 }
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
@@ -388,9 +392,10 @@
             changeMusic (idx) {
                 // this.playState = false;
                 this.$store.commit('SET_PLAYSTATE', false);
+                console.log("set playing music in changemusic");
                 this.$store.commit('SET_PLAYINGMUSIC', this.musicList[idx]);
                 this.$store.commit('SET_PLAYINGMUSICINDEX', idx);
-                this.playingMusicIndex = idx;
+                // this.playingMusicIndex = idx;
                 this.$refs.slide.setActiveItem(this.playingMusicIndex);
                 // this.playState = true;
                 this.$store.commit('SET_PLAYSTATE', true);
