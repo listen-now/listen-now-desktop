@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="lyric-player">
         <div id="lyric">
             <div class="playing-lyric-wrapper">
               <div class="playing-lyric">
@@ -38,26 +38,39 @@
 </template>
 
 <script>
-    import Lyric from 'lyric-parser'
-    import Scroll from '../../../scroll/scroll'
+    import Lyric from 'lyric-parser';
+    import Scroll from '../../../scroll/scroll';
+    import { mapGetters } from 'vuex';
 
     export default {
         name: "left-main-user",
+        computed:{
+            ...mapGetters({
+                currentTime:'getCurrentTime',
+                lyric:'getPlayingMusicLiric',
+                playState:'getPlayState'
+            })
+        },
+        mounted() {
+            this.getLyric();
+        },
+        watch:{
+            playState:function (value) {
+                console.log('changed')
+                this.getLyric();
+            }
+        },
         data() {
             return {
-                currentTime: 0,
                 currentLyric: null,
                 currentLineNum: 0,
-                playingLyric: ''
+                playingLyric:""
             }
         },
         components: {
             Scroll
         },
         methods: { 
-            updateTime(e) {
-                this.currentTime = e.target.currentTime
-            },
             // 格式化时间
             format(interval) {
                 interval = interval | 0
@@ -65,7 +78,7 @@
                 const second = this._pad(interval % 60)
                 return `${minute}:${second}`
             },
-             _pad(num, n = 2) {
+            _pad(num, n = 2) {
                 let len = num.toString().length
                 while (len < n) {
                     num = '0' + num
@@ -74,18 +87,17 @@
                 return num
             },
             getLyric() {
-                this.$store.getters.getPlayingMusicLiric().then(lyric => {
-                this.currentLyric = new Lyric(lyric, this.handleLyric)
-                console.log(this.currentLyric)
-                debugger
-                if (this.playing) {
-                    this.currentLyric.play()
+                let lyric = this.lyric;
+                try{
+                    this.currentLyric = new Lyric(lyric, this.handleLyric);
+                    if (this.playState) {
+                        this.currentLyric.play();
+                    }   
+                } catch (e) {
+                    this.currentLyric = null;
+                    this.currentLineNum = 0;
+                    this.playingLyric = '';
                 }
-                }).catch(() => {
-                    this.currentLyric = null
-                    this.currentLineNum = 0
-                    this.playingLyric = ''
-                })
             },
             handleLyric({lineNum, txt}) {
                 this.currentLineNum = lineNum
@@ -95,7 +107,7 @@
                 } else {
                     this.$refs.lyriclist.scrollTo(0, 0, 1000)
                 }
-                this.playingLyric = txt
+                this.playingLyric = txt;
             }
         }
     }
@@ -140,7 +152,7 @@
         display: inline-block;
         vertical-align: top;
         width: 100%;
-        height: 100%;
+        height: 90%;
         overflow: hidden;
     }
 
@@ -170,6 +182,11 @@
     }
     .current{
         color: color-text;
+    }
+
+    .lyric-player {
+        position: relative;
+        top:-30px;
     }
 
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="app" width="1280px" height="720px">
     <div class="img-Background" :style="{backgroundImage: 'url(' + bg + ')' }"></div>
-    <img src="mm1.jpg" id="blur" class="blur" />
+    <!-- <img src="mm1.jpg" id="blur" class="blur" /> -->
     <canvas id="canvas" width="256" height="191"></canvas>
     <div id="leftPart">
         <sideBar></sideBar>

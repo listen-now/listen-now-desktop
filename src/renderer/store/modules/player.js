@@ -58,6 +58,9 @@ let state = {
     getPlayingMusicIndex: () => {
       return state.playingMusicIndex;
     },
+    getCurrentTime: () => {
+      return state.currentTime;
+    },
     getPlayState: () => {
       return state.playState;
     },
