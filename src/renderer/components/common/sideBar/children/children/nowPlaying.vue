@@ -110,11 +110,9 @@
         padding: 0 0 0 5px;
         font-size: 12px; /*文字大小*/
         color: #282828; /*文字颜色*/
-        letter-spacing: 0.1px;   /*字间距*/
         text-align: center;
         /*以下部分保证了垂直水平居中*/
         height: 212px;
-        line-height: 10px;
         margin: auto;
     }
     #lyric:hover {
@@ -138,33 +136,40 @@
         text-shadow: 0px 0px 1px #282828;
         transition: background-color .5s ease-in-out;
     }
+    .middle-r {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
 
-              .playing-lyric-wrapper {
-            width: 80%;
-            margin: 30px auto 0 auto;
-            overflow: hidden;
-            text-align: center;
-              }
-            .playing-lyric {
-              height: 20px;
-              line-height: 20px;
-              font-size: font-size-medium;
-              color: color-text-l;
-            }
+    .playing-lyric-wrapper {
+        width: 80%;
+        margin: 30px auto 0 auto;
+        overflow: hidden;
+        text-align: center;
+    }
+    .playing-lyric {
+        height: 20px;
+        line-height: 20px;
+        font-size: font-size-medium;
+        color: color-text-l;
+    }
 
-          .lyric-wrapper {
-            width: 80%;
-            margin: 0 auto;
-            overflow: hidden;
-            text-align: center;
-          }
-            .text {
-              line-height: 32px;
-              color: color-text-l;
-              font-size: font-size-medium;
-            }
-        .current{
-                color: color-text;
-            }
+    .lyric-wrapper {
+        width: 80%;
+        margin: 0 auto;
+        overflow: hidden;
+        text-align: center;
+    }
+    .text {
+        line-height: 32px;
+        color: color-text-l;
+        font-size: font-size-medium;
+    }
+    .current{
+        color: color-text;
+    }
 
 </style>
