@@ -4,7 +4,7 @@
             <left-logo></left-logo>
         </div>
         <div id="leftSearch">
-            <left-search @click="goToSearch"></left-search>
+            <left-search @click="goToSearch" ref="leftSearch"></left-search>
         </div>
         <div id="leftMain">
             <left-main></left-main>
@@ -35,6 +35,7 @@
             this.$router.push('./search');
         },
         goHome(){
+            this.$refs.leftSearch.backtoIndex();
             this.$router.push('./pages/index');
         }
     }
