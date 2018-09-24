@@ -52,7 +52,7 @@
     .searchPageWrapper {
         overflow: hidden;
         .no-data {
-            width: 1000px;
+            width: 910px;
             height: 580px;
             background-color: #fff;
             text-align: center;
