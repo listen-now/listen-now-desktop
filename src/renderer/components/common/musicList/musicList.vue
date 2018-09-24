@@ -58,14 +58,6 @@ export default {
                         id = i;
                     }
                 }
-                // Api.api.getMusicById(item.songId, item.platform).then(res => {
-                //     this.$store.commit('SET_PLAYINGMUSIC', res);
-                //     this.$store.commit('SET_MUSICLIST', [res]);
-                //     this.$store.commit('SET_PLAYSTATE', true);
-                //     this.$store.commit('SET_TEMPSONGLIST', this.musicList);
-                //     this.$store.commit('SET_PLAYINGMUSICINDEX', id);
-                //     console.log(this.$store.getters.getPlayingMusicLiric);
-                // })    
                 this.$store.dispatch('setAlbum', {
                     album:this.musicList,
                     playIndex:id
@@ -75,6 +67,9 @@ export default {
                     this.$store.commit('SET_PLAYINGMUSIC', res);
                     this.$store.commit('SET_MUSICLIST', [res]);
                     this.$store.commit('SET_PLAYSTATE', true);
+
+                    // 设置正在等待加载的音乐列表为空，以此来使之前进行的歌单加载停止
+                    this.$store.commit('SET_TEMPSONGWAITINGLIST', []);
                 })
             }
         }

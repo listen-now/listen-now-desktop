@@ -54,7 +54,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     height: 768,
     useContentSize: false,
-    width: 1280,
+    width: 1290,
     resizable: false,
     autoHideMenuBar: true,
     backgroundColor:'#4169E1',
