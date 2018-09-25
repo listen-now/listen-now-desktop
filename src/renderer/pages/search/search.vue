@@ -5,7 +5,7 @@
             <div v-if="!innerMusicList.length" class="no-data">
                 暂无数据
             </div>
-            <music-list height="580px" :musicList="innerMusicList" v-else/>
+            <music-list height="580" :musicList="innerMusicList" v-else/>
 
         </div>
     </transition>

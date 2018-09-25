@@ -58,7 +58,7 @@
                              ref="slide"
                              @change="changeMusic"
                              >
-                    <el-carousel-item v-for="item in musicList" :key="item.music_id">
+                    <el-carousel-item v-for="item in musicList">
                         <img :src="item.image_url" style="width:100%;height: 100%;"/>
                     </el-carousel-item>
                 </el-carousel>
@@ -284,7 +284,7 @@
             },
 
             getAutoplay () {
-                return this.$refs.autoplay;
+                return this.$refs.audio.autoplay;
             },
 
             getPlayingMusic () {
@@ -315,7 +315,7 @@
                 获取当前播放时间，在和歌词进行联动的时候需要
              */
             getCurrentTime () {
-                return this.$refs.currentTime;
+                return this.$refs.audio.currentTime;
             },
 
             /**

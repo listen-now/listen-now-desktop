@@ -48,23 +48,51 @@
             ...mapGetters({
                 currentTime:'getCurrentTime',
                 lyric:'getPlayingMusicLiric',
-                playState:'getPlayState'
+                playState:'getPlayState',
+                playingMusic:'getPlayingMusic'
             })
         },
+        beforeDestroy(){
+            console.log('destory');
+            if (this.currentLyric) {
+                clearInterval(this.currentLyric.timer);
+            }
+        },
+        beforeMount() {
+            let lyric = this.lyric;
+            this.currentLyric = new Lyric(lyric, this.handleLyric);
+        },
         mounted() {
+            console.log(this.currentLyric);
             this.getLyric();
+            console.log(this.currentLyric);
         },
         watch:{
             playState:function (value) {
-                console.log('changed')
+                if (this.currentLyric) {
+                    if (value) {
+                        console.log(`设置时间为 -----> ${parseInt(this.currentTime)}`)
+                        this.currentLyric.play(parseInt(this.currentTime) * 1000);
+                    } else {
+                        this.currentLyric.stop();
+                        clearInterval(this.currentLyric.timer);
+                    }
+                } else 
+                    this.getLyric();
+            },
+            playingMusic:function(value) {
+                console.log("playingmusic changed");
+                if (this.currentLyric){
+                    clearInterval(this.currentLyric.timer);
+                }
                 this.getLyric();
             }
         },
         data() {
             return {
-                currentLyric: null,
                 currentLineNum: 0,
-                playingLyric:""
+                playingLyric:"",
+                currentLyric:null,
             }
         },
         components: {
@@ -90,11 +118,12 @@
                 let lyric = this.lyric;
                 try{
                     this.currentLyric = new Lyric(lyric, this.handleLyric);
+                    this.currentLyric.play(parseInt(this.currentTime) * 1000);
                     if (this.playState) {
-                        this.currentLyric.play();
+                        this.currentLyric.play(parseInt(this.currentTime) * 1000);
                     }   
                 } catch (e) {
-                    this.currentLyric = null;
+                    console.log(e);
                     this.currentLineNum = 0;
                     this.playingLyric = '';
                 }

@@ -10,7 +10,7 @@
                      ></Card>
             </div>
             <div class="albumMusicList">
-                <music-list height="400px"
+                <music-list height="400"
                             :musicList="musicList">   
                 </music-list>
             </div>
