@@ -14,6 +14,7 @@ let state = {
     playState:false,
     tempSongWaitingList:[], //  为了避免加载冲突问题
     tempSongList:[], //  要延迟加载的音乐，为了减轻服务器压力
+    currentLyric:"",  //  currentLyric,用来存放歌词播放对象
   };
   
   let mutations = {
@@ -24,8 +25,6 @@ let state = {
       state.progress = progress;
     },
     SET_PLAYINGMUSIC(state, music) {
-      console.log(`SET_MUSIC TO ----->`);
-      console.log(music);
       state.playingMusic = music;
     },
     SET_PLAYINGMUSICINDEX(state, index) {
@@ -42,6 +41,18 @@ let state = {
     },
     SET_TEMPSONGWAITINGLIST(state, tempSongWaitingList) {
       state.tempSongWaitingList = tempSongWaitingList;
+    },
+    SET_CURRENT_LYRIC(state, currentLyric) {
+      state.currentLyric = currentLyric;
+    },
+    SET_CURRENT_LYRIC_LRC(state, lrc) {
+      state.currentLyric.lrc = lrc;
+    },
+    SET_CURRENT_LYRIC_LINES(state, lines) {
+      state.currentLyric.lines = lines;
+    },
+    SET_CURRENT_LYRIC_TIME(state, time) {
+      state.currentLyric.seek(time);
     }
   };
 
@@ -69,6 +80,9 @@ let state = {
     },
     getPlayingMusicLiric: () => {
       return state.playingMusic.lyric;
+    },
+    getCurrentLyric: () => {
+      return state.currentLyric;
     }
   };
   
@@ -109,6 +123,25 @@ let state = {
       }
       commit('SET_MUSICLIST', state.tempSongList);
       commit('SET_PLAYINGMUSICINDEX', playIndex);
+    },
+    setNewLyric ({state, commit}) {
+      // setTimeout(() => {
+      //   console.log(parseInt(state.currentTime));
+      //   if (state.playState) {
+      //     console.log('change time');
+      //     state.currentLyric.play(parseInt(state.currentTime));
+      //   } else {
+      //     state.currentLyric.stop();
+      //   }
+        commit('SET_CURRENT_LYRIC_TIME', parseInt(state.currentTime));
+      // }, 1000);
+      // setInterval(() => {
+      //   commit('SET_CURRENT_LYRIC_TIME', parseInt(state.currentTime));
+      // }, 10000);
+      commit('SET_CURRENT_LYRIC_LRC', parseInt(state.playingMusic.lyric));
+      commit('SET_CURRENT_LYRIC_LINES', []);
+      state.currentLyric._initLines();
+      state.currentLyric.seek(parseInt(state.currentTime));
     }
   };
   

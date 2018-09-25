@@ -49,17 +49,17 @@
       </li>
       <li class="t-song">
         <span>
-          {{item.music_name}}
+          {{item.music_name | noData}}
         </span>
       </li>
       <li>
         <span>
-          {{item.artists}}
+          {{item.artists | noData}}
         </span>
       </li>
       <li>
         <span>
-          {{item.album}}
+          {{item.album | noData}}
         </span>
       </li>
       <li>
@@ -69,7 +69,7 @@
       </li>
       <li>
         <span>
-          {{item.duration}} / {{item.playamount}}
+          {{item.duration | noData}} / {{item.playamount | noData}}
         </span>
       </li>
     </template>
@@ -105,7 +105,7 @@ export default {
     }
   },
   filters:{
-    platform: function(value) {
+    platform (value) {
       const platforms = {
           'Neteasymusic':'网易云音乐',
           'Xiamimusic':'虾米音乐',
@@ -116,6 +116,13 @@ export default {
           "Migumusic":"咪咕音乐"
       };
       return platforms[value];
+    },
+    noData (value) {
+      if (!value) {
+        return "暂无数据"
+      } else {
+        return value;
+      }
     }
   },
   methods:{

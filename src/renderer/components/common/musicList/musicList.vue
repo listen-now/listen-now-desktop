@@ -1,8 +1,8 @@
 <template>
-    <div class="music-list" :style="{height:height}">
+    <div class="music-list" :style="{height:height + 'px'}">
         <music-list-item isheader />
         <div class="music-list-items"
-             :style="{height:height}">
+             :style="{height:height - 40 + 'px'}">
             <music-list-item v-for="(item, index) in musicList" 
                 class="music-list__item"
                 :item="item" 
