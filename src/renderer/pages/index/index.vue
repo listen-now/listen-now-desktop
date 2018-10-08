@@ -40,40 +40,43 @@
     import rightSlides from '../../components/common/rightSlides/rightSlides';
 
     export default {
-        name: 'index-page',
-        components: {   cardButton, buttonListItem, buttonList,
-                        albumListItem, albumList,
-                        rightSlides },
-        data() {
-            return { 
-                albumList:[]
-            }
-        },
-        async beforeMount () {
-            let token = window.localStorage.getItem('token');   
-            //  获取token，并且验证token是否已经获取到，如果未获取到，则再次尝试获取
+      name: 'index-page',
+      components: { cardButton,
+        buttonListItem,
+        buttonList,
+        albumListItem,
+        albumList,
+        rightSlides },
+      data() {
+        return {
+          albumList: [],
+        };
+      },
+      async beforeMount() {
+        const token = window.localStorage.getItem('token');
+        //  获取token，并且验证token是否已经获取到，如果未获取到，则再次尝试获取
 
-            if (!token) {
-                let res = await tokenUtil.getToken();
-                let {signature, token_message} = res.data;
-                token_message = token_message.substring(2, token_message.length - 1);
-                apiTool.setAuth(token_message);
-                await tokenUtil.getExistToken(1, token_message);
-                this.$store.dispatch('setToken', token_message);
+        if (!token) {
+          const res = await tokenUtil.getToken();
+          let { signature, token_message } = res.data;
+          token_message = token_message.substring(2, token_message.length - 1);
+          apiTool.setAuth(token_message);
+          await tokenUtil.getExistToken(1, token_message);
+          this.$store.dispatch('setToken', token_message);
 
-                //将token存储至localStroage
-                window.localStorage.setItem('token', token_message);
-                let topSong = await apiTool.api.getTopSongList();
-                this.albumList = topSong.itemlist;   
-            } else {
-                apiTool.setAuth(window.localStorage.getItem('token'));
-                let topSong = await apiTool.api.getTopSongList();
-                this.albumList = topSong.itemlist;   
-            }
-        },
-        methods: {
+          // 将token存储至localStroage
+          window.localStorage.setItem('token', token_message);
+          const topSong = await apiTool.api.getTopSongList();
+          this.albumList = topSong.itemlist;
+        } else {
+          apiTool.setAuth(window.localStorage.getItem('token'));
+          const topSong = await apiTool.api.getTopSongList();
+          this.albumList = topSong.itemlist;
+        }
+      },
+      methods: {
 
-        },
+      },
     };
 </script>
 

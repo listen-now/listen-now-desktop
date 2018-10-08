@@ -29,13 +29,13 @@
 
 <script>
     export default {
-        name: "right-slides",
-        data () {
-            return {
-                value2: 0
-            }
-        }
-    }
+      name: 'right-slides',
+      data() {
+        return {
+          value2: 0,
+        };
+      },
+    };
 </script>
 
 <style>

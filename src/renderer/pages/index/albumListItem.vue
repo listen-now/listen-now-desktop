@@ -13,16 +13,17 @@
 
 <script>
     export default {
-        name: "album-list-item",
-        props:['text', 'backgroundColor', 'type', 'album'],
-        methods:{
-            gotoAlbumDetailPage () {
-                this.$router.push({path:`/album/${this.album.item_id}`, params:{
-                    id:this.album.item_id
-                }});
-            }
-        }
-    }
+      name: 'album-list-item',
+      props: ['text', 'backgroundColor', 'type', 'album'],
+      methods: {
+        gotoAlbumDetailPage() {
+          this.$router.push({ path: `/album/${this.album.item_id}`,
+            params: {
+              id: this.album.item_id,
+            } });
+        },
+      },
+    };
 </script>
 
 <style scoped>

@@ -33,16 +33,16 @@
 
 <script>
     export default {
-        name: "left-main-index",
-        methods: {
-            goToSearch(){
-                this.$router.push('./search');
-            },
-            goHome(){
-                this.$router.push('./pages/index');
-            }
-        }
-    }
+      name: 'left-main-index',
+      methods: {
+        goToSearch() {
+          this.$router.push('./search');
+        },
+        goHome() {
+          this.$router.push('./pages/index');
+        },
+      },
+    };
 </script>
 
 <style scoped>

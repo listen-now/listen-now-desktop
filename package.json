@@ -65,6 +65,7 @@
     "jsencrypt": "^3.0.0-rc.1",
     "lyric-parser": "^1.0.1",
     "node-rsa": "^1.0.0",
+    "qs": "^6.5.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.3.3",
@@ -127,5 +128,6 @@
     "webpack-dev-server": "^2.7.1",
     "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0"
-  }
+  },
+  "__npminstall_done": false
 }

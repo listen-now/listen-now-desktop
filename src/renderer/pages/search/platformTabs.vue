@@ -16,69 +16,68 @@
      * 事件：
      * onChange(platform)
      */
-    import MusicList from '../../components/common/musicList/musicList';
     import apiTool from '../../renderUtil/api.js';
 
     export default {
-        name:'platform-tabs',
-        data(){
-            return {
-              platforms: [ // 平台信息
-                {
-                  name: '百度音乐',
-                  class: 'baidu',
-                  selected: true,
-                  iconClass: 'icon-baidu'
-                },
-                {
-                  name: '酷狗音乐',
-                  class: 'kugou',
-                  selected: false,
-                  iconClass: 'icon-kugou'
-                },
-                {
-                  name: '酷我音乐',
-                  class: 'kuwo',
-                  selected: false,
-                  iconClass: 'icon-kuwo'
-                },
-                {
-                  name: '网易云音乐',
-                  class: 'wangyiyun',
-                  selected: false,
-                  iconClass: 'icon-wangyiyun'
-                },
-                {
-                  name: 'QQ音乐',
-                  class: 'qq',
-                  selected: false,
-                  iconClass: 'icon-qq'
-                },
-                {
-                  name: '虾米',
-                  class: 'xiami',
-                  selected: false,
-                  iconClass: 'icon-xiami'
-                },
-              ]
-            }
+      name: 'platform-tabs',
+      data() {
+        return {
+          platforms: [ // 平台信息
+            {
+              name: '百度音乐',
+              class: 'baidu',
+              selected: true,
+              iconClass: 'icon-baidu',
+            },
+            {
+              name: '酷狗音乐',
+              class: 'kugou',
+              selected: false,
+              iconClass: 'icon-kugou',
+            },
+            {
+              name: '酷我音乐',
+              class: 'kuwo',
+              selected: false,
+              iconClass: 'icon-kuwo',
+            },
+            {
+              name: '网易云音乐',
+              class: 'wangyiyun',
+              selected: false,
+              iconClass: 'icon-wangyiyun',
+            },
+            {
+              name: 'QQ音乐',
+              class: 'qq',
+              selected: false,
+              iconClass: 'icon-qq',
+            },
+            {
+              name: '虾米',
+              class: 'xiami',
+              selected: false,
+              iconClass: 'icon-xiami',
+            },
+          ],
+        };
+      },
+      mounted() {
+        // 默认选择第一个platform
+        const params = apiTool.getCurrentPlatform(this.platforms[0].name);
+        this.$store.commit('SET_PLATFORM', params);
+      },
+      methods: {
+        selectPlatform(platform) {
+          const index = this.platforms.findIndex(pf => pf.name === platform.name);
+          this.platforms.forEach(platform => platform.selected = false);
+          platform.selected = true;
+          this.platforms.fill(platform, index, index + 1);
+          const params = apiTool.getCurrentPlatform(platform.name);
+          this.$emit('onChange', params);
         },
-        mounted() {
-          //默认选择第一个platform
-          const params = apiTool.getCurrentPlatform(this.platforms[0].name)
-          this.$store.commit('SET_PLATFORM', params)
-        },
-        methods:{
-          selectPlatform(platform) {
-            const index = this.platforms.findIndex(pf => pf.name === platform.name);
-            this.platforms.forEach((platform) => platform.selected = false);
-            platform.selected = true;
-            this.platforms.fill(platform, index, index + 1);
-            const params = apiTool.getCurrentPlatform(platform.name)
-            this.$emit('onChange', params);
-          }
-        }
-    }
+      },
+    };
 </script>
 
 <style scoped>

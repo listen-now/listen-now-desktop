@@ -18,14 +18,14 @@ export default new Router({
       redirect: '/',
     },
     {
-      path:'/album/:id',
-      name:'album-page',
-      component:album
+      path: '/album/:id',
+      name: 'album-page',
+      component: album,
     },
     {
-      path:'/search',
-      name:'search-page',
-      component:search
-    }
+      path: '/search',
+      name: 'search-page',
+      component: search,
+    },
   ],
 });

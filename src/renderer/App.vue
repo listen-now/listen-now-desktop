@@ -15,41 +15,39 @@
 <script>
   import apiTool from './renderUtil/api';
   import tokenUtil from './renderUtil/token';
-  import errMesage from './renderUtil/errorMessage';
   import sideBar from './components/common/sideBar/sideBar';
   import Background from './assets/DEMO-2.jpg';
-  import $ from 'jquery';
 
   export default {
     name: 'listen-now-desktop',
-    components:{
-        sideBar
+    components: {
+      sideBar,
     },
     data() {
-            return { 
-                bg: Background
-            }
+      return {
+        bg: Background,
+      };
     },
-    async mounted(){
-        let res = await tokenUtil.getToken();
-        let {signature, token_message} = res.data;
-        token_message = token_message.substring(2, token_message.length - 1);
-        apiTool.setAuth(token_message);
-        await tokenUtil.getExistToken(1, token_message);
-        this.$store.dispatch('setToken', token_message);
+    async mounted() {
+      const res = await tokenUtil.getToken();
+      let { signature, token_message } = res.data;
+      token_message = token_message.substring(2, token_message.length - 1);
+      apiTool.setAuth(token_message);
+      await tokenUtil.getExistToken(1, token_message);
+      this.$store.dispatch('setToken', token_message);
 
-        //将token存储至localStroage
-        window.localStorage.setItem('token', token_message);
-        this.$store.commit('SET_MUSICLIST', this.musicList);
+      // 将token存储至localStroage
+      window.localStorage.setItem('token', token_message);
+      this.$store.commit('SET_MUSICLIST', this.musicList);
     },
-    methods:{
-        goToSearch(){
-            this.$router.push('./search');
-        },
-        goHome(){
-            this.$router.push('./pages/index');
-        }
-    }
+    methods: {
+      goToSearch() {
+        this.$router.push('./search');
+      },
+      goHome() {
+        this.$router.push('./pages/index');
+      },
+    },
   };
 </script>
 

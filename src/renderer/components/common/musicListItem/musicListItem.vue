@@ -79,63 +79,62 @@
 
 <script>
 export default {
-  name:'musicListItem',
-  props:{
-    isheader:{
-      type:Boolean,
-      default:false
+  name: 'musicListItem',
+  props: {
+    isheader: {
+      type: Boolean,
+      default: false,
     },
-    item:{
-      type:Object,
-      default: function() {
-        return {}
-      }
+    item: {
+      type: Object,
+      default() {
+        return {};
+      },
     },
-    index:{
-      type:Number,
-      default:0
-    }
+    index: {
+      type: Number,
+      default: 0,
+    },
   },
-  computed:{
-    itemindex () {
-      return this.index < 10 ? '0'+this.index : ''+this.index
+  computed: {
+    itemindex() {
+      return this.index < 10 ? `0${this.index}` : `${this.index}`;
     },
-    isEven () {
-      return !(this.index % 2)
-    }
+    isEven() {
+      return !(this.index % 2);
+    },
   },
-  filters:{
-    platform (value) {
+  filters: {
+    platform(value) {
       const platforms = {
-          'Neteasymusic':'网易云音乐',
-          'Xiamimusic':'虾米音乐',
-          'QQmusic':'QQ音乐',
-          "Kugoumusic":"酷狗音乐",
-          "Kuwomusic":"酷我音乐",
-          "Baidumusic":"百度音乐",
-          "Migumusic":"咪咕音乐"
+        Neteasymusic: '网易云音乐',
+        Xiamimusic: '虾米音乐',
+        QQmusic: 'QQ音乐',
+        Kugoumusic: '酷狗音乐',
+        Kuwomusic: '酷我音乐',
+        Baidumusic: '百度音乐',
+        Migumusic: '咪咕音乐',
       };
       return platforms[value];
     },
-    noData (value) {
+    noData(value) {
       if (!value) {
-        return "暂无数据"
-      } else {
-        return value;
+        return '暂无数据';
       }
-    }
+      return value;
+    },
   },
-  methods:{
-    playOrstop () {
-      if(!this.isheader) {
-        this.$emit('dblclick')
+  methods: {
+    playOrstop() {
+      if (!this.isheader) {
+        this.$emit('dblclick');
       }
     },
     changeHeart() {
-      //修改喜好
-    }
-  }
-}
+      // 修改喜好
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

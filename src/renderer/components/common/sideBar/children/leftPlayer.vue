@@ -111,297 +111,284 @@
 </template>
 
 <script>
-    import leftButton from './leftButton';
-    import leftSound from './leftSound';
     import { mapGetters } from 'vuex';
     import { setTimeout } from 'timers';
+    import leftButton from './leftButton';
+    import leftSound from './leftSound';
     export default {
-        name: "left-player",
-        components:{leftSound, leftButton},
-        computed:{
-            ...mapGetters({
-                playingMusic:'getPlayingMusic',
-                playingMusicIndex:'getPlayingMusicIndex',
-                token:'token',
-                musicList:'getPlayingMusicList',
-                playState:'getPlayState',
-                tempSongList:'getTempSongList'
-            }),
-            hasPreMusic:function(value) {
-                if (this.playMode === 'loop' || this.playMode === 'shuffle') {
-                    return true;
-                } else {
-                    if (this.playingMusicIndex === 0) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            },
-            hasNextMusic:function(value) {
-                if (this.playMode === 'loop' || this.playMode === 'shuffle') {
-                    return true;
-                } else {
-                    if (this.playingMusicIndex === this.musicList.length - 1) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
+      name: 'left-player',
+      components: { leftSound, leftButton },
+      computed: {
+        ...mapGetters({
+          playingMusic: 'getPlayingMusic',
+          playingMusicIndex: 'getPlayingMusicIndex',
+          token: 'token',
+          musicList: 'getPlayingMusicList',
+          playState: 'getPlayState',
+          tempSongList: 'getTempSongList',
+        }),
+        hasPreMusic() {
+          if (this.playMode === 'loop' || this.playMode === 'shuffle') return true;
+          if (this.playingMusicIndex === 0) {
+            return false;
+          }
+          return true;
+        },
+        hasNextMusic() {
+          if (this.playMode === 'loop' || this.playMode === 'shuffle') {
+            return true;
+          }
+          if (this.playingMusicIndex === this.musicList.length - 1) {
+            return false;
+          }
+          return true;
+        },
+      },
+      data() {
+        return {
+          // playState:false,
+          percent: 0,
+          firstSong: false,
+          // playingMusicIndex:0,
+          playMode: 'senquential', // shuffle 随机播放 senquential 顺序播放 singleTune 单曲循环 loop 循环播放
+          loadingState: false, //  表征是否正在缓冲
+          volume: 100,
+        };
+      },
+      mounted() {
+        setInterval(() => {
+          try {
+            const { paused } = this.$refs.audio;
+            if (paused === true) {
+              this.$store.commit('SET_PLAYSTATE', false);
+            } else {
+              this.$store.commit('SET_PLAYSTATE', true);
             }
+            this.$store.commit('SET_CURRENT_TIME', this.getCurrentTime());
+          } catch (e) {
+            // console.log(e);
+          }
+        }, 100);
+        setTimeout(() => {
+          console.log(this.musicList);
+          this.$store.commit('SET_PLAYINGMUSIC', this.musicList[0]);
+        }, 500);
+        this.$refs.audio.addEventListener('ended', this.autoPlay, false);
+        this.$refs.audio.addEventListener('canplay', () => {
+          if (!this.firstSong) {
+            console.log('try to play');
+            this.loadingState = false;
+            this.$refs.audio.play();
+          }
+        }, false);
+        this.$refs.audio.addEventListener('loadeddata', () => {}, false);
+        this.$refs.audio.addEventListener('timeupdate', () => {
+          const { readyState } = this.$refs.audio;
+          if (readyState === 0) {
+            this.setProgress(0);
+            return;
+          }
+          const { duration, currentTime } = this.$refs.audio;
+          const progress = currentTime / duration;
+          this.setProgress(progress);
+        }, false);
+        this.$refs.audio.addEventListener('progress', () => {
+          // 正在加载事件，当缓冲时触发
+          this.loadingState = true;
+        }, false);
+        this.$store.commit('SET_PLAYSTATE', false);
+      },
+      watch: {
+        volume(val) {
+          this.$refs.audio.volume = val / 100;
         },
-        data(){
-            return {
-                // playState:false,
-                percent:0,
-                firstSong:false,
-                // playingMusicIndex:0,
-                playMode:'senquential',    //shuffle 随机播放 senquential 顺序播放 singleTune 单曲循环 loop 循环播放
-                loadingState:false,  //  表征是否正在缓冲
-                volume:100,
-            }
+        playMode(val) {
+          const that = this;
+          if (val === 'singleTune') {
+            that.$refs.audio.loop = true;
+          } else {
+            that.$refs.audio.loop = false;
+          }
         },
-        mounted () {
-            let _this = this;
-            setInterval(() => {
-                try{
-                    let { paused } = this.$refs.audio;
-                    if (paused === true) {
-                        this.$store.commit('SET_PLAYSTATE', false);
-                    } else {
-                        this.$store.commit('SET_PLAYSTATE', true);
-                    }
-                    this.$store.commit('SET_CURRENT_TIME', this.getCurrentTime());
-                } catch (e) {
-                    // console.log(e);
-                }
-            }, 100);
-            setTimeout(() => {
-                console.log(this.musicList);
-                this.$store.commit('SET_PLAYINGMUSIC', this.musicList[0]);
-            }, 500)
-            this.$refs.audio.addEventListener('ended', this.autoPlay, false);
-            this.$refs.audio.addEventListener('canplay', () => {
-                if (!this.firstSong) {
-                    console.log('try to play');
-                    this.loadingState = false;
-                    this.$refs.audio.play();
-                }
-            }, false);
-            this.$refs.audio.addEventListener('loadeddata',() => {} , false);
-            this.$refs.audio.addEventListener('timeupdate', () => {
-                    let { readyState, paused } = this.$refs.audio;
-                    if (readyState === 0) {
-                        this.setProgress(0);
-                        return;
-                    } else {
-                        let { duration, currentTime } = this.$refs.audio;
-                        let progress = currentTime / duration;
-                        this.setProgress(progress);
-                    }
-            }, false);
-            this.$refs.audio.addEventListener('progress', () => {
-                // 正在加载事件，当缓冲时触发
-                this.loadingState = true;
-            }, false);
-            this.$store.commit('SET_PLAYSTATE', false);
+        playState(val) {
+          if (val) {
+            this.setPlay();
+          } else {
+            this.setPause();
+          }
         },
-        watch:{
-            volume:function (val) {
-                this.$refs.audio.volume = val / 100;
-            },
-            playMode:function (val) {
-                let _this = this;
-                if (val === 'singleTune') {
-                    _this.$refs.audio.loop = true;
-                } else {
-                    _this.$refs.audio.loop = false;
-                }
-            },
-            playState:function (val) {
-                if (val) {
-                    this.setPlay();
-                } else {
-                    this.setPause();
-                }
-            }
-        },
-        methods: {
-            /**
+      },
+      methods: {
+        /**
              * 以下部分是对播放器的控制
              *
-             **/
+             * */
 
-            pauseSwitch () {
-                let paused = this.$refs.audio.paused;
-                if (paused) {
-                    console.log(`changed playstate to true`);
-                    this.$refs.audio.play();
-                    this.$store.commit('SET_PLAYSTATE', true);
-                    // this.playState=true;
-                } else {
-                    console.log(`changed playstate to false`);
-                    this.$refs.audio.pause();
-                    this.$store.commit('SET_PLAYSTATE', false);
-                    // this.playState=false
-                }
-            },
+        pauseSwitch() {
+          const paused = this.$refs.audio.paused;
+          if (paused) {
+            console.log('changed playstate to true');
+            this.$refs.audio.play();
+            this.$store.commit('SET_PLAYSTATE', true);
+            // this.playState=true;
+          } else {
+            console.log('changed playstate to false');
+            this.$refs.audio.pause();
+            this.$store.commit('SET_PLAYSTATE', false);
+            // this.playState=false
+          }
+        },
 
-            setPlay () {
-                this.$refs.audio.play();
-                console.log(`changed playstate to true`);
-                this.$store.commit('SET_PLAYSTATE', true);
-            },
+        setPlay() {
+          this.$refs.audio.play();
+          console.log('changed playstate to true');
+          this.$store.commit('SET_PLAYSTATE', true);
+        },
 
-            setPause () {
-                this.$refs.audio.pause();
-                console.log(`changed playstate to false`);
-                // this.$store.commit('SET_PLAYSTATE', false);
-            },
+        setPause() {
+          this.$refs.audio.pause();
+          console.log('changed playstate to false');
+          // this.$store.commit('SET_PLAYSTATE', false);
+        },
 
-            fastSeek (time) {
-                this.$refs.audio.fastSeek(time);
-            },
+        fastSeek(time) {
+          this.$refs.audio.fastSeek(time);
+        },
 
-            canPlayType (type) {
-                return this.$refs.audio.fastSeek(type);
-            },
+        canPlayType(type) {
+          return this.$refs.audio.fastSeek(type);
+        },
 
-            setVolume (volume) {
-                this.$refs.audio.volume = volume;
-            },
+        setVolume(volume) {
+          this.$refs.audio.volume = volume;
+        },
 
-            getVolume () {
-                return this.$refs.audio.volume;
-            },
+        getVolume() {
+          return this.$refs.audio.volume;
+        },
 
-            getNetworkState () {
-                return this.$refs.audio.networkState;
-            },
+        getNetworkState() {
+          return this.$refs.audio.networkState;
+        },
 
-            getMuted () {
-                return this.$refs.audio.muted;
-            },
+        getMuted() {
+          return this.$refs.audio.muted;
+        },
 
-            getAutoplay () {
-                return this.$refs.audio.autoplay;
-            },
+        getAutoplay() {
+          return this.$refs.audio.autoplay;
+        },
 
-            getPlayingMusic () {
-                return this.playingMusic;
-            },
+        getPlayingMusic() {
+          return this.playingMusic;
+        },
 
-            getProcess () {
-                return this.percent;
-            },
+        getProcess() {
+          return this.percent;
+        },
 
-            setMuted (muted) {
-                this.$refs.audio.muted = muted;
-            },
+        setMuted(muted) {
+          this.$refs.audio.muted = muted;
+        },
 
-            getLoop () {
-                return this.$refs.audio.loop;
-            },
+        getLoop() {
+          return this.$refs.audio.loop;
+        },
 
-            setLoop (loop) {
-                this.$refs.audio.loop = loop;
-            },
+        setLoop(loop) {
+          this.$refs.audio.loop = loop;
+        },
 
-            setAutoplay (autoplay) {
-                this.$refs.autoplay = autoplay;
-            },
+        setAutoplay(autoplay) {
+          this.$refs.autoplay = autoplay;
+        },
 
-            /**
+        /**
                 获取当前播放时间，在和歌词进行联动的时候需要
              */
-            getCurrentTime () {
-                return this.$refs.audio.currentTime;
-            },
+        getCurrentTime() {
+          return this.$refs.audio.currentTime;
+        },
 
-            /**
+        /**
              *
              * @param progress
              */
-            setProgress (progress) {
-                this.percent = (progress*100);
-            },
+        setProgress(progress) {
+          this.percent = (progress * 100);
+        },
 
-            changeVolume (vol) {
-                this.volume = vol;
-            },
+        changeVolume(vol) {
+          this.volume = vol;
+        },
 
-            /**
+        /**
                 每首歌曲播放完后自动播放下一首
              */
-            autoPlay () {
-                if (this.playMode === 'singleTune') 
-                    return;
-                else if (this.playMode === 'shuffle')
-                    this.changeMusic(Math.floor(Math.random() * this.musicList.length));
-                else if (this.playMode === 'senquential'){
-                    if (this.playingMusicIndex !== this.musicList.length - 1)
-                        this.nextMusic();   
-                    else return;
-                }
-                else if (this.playMode === 'loop'){
-                    this.nextMusic();
-                }
-            },
+        autoPlay() {
+          if (this.playMode === 'shuffle') { this.changeMusic(Math.floor(Math.random() * this.musicList.length)); } else if (this.playMode === 'senquential') {
+            if (this.playingMusicIndex !== this.musicList.length - 1) { this.nextMusic(); }
+          } else if (this.playMode === 'loop') {
+            this.nextMusic();
+          }
+        },
 
 
-            nextMusic () {
-                this.firstSong = false;
-                // this.playState = false;
-                this.$store.commit('SET_PLAYSTATE', false);
-                if (this.musicList.length > 1) {
-                    if (this.playingMusicIndex < this.musicList.length - 1) {
-                        console.log("set playing music in nextmusic");
-                        this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex + 1]);
-                        this.$store.commit('SET_PLAYINGMUSICINDEX', ++this.playingMusicIndex);
-                    } else {
-                        console.log("set playing music in nextmusic");
-                        this.$store.commit('SET_PLAYINGMUSIC', this.musicList[0]);
-                        this.$store.commit('SET_PLAYINGMUSICINDEX', 0);
-                        // this.playingMusicIndex = 0;
-                    }
-                }
-                this.$refs.slide.setActiveItem(this.playingMusicIndex);
-                // this.playState = true;
-                this.$store.commit('SET_PLAYSTATE', true);
-            },
-
-            preMusic () {
-                this.firstSong = false;
-                // this.playState = false;
-                this.$store.commit('SET_PLAYSTATE', false);
-                if (this.musicList.length > 1) {
-                    if (this.playingMusicIndex > 0) {
-                        this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex - 1]);
-                        this.$store.commit('SET_PLAYINGMUSICINDEX', --this.playingMusicIndex);
-                    } else {
-                        this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.musicList.length - 1]);
-                        this.$store.commit('SET_PLAYINGMUSICINDEX', this.musicList.length - 1);
-                        // this.playingMusicIndex = this.musicList.length - 1;
-                    }
-                }
-                this.$refs.slide.setActiveItem(this.playingMusicIndex);
-                // this.playState = true;
-                this.$store.commit('SET_PLAYSTATE', true);
-            },
-
-            changeMusic (idx) {
-                // this.playState = false;
-                this.$store.commit('SET_PLAYSTATE', false);
-                console.log("set playing music in changemusic");
-                this.$store.commit('SET_PLAYINGMUSIC', this.musicList[idx]);
-                this.$store.commit('SET_PLAYINGMUSICINDEX', idx);
-                // this.playingMusicIndex = idx;
-                this.$refs.slide.setActiveItem(this.playingMusicIndex);
-                // this.playState = true;
-                this.$store.commit('SET_PLAYSTATE', true);
+        nextMusic() {
+          this.firstSong = false;
+          // this.playState = false;
+          this.$store.commit('SET_PLAYSTATE', false);
+          if (this.musicList.length > 1) {
+            if (this.playingMusicIndex < this.musicList.length - 1) {
+              console.log('set playing music in nextmusic');
+              this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex + 1]);
+              this.playingMusicIndex += 1;
+              this.$store.commit('SET_PLAYINGMUSICINDEX', this.playingMusicIndex);
+            } else {
+              console.log('set playing music in nextmusic');
+              this.$store.commit('SET_PLAYINGMUSIC', this.musicList[0]);
+              this.$store.commit('SET_PLAYINGMUSICINDEX', 0);
+              // this.playingMusicIndex = 0;
             }
-        }
-    }
+          }
+          this.$refs.slide.setActiveItem(this.playingMusicIndex);
+          // this.playState = true;
+          this.$store.commit('SET_PLAYSTATE', true);
+        },
+
+        preMusic() {
+          this.firstSong = false;
+          // this.playState = false;
+          this.$store.commit('SET_PLAYSTATE', false);
+          if (this.musicList.length > 1) {
+            if (this.playingMusicIndex > 0) {
+              this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.playingMusicIndex - 1]);
+              this.playingMusicIndex -= 1;
+              this.$store.commit('SET_PLAYINGMUSICINDEX', this.playingMusicIndex);
+            } else {
+              this.$store.commit('SET_PLAYINGMUSIC', this.musicList[this.musicList.length - 1]);
+              this.$store.commit('SET_PLAYINGMUSICINDEX', this.musicList.length - 1);
+              // this.playingMusicIndex = this.musicList.length - 1;
+            }
+          }
+          this.$refs.slide.setActiveItem(this.playingMusicIndex);
+          // this.playState = true;
+          this.$store.commit('SET_PLAYSTATE', true);
+        },
+
+        changeMusic(idx) {
+          // this.playState = false;
+          this.$store.commit('SET_PLAYSTATE', false);
+          console.log('set playing music in changemusic');
+          this.$store.commit('SET_PLAYINGMUSIC', this.musicList[idx]);
+          this.$store.commit('SET_PLAYINGMUSICINDEX', idx);
+          // this.playingMusicIndex = idx;
+          this.$refs.slide.setActiveItem(this.playingMusicIndex);
+          // this.playState = true;
+          this.$store.commit('SET_PLAYSTATE', true);
+        },
+      },
+    };
 </script>
 
 <style scoped>

@@ -13,8 +13,8 @@
 
 <script>
     export default {
-        name: "left-logo"
-    }
+      name: 'left-logo',
+    };
 </script>
 
 <style scoped>
