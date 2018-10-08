@@ -38,108 +38,106 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import Lyric from 'lyric-parser';
     import Scroll from '../../../scroll/scroll';
-    import { mapGetters } from 'vuex';
-
     export default {
-        name: "left-main-user",
-        computed:{
-            ...mapGetters({
-                currentTime:'getCurrentTime',
-                lyric:'getPlayingMusicLiric',
-                playState:'getPlayState',
-                playingMusic:'getPlayingMusic'
-            })
-        },
-        beforeDestroy(){
-            console.log('destory');
-            if (this.currentLyric) {
-                clearInterval(this.currentLyric.timer);
-            }
-        },
-        beforeMount() {
-            let lyric = this.lyric;
-            this.currentLyric = new Lyric(lyric, this.handleLyric);
-        },
-        mounted() {
-            console.log(this.currentLyric);
-            this.getLyric();
-            console.log(this.currentLyric);
-        },
-        watch:{
-            playState:function (value) {
-                if (this.currentLyric) {
-                    if (value) {
-                        console.log(`设置时间为 -----> ${parseInt(this.currentTime)}`)
-                        this.currentLyric.play(parseInt(this.currentTime) * 1000);
-                    } else {
-                        this.currentLyric.stop();
-                        clearInterval(this.currentLyric.timer);
-                    }
-                } else 
-                    this.getLyric();
-            },
-            playingMusic:function(value) {
-                console.log("playingmusic changed");
-                if (this.currentLyric){
-                    clearInterval(this.currentLyric.timer);
-                }
-                this.getLyric();
-            }
-        },
-        data() {
-            return {
-                currentLineNum: 0,
-                playingLyric:"",
-                currentLyric:null,
-            }
-        },
-        components: {
-            Scroll
-        },
-        methods: { 
-            // 格式化时间
-            format(interval) {
-                interval = interval | 0
-                const minute = interval / 60 | 0
-                const second = this._pad(interval % 60)
-                return `${minute}:${second}`
-            },
-            _pad(num, n = 2) {
-                let len = num.toString().length
-                while (len < n) {
-                    num = '0' + num
-                    len++
-                }
-                return num
-            },
-            getLyric() {
-                let lyric = this.lyric;
-                try{
-                    this.currentLyric = new Lyric(lyric, this.handleLyric);
-                    this.currentLyric.play(parseInt(this.currentTime) * 1000);
-                    if (this.playState) {
-                        this.currentLyric.play(parseInt(this.currentTime) * 1000);
-                    }   
-                } catch (e) {
-                    console.log(e);
-                    this.currentLineNum = 0;
-                    this.playingLyric = '';
-                }
-            },
-            handleLyric({lineNum, txt}) {
-                this.currentLineNum = lineNum
-                if (lineNum > 5) {
-                    let lineEl = this.$refs.lyricLine[lineNum - 5]
-                    this.$refs.lyriclist.scrollToElement(lineEl, 1000)
-                } else {
-                    this.$refs.lyriclist.scrollTo(0, 0, 1000)
-                }
-                this.playingLyric = txt;
-            }
+      name: 'left-main-user',
+      computed: {
+        ...mapGetters({
+          currentTime: 'getCurrentTime',
+          lyric: 'getPlayingMusicLiric',
+          playState: 'getPlayState',
+          playingMusic: 'getPlayingMusic',
+        }),
+      },
+      beforeDestroy() {
+        console.log('destory');
+        if (this.currentLyric) {
+          clearInterval(this.currentLyric.timer);
         }
-    }
+      },
+      beforeMount() {
+        const lyric = this.lyric;
+        this.currentLyric = new Lyric(lyric, this.handleLyric);
+      },
+      mounted() {
+        console.log(this.currentLyric);
+        this.getLyric();
+        console.log(this.currentLyric);
+      },
+      watch: {
+        playState(value) {
+          if (this.currentLyric) {
+            if (value) {
+              console.log(`设置时间为 -----> ${parseInt(this.currentTime, 0)}`);
+              this.currentLyric.play(parseInt(this.currentTime, 0) * 1000);
+            } else {
+              this.currentLyric.stop();
+              clearInterval(this.currentLyric.timer);
+            }
+          } else { this.getLyric(); }
+        },
+        playingMusic() {
+          console.log('playingmusic changed');
+          if (this.currentLyric) {
+            clearInterval(this.currentLyric.timer);
+          }
+          this.getLyric();
+        },
+      },
+      data() {
+        return {
+          currentLineNum: 0,
+          playingLyric: '',
+          currentLyric: null,
+        };
+      },
+      components: {
+        Scroll,
+      },
+      methods: {
+        // 格式化时间
+        format(interval) {
+          interval |= 0;
+          const minute = interval / 60 | 0;
+          const second = this._pad(interval % 60);
+          return `${minute}:${second}`;
+        },
+        _pad(num, n = 2) {
+          let len = num.toString().length;
+          while (len < n) {
+            num = `0${num}`;
+            len += 1;
+          }
+          return num;
+        },
+        getLyric() {
+          const lyric = this.lyric;
+          try {
+            this.currentLyric = new Lyric(lyric, this.handleLyric);
+            this.currentLyric.play(parseInt(this.currentTime, 0) * 1000);
+            if (this.playState) {
+              this.currentLyric.play(parseInt(this.currentTime, 0) * 1000);
+            }
+          } catch (e) {
+            console.log(e);
+            this.currentLineNum = 0;
+            this.playingLyric = '';
+          }
+        },
+        handleLyric({ lineNum, txt }) {
+          this.currentLineNum = lineNum;
+          if (lineNum > 5) {
+            const lineEl = this.$refs.lyricLine[lineNum - 5];
+            this.$refs.lyriclist.scrollToElement(lineEl, 1000);
+          } else {
+            this.$refs.lyriclist.scrollTo(0, 0, 1000);
+          }
+          this.playingLyric = txt;
+        },
+      },
+    };
 </script>
 
 <style scoped>

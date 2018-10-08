@@ -11,9 +11,9 @@
 
 <script>
     export default {
-        name: "button-list-item",
-        props:['text', 'backgroundColor', 'type']
-    }
+      name: 'button-list-item',
+      props: ['text', 'backgroundColor', 'type'],
+    };
 </script>
 
 <style scoped>

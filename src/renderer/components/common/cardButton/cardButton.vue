@@ -19,12 +19,12 @@
         };
       },
       computed: {
-        outerWidth: function () {
-          return `${parseInt(this.size) + 20}px`;
+        outerWidth() {
+          return `${parseInt(this.size, 0) + 20}px`;
         },
-        outerHeight: function () {
-          return `${parseInt(this.size) + 20}px`;
-        }
+        outerHeight() {
+          return `${parseInt(this.size, 0) + 20}px`;
+        },
       },
     };
 </script>

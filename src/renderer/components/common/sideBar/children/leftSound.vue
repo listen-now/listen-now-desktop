@@ -10,40 +10,38 @@
 
 <script>
     export default {
-        name: "left-sound",
-        props:['width'],
-        data() {
-          return {
-              volume:100
+      name: 'left-sound',
+      props: ['width'],
+      data() {
+        return {
+          volume: 100,
+        };
+      },
+      watch: {
+        volume(val) {
+          this.$emit('volume', val);
+        },
+      },
+      methods: {
+        hideFormat() {
+          return null;
+        },
+
+        decreaseVolume() {
+          console.log('-');
+          if (this.volume !== 0) {
+            this.volume -= 1;
           }
         },
-        watch:{
-          volume:function(val) {
-              this.$emit('volume', val);
+
+        increaseVolume() {
+          console.log('+');
+          if (this.volume !== 100) {
+            this.volume += 1;
           }
         },
-        methods:{
-            hideFormat () {
-                return null;
-            },
-
-            decreaseVolume () {
-                console.log('-');
-                if (this.volume !== 0) {
-                    this.volume --;
-                } else
-                    return;
-            },
-
-            increaseVolume () {
-                console.log('+');
-                if (this.volume !== 100) {
-                    this.volume ++;
-                } else
-                    return;
-            }
-        }
-    }
+      },
+    };
 </script>
 
 <style>

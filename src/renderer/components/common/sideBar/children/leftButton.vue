@@ -9,9 +9,9 @@
 
 <script>
     export default {
-        name: "left-button",
-        props:['type', 'size', 'color', 'title'],
-    }
+      name: 'left-button',
+      props: ['type', 'size', 'color', 'title'],
+    };
 </script>
 
 <style scoped>

@@ -39,12 +39,12 @@
 <script>
     import cardButton from '../cardButton/cardButton';
     export default{
-        name:'card',
-        props:['width','url','title','content','details'],
-        components:{
-            cardButton
-        }
-    }
+      name: 'card',
+      props: ['width', 'url', 'title', 'content', 'details'],
+      components: {
+        cardButton,
+      },
+    };
 </script>
 <style scoped>
 .all{

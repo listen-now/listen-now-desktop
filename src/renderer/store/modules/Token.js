@@ -1,22 +1,20 @@
-let state = {
-  token: "",
+const state = {
+  token: '',
 };
 
-let mutations = {
-  SET_TOKEN(state,token) {
+const mutations = {
+  SET_TOKEN(state, token) {
     state.token = token;
   },
 };
-let getters = {
-  token: state => {
-    return state.token;
-  }
+const getters = {
+  token: state => state.token,
 };
 
-let actions = {
+const actions = {
   setToken(state, token) {
-    state.commit('SET_TOKEN',token);
-  }
+    state.commit('SET_TOKEN', token);
+  },
 };
 
 export default {

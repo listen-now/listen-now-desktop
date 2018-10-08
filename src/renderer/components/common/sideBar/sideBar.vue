@@ -27,18 +27,18 @@
 
   export default {
     name: 'sideBar',
-    components:{
-        leftLogo, leftSearch, leftMain, leftPlayer, leftButton, leftSound
+    components: {
+      leftLogo, leftSearch, leftMain, leftPlayer, leftButton, leftSound,
     },
-    methods:{
-        goToSearch(){
-            this.$router.push('./search');
-        },
-        goHome(){
-            this.$refs.leftSearch.backtoIndex();
-            this.$router.push('./pages/index');
-        }
-    }
+    methods: {
+      goToSearch() {
+        this.$router.push('./search');
+      },
+      goHome() {
+        this.$refs.leftSearch.backtoIndex();
+        this.$router.push('./pages/index');
+      },
+    },
   };
 </script>
 

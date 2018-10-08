@@ -19,52 +19,52 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import { mapGetters } from 'vuex';
 
     export default {
-        name: "left-search",
-        data() {
-            return {
-                isSearching:false
-            }
+      name: 'left-search',
+      data() {
+        return {
+          isSearching: false,
+        };
+      },
+      computed: {
+        ...mapGetters({
+          token: 'token',
+        }),
+        title: {
+          get() {
+            return this.$store.getters.title;
+          },
+          set(val) {
+            this.$store.commit('SET_TITLE', val);
+          },
         },
-        computed:{
-            ...mapGetters({
-                token:'token',
-            }),
-            title:{
-                get: function () {
-                    return this.$store.getters['title']
-                },
-                set: function (val) {
-                    this.$store.commit('SET_TITLE',val)
-                }
-            }
+      },
+      methods: {
+        toSearch() {
+          this.isSearching = true;
+          this.$nextTick(() => {
+            // 自动获取输入框焦点
+            this.$refs.searchbox.focus();
+          });
         },
-        methods:{
-            toSearch() {
-                this.isSearching = true
-                this.$nextTick(()=>{
-                    //自动获取输入框焦点
-                    this.$refs.searchbox.focus()
-                })
-            },
-            search() {
-                const page = 10
-                const token = this.token
-                this.$store.dispatch('search', {page, token} ).then(res => {
-                    console.log(res)
-                }).catch(error => {
-                    console.log('搜索失败！错误原因：', error)
-                })
-            },
-            backtoIndex() {
-                this.isSearching = false
-                this.title = ''
-                this.$router.back()
-            }
-        }
-    }
+        search() {
+          const page = 10;
+          const token = this.token;
+          this.$store.dispatch('search', { page, token }).then((res) => {
+            console.log(res);
+          }).catch((error) => {
+            console.log('搜索失败！错误原因：', error);
+          });
+        },
+        backtoIndex() {
+          this.isSearching = false;
+          this.title = '';
+          this.$router.back();
+        },
+      },
+    };
 </script>
 
 <style lang="stylus" scoped>

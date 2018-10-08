@@ -12,9 +12,9 @@
 
 <script>
     export default {
-        name: "button-list",
-        props:['title', 'width'],
-    }
+      name: 'button-list',
+      props: ['title', 'width'],
+    };
 </script>
 
 <style scoped>

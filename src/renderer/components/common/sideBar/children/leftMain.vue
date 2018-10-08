@@ -43,20 +43,20 @@
     import setting from './children/setting';
 
     export default {
-        name: "left-main",
-        data () {
-            return {
-                currentTab: 'index'  // currentTab 用于标识当前触发的子组件
-            };
+      name: 'left-main',
+      data() {
+        return {
+          currentTab: 'index', // currentTab 用于标识当前触发的子组件
+        };
+      },
+      // 声明子组件
+      components: { index, nowPlaying, setting },
+      methods: {
+        toggleTab(tab) {
+          this.currentTab = tab; // tab 为当前触发标签页的组件名
         },
-        // 声明子组件
-        components: { index,nowPlaying,setting },
-        methods:{
-            toggleTab: function(tab) {
-                this.currentTab = tab;  // tab 为当前触发标签页的组件名
-            }
-        }
-    }
+      },
+    };
 </script>
 
 <style scoped>

@@ -21,8 +21,8 @@
 
 <script>
     export default {
-        name: "left-main-setting"
-    }
+      name: 'left-main-setting',
+    };
 </script>
 
 <style scoped>

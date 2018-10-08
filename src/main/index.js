@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Tray, Menu} from 'electron' // eslint-disable-line
+﻿import { app, BrowserWindow, Tray, Menu} from 'electron' // eslint-disable-line
 import path from 'path';
 
 /**
@@ -15,36 +15,36 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`;
 
 const trayMenu = [
-    {
-      label:'上一首',
-      click:function () {
+  {
+    label: '上一首',
+    click() {
 
-      }
     },
-    {
-      label:'暂停',
-      click:function () {
+  },
+  {
+    label: '暂停',
+    click() {
 
-      }
     },
-    {
-      label:'下一首',
-      click:function () {
+  },
+  {
+    label: '下一首',
+    click() {
 
-      }
     },
-    {
-      label:'关于',
-      click:function () {
+  },
+  {
+    label: '关于',
+    click() {
 
-      }
     },
-    {
-      label:'退出',
-      click:function () {
+  },
+  {
+    label: '退出',
+    click() {
 
-      }
-    }
+    },
+  },
 ];
 
 function createWindow() {
@@ -57,32 +57,32 @@ function createWindow() {
     width: 1290,
     resizable: false,
     autoHideMenuBar: true,
-    backgroundColor:'#4169E1',
-    icon:'../renderer/assets/logo.png'
-      // frame:false,  //无边框窗口，之后完善后可能会使用
+    backgroundColor: '#4169E1',
+    icon: '../renderer/assets/logo.png',
+    // frame:false,  //无边框窗口，之后完善后可能会使用
   });
 
   mainWindow.loadURL(winURL);
+  console.log(winURL);
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
   mainWindow.once('ready-to-show', () => {
-      mainWindow.show();
+    mainWindow.show();
   });
 
-  let trayIcon = path.join(__dirname, '../renderer/assets');
+  const trayIcon = path.join(__dirname, '../renderer/assets');
   const contextMenu = Menu.buildFromTemplate(trayMenu);
   // console.log(path.join(trayIcon, 'favicon.ico'));
   // const tray = new Tray("../renderer/assets/favicon.ico");
   const tray = new Tray(path.join(trayIcon, 'favicon.ico'));
   tray.setToolTip('Listen-now');
   tray.setContextMenu(contextMenu);
-  tray.on('click',function(){
-      mainWindow.show();
-  })
-
+  tray.on('click', () => {
+    mainWindow.show();
+  });
 }
 
 app.on('ready', createWindow);
@@ -109,11 +109,9 @@ app.on('activate', () => {
 
 /*
 import { autoUpdater } from 'electron-updater'
-
 autoUpdater.on('update-downloaded', () => {
   autoUpdater.quitAndInstall()
 })
-
 app.on('ready', () => {
   if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
 })

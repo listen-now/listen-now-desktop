@@ -4,4 +4,4 @@ function example() {
 }
 module.exports = {
   ex: example,
-}
+};
